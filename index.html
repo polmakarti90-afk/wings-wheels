@@ -1,440 +1,2056 @@
 <!DOCTYPE html>
 <html lang="uz">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Motosicnavia</title>
 
-  <title>Motosicnavia</title>
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
 
-  <style>
-    *{
-      box-sizing:border-box;
-      margin:0;
-      padding:0
-    }
+html{
+  scroll-behavior:smooth;
+}
 
-    body{
-      font-family:Arial,sans-serif;
-      background:#07111f;
-      color:#fff;
-      line-height:1.5
-    }
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  background:#06111f;
+  color:#fff;
+  line-height:1.5;
+}
 
-    header{
-      padding:22px 7%;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      background:#0b1b30;
-      position:sticky;
-      top:0;
-      z-index:10
-    }
+a{
+  color:inherit;
+  text-decoration:none;
+}
 
-    .logo{
-      font-size:23px;
-      font-weight:800;
-      color:#63d7ff
-    }
+button,input{
+  font:inherit;
+}
 
-    nav a{
-      color:#dbeafe;
-      text-decoration:none;
-      margin-left:14px;
-      font-size:14px
-    }
+header{
+  position:sticky;
+  top:0;
+  z-index:1000;
+  background:rgba(4,12,24,.95);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid #19304b;
+  padding:15px 5%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+}
 
-    .hero{
-      padding:70px 7%;
-      text-align:center;
-      background:linear-gradient(135deg,#102d4c,#07111f)
-    }
+.logo{
+  font-size:22px;
+  font-weight:900;
+  color:#fff;
+  white-space:nowrap;
+}
 
-    .hero h1{
-      font-size:clamp(34px,8vw,64px);
-      margin-bottom:15px
-    }
+.logo span{
+  color:#00d9ff;
+}
 
-    .hero h1 span{
-      color:#63d7ff
-    }
+nav{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+}
 
-    .hero p{
-      color:#b8c9dc;
-      max-width:650px;
-      margin:auto
-    }
+nav a,
+.login-btn{
+  padding:9px 13px;
+  border-radius:10px;
+  color:#dbeafe;
+  border:1px solid transparent;
+  background:none;
+  cursor:pointer;
+  transition:.2s;
+}
 
-    .search{
-      display:flex;
-      max-width:650px;
-      margin:28px auto 0;
-      gap:8px
-    }
+nav a:hover,
+.login-btn:hover{
+  background:#10243b;
+  border-color:#214563;
+  color:#fff;
+}
 
-    input,button{
-      border:0;
-      border-radius:12px;
-      padding:14px;
-      font-size:15px
-    }
+.login-btn{
+  background:#087ea4;
+}
 
-    input{
-      flex:1;
-      background:#fff;
-      color:#111
-    }
+.container{
+  width:90%;
+  max-width:1250px;
+  margin:auto;
+}
 
-    button{
-      background:#22b8e6;
-      color:#03111f;
-      font-weight:bold;
-      cursor:pointer
-    }
+.hero{
+  min-height:520px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:70px 15px;
+  background:
+    radial-gradient(circle at 20% 20%,rgba(0,217,255,.15),transparent 30%),
+    radial-gradient(circle at 80% 70%,rgba(0,120,255,.12),transparent 30%);
+}
 
-    main{
-      padding:38px 7%;
-      max-width:1200px;
-      margin:auto
-    }
+.hero h1{
+  font-size:clamp(42px,8vw,82px);
+  line-height:1;
+  margin-bottom:22px;
+}
 
-    .section-title{
-      margin:22px 0 18px;
-      font-size:27px
-    }
+.hero h1 span{
+  color:#00d9ff;
+}
 
-    .grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
-      gap:18px
-    }
+.hero p{
+  max-width:800px;
+  color:#9fb4ca;
+  font-size:18px;
+  margin-bottom:30px;
+}
 
-    .card{
-      background:#102238;
-      border:1px solid #203b57;
-      border-radius:18px;
-      padding:20px;
-      transition:.2s
-    }
+.search{
+  width:min(800px,100%);
+  display:flex;
+  gap:10px;
+}
 
-    .card:hover{
-      transform:translateY(-4px);
-      border-color:#63d7ff
-    }
+.search input{
+  flex:1;
+  padding:17px 18px;
+  border-radius:14px;
+  border:1px solid #294765;
+  outline:none;
+  background:#0a192b;
+  color:#fff;
+}
 
-    .icon{
-      font-size:42px;
-      margin-bottom:10px
-    }
+.search input:focus{
+  border-color:#00cfff;
+}
 
-    .card h3{
-      margin-bottom:8px;
-      color:#63d7ff
-    }
+.search button{
+  padding:0 23px;
+  border:none;
+  border-radius:14px;
+  cursor:pointer;
+  color:#fff;
+  background:#008fb8;
+  font-weight:700;
+}
 
-    .card p{
-      color:#b8c9dc;
-      font-size:14px
-    }
+.answer{
+  width:min(800px,100%);
+  margin-top:15px;
+  padding:15px;
+  border-radius:12px;
+  background:#0b1d31;
+  border:1px solid #203d5b;
+  color:#c8d8e8;
+  display:none;
+  text-align:left;
+}
 
-    .tag{
-      display:inline-block;
-      margin-top:12px;
-      background:#173b55;
-      color:#9ee8ff;
-      padding:5px 9px;
-      border-radius:20px;
-      font-size:12px
-    }
+section{
+  padding:70px 0;
+}
 
-    .answer{
-      display:none;
-      margin-top:20px;
-      background:#102238;
-      border-left:4px solid #22b8e6;
-      padding:18px;
-      border-radius:12px;
-      color:#dbeafe
-    }
+.section-title{
+  text-align:center;
+  margin-bottom:35px;
+}
 
-    footer{
-      text-align:center;
-      padding:28px;
-      color:#8da4bb;
-      background:#050c16;
-      margin-top:30px
-    }
+.section-title h2{
+  font-size:36px;
+  margin-bottom:8px;
+}
 
-    @media(max-width:550px){
-      header{
-        display:block;
-        text-align:center
-      }
+.section-title p{
+  color:#91a8be;
+}
 
-      nav{
-        margin-top:10px
-      }
+.profile{
+  padding:25px 0;
+}
 
-      .search{
-        flex-direction:column
-      }
-    }
-  </style>
+.profile-card{
+  display:flex;
+  align-items:center;
+  gap:15px;
+  padding:18px;
+  background:#0b1b2d;
+  border:1px solid #203b56;
+  border-radius:18px;
+  cursor:pointer;
+  max-width:600px;
+  margin:auto;
+}
+
+.avatar{
+  width:65px;
+  height:65px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:30px;
+  background:#102e46;
+  border:2px solid #00cfff;
+}
+
+.profile-name{
+  font-size:22px;
+  font-weight:bold;
+}
+
+.profile-name small{
+  display:block;
+  font-size:13px;
+  color:#8ea7bd;
+  font-weight:normal;
+}
+
+.social-box{
+  max-width:600px;
+  margin:12px auto 0;
+  background:#091728;
+  border:1px solid #203b56;
+  padding:20px;
+  border-radius:16px;
+  display:none;
+}
+
+.social-links{
+  display:grid;
+  gap:9px;
+  margin-top:12px;
+}
+
+.social-links a{
+  padding:11px;
+  border-radius:10px;
+  background:#10243a;
+  color:#bcecff;
+}
+
+.admin{
+  margin-top:20px;
+  padding-top:15px;
+  border-top:1px solid #20364d;
+}
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:15px;
+  margin:25px 0 50px;
+}
+
+.stat{
+  background:#0b1b2d;
+  border:1px solid #203b56;
+  border-radius:16px;
+  padding:22px;
+  text-align:center;
+}
+
+.stat strong{
+  display:block;
+  font-size:34px;
+  color:#00d9ff;
+}
+
+.stat span{
+  color:#8fa7bd;
+}
+
+.cards{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
+}
+
+.card{
+  background:#0b1b2d;
+  border:1px solid #203b56;
+  border-radius:18px;
+  padding:20px;
+  transition:.25s;
+  position:relative;
+}
+
+.card:hover{
+  transform:translateY(-5px);
+  border-color:#00aeda;
+}
+
+.card-icon{
+  font-size:50px;
+  margin-bottom:12px;
+}
+
+.card h3{
+  margin-bottom:6px;
+}
+
+.card p{
+  color:#8fa7bd;
+  font-size:14px;
+}
+
+.card button{
+  margin-top:15px;
+  padding:9px 13px;
+  border:none;
+  border-radius:9px;
+  background:#087ea4;
+  color:#fff;
+  cursor:pointer;
+}
+
+.favorite{
+  position:absolute;
+  right:15px;
+  top:15px;
+  border:none!important;
+  background:#142a40!important;
+  font-size:20px;
+  padding:7px!important;
+  margin:0!important;
+}
+
+.filters{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:25px;
+}
+
+.filters input,
+.filters select{
+  flex:1;
+  min-width:180px;
+  padding:13px;
+  border-radius:11px;
+  border:1px solid #294765;
+  background:#0a192b;
+  color:#fff;
+  outline:none;
+}
+
+.country-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px;
+}
+
+.country-card{
+  background:#0b1b2d;
+  border:1px solid #203b56;
+  border-radius:14px;
+  padding:15px;
+  cursor:pointer;
+  transition:.2s;
+}
+
+.country-card:hover{
+  border-color:#00bddd;
+  transform:translateY(-3px);
+}
+
+.country-flag{
+  font-size:34px;
+  margin-bottom:5px;
+}
+
+.country-card h3{
+  font-size:16px;
+}
+
+.country-card p{
+  color:#839db5;
+  font-size:13px;
+}
+
+.ai-box{
+  max-width:850px;
+  margin:auto;
+  background:#091a2c;
+  border:1px solid #23415e;
+  border-radius:20px;
+  padding:22px;
+}
+
+.ai-messages{
+  height:260px;
+  overflow-y:auto;
+  background:#06111f;
+  border-radius:14px;
+  padding:15px;
+  margin-bottom:15px;
+}
+
+.message{
+  padding:11px 14px;
+  border-radius:12px;
+  margin-bottom:10px;
+  max-width:85%;
+}
+
+.bot{
+  background:#10283d;
+  color:#cde6f5;
+}
+
+.user{
+  background:#087ea4;
+  margin-left:auto;
+}
+
+.ai-input{
+  display:flex;
+  gap:10px;
+}
+
+.ai-input input{
+  flex:1;
+  padding:14px;
+  background:#0a192b;
+  border:1px solid #294765;
+  color:#fff;
+  border-radius:11px;
+  outline:none;
+}
+
+.ai-input button{
+  border:none;
+  border-radius:11px;
+  background:#008fb8;
+  color:#fff;
+  padding:0 18px;
+  cursor:pointer;
+}
+
+footer{
+  padding:35px 5%;
+  text-align:center;
+  color:#7890a7;
+  border-top:1px solid #1b334b;
+  background:#040d18;
+}
+
+.modal-bg{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.75);
+  z-index:3000;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+
+.modal{
+  width:min(650px,100%);
+  max-height:90vh;
+  overflow:auto;
+  background:#0a1a2b;
+  border:1px solid #31516d;
+  border-radius:20px;
+  padding:25px;
+  position:relative;
+}
+
+.close{
+  position:absolute;
+  right:15px;
+  top:12px;
+  border:none;
+  background:#172c41;
+  color:#fff;
+  border-radius:50%;
+  width:35px;
+  height:35px;
+  cursor:pointer;
+}
+
+.modal h2{
+  margin-bottom:15px;
+  color:#00d9ff;
+}
+
+.detail{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+
+.detail div{
+  background:#0f2439;
+  padding:12px;
+  border-radius:10px;
+}
+
+.detail b{
+  color:#8da8bf;
+  display:block;
+  font-size:12px;
+}
+
+.auth-tabs{
+  display:flex;
+  gap:8px;
+  margin-bottom:18px;
+}
+
+.auth-tabs button{
+  flex:1;
+  padding:11px;
+  border:none;
+  border-radius:10px;
+  background:#132a40;
+  color:#fff;
+  cursor:pointer;
+}
+
+.auth-tabs .active{
+  background:#008fb8;
+}
+
+.auth-form{
+  display:grid;
+  gap:12px;
+}
+
+.auth-form input{
+  padding:13px;
+  border-radius:10px;
+  border:1px solid #294765;
+  background:#071525;
+  color:#fff;
+  outline:none;
+}
+
+.auth-form button{
+  padding:13px;
+  border:none;
+  border-radius:10px;
+  background:#008fb8;
+  color:#fff;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+.auth-note{
+  color:#849bb1;
+  font-size:12px;
+  margin-top:10px;
+}
+
+.hidden{
+  display:none!important;
+}
+
+@media(max-width:900px){
+  .cards{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .country-grid{
+    grid-template-columns:repeat(3,1fr);
+  }
+
+  .stats{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  header{
+    align-items:flex-start;
+    flex-direction:column;
+  }
+
+  nav{
+    justify-content:flex-start;
+  }
+}
+
+@media(max-width:600px){
+  .cards,
+  .country-grid{
+    grid-template-columns:1fr;
+  }
+
+  .stats{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .search{
+    flex-direction:column;
+  }
+
+  .search button{
+    padding:14px;
+  }
+
+  .detail{
+    grid-template-columns:1fr;
+  }
+
+  nav{
+    width:100%;
+    overflow-x:auto;
+    flex-wrap:nowrap;
+  }
+
+  nav a,
+  .login-btn{
+    white-space:nowrap;
+  }
+
+  .hero{
+    min-height:450px;
+  }
+}
+</style>
 </head>
 
 <body>
 
-  <header>
+<header>
+  <div class="logo">🏍️ <span>Motosicnavia</span> ✈️</div>
 
-    <div class="logo">
-      🏍️ Motosicnavia ✈️
+  <nav>
+    <a href="#aircraft">✈️ Samolyotlar</a>
+    <a href="#moto">🏍️ Mototsikllar</a>
+    <a href="#countries">🌍 Davlatlar</a>
+    <a href="#ai">🤖 AI</a>
+    <button class="login-btn" onclick="openAuth()">👤 Login</button>
+  </nav>
+</header>
+
+<main>
+
+<section class="profile">
+  <div class="container">
+
+    <div class="profile-card" onclick="toggleProfile()">
+      <div class="avatar">🏍️</div>
+
+      <div>
+        <div class="profile-name">
+          Bexruz
+          <small>Profil va ijtimoiy tarmoqlar</small>
+        </div>
+      </div>
     </div>
 
-    <nav>
-      <a href="#aircraft">✈️ Samolyotlar</a>
-      <a href="#moto">🏍️ Mototsikllar</a>
-    </nav>
+    <div id="socialBox" class="social-box">
 
-  </header>
+      <b>📱 Ijtimoiy tarmoqlar</b>
 
+      <div class="social-links">
+        <a href="https://www.instagram.com/kukonboev_216" target="_blank">
+          📸 Bexruz Instagram
+        </a>
 
-  <section class="hero">
+        <a href="https://www.instagram.com/motosicn" target="_blank">
+          🏍️ Moto Instagram
+        </a>
 
-    <h1>
-      Explore <span>the Sky</span><br>
-      & The Road
-    </h1>
+        <a href="https://t.me/motosicn" target="_blank">
+          ✈️ Moto Telegram
+        </a>
+      </div>
 
-    <p>
-      Motosicnavia — samolyotlar, mototsikllar,
-      tezliklar, texnik ma'lumotlar va litsenziyalar
-      haqida ma'lumot beruvchi platforma.
-    </p>
+      <div class="admin">
+        <b>👨‍💼 Telegram Adminlar</b>
+        <p>
+          <a href="https://t.me/mtcavia" target="_blank">@mtcavia</a>
+        </p>
+        <p>
+          <a href="https://t.me/mtcrider" target="_blank">@mtcrider</a>
+        </p>
+      </div>
 
-    <div class="search">
+    </div>
+
+  </div>
+</section>
+
+<section class="hero">
+
+  <h1>
+    Explore <span>the Sky</span><br>
+    & The Road
+  </h1>
+
+  <p>
+    Samolyotlar, mototsikllar, 195 ta davlat,
+    aeroportlar va texnik ma'lumotlar — Motosicnavia.
+  </p>
+
+  <div class="search">
+
+    <input
+      id="question"
+      placeholder="Masalan: Kawasaki Ninja H2R yoki Uzbekistan"
+      onkeydown="if(event.key==='Enter') askQuestion()"
+    >
+
+    <button onclick="askQuestion()">
+      🔎 Qidirish
+    </button>
+
+  </div>
+
+  <div id="answer" class="answer"></div>
+
+</section>
+
+<section class="container">
+
+  <div class="stats">
+
+    <div class="stat">
+      <strong id="motoCount">40</strong>
+      <span>Mototsikl</span>
+    </div>
+
+    <div class="stat">
+      <strong id="countryCount">195</strong>
+      <span>Davlat</span>
+    </div>
+
+    <div class="stat">
+      <strong>3</strong>
+      <span>Samolyot</span>
+    </div>
+
+    <div class="stat">
+      <strong>∞</strong>
+      <span>Qidiruv</span>
+    </div>
+
+  </div>
+
+</section>
+
+<section id="aircraft">
+
+<div class="container">
+
+  <div class="section-title">
+    <h2>✈️ Samolyotlar</h2>
+    <p>Mashhur samolyotlar haqida ma'lumot</p>
+  </div>
+
+  <div class="cards">
+
+    <div class="card">
+      <div class="card-icon">✈️</div>
+      <h3>Boeing 787 Dreamliner</h3>
+      <p>Uzoq masofali zamonaviy yo'lovchi samolyoti.</p>
+      <button onclick="showAircraft(0)">Batafsil</button>
+    </div>
+
+    <div class="card">
+      <div class="card-icon">✈️</div>
+      <h3>Airbus A350</h3>
+      <p>Uzoq masofali keng fyuzelyajli samolyot.</p>
+      <button onclick="showAircraft(1)">Batafsil</button>
+    </div>
+
+    <div class="card">
+      <div class="card-icon">🛩️</div>
+      <h3>Cessna 172</h3>
+      <p>O'quv va umumiy aviatsiyada mashhur samolyot.</p>
+      <button onclick="showAircraft(2)">Batafsil</button>
+    </div>
+
+  </div>
+
+</div>
+
+</section>
+
+<section id="moto">
+
+<div class="container">
+
+  <div class="section-title">
+    <h2>🏍️ Mototsikllar</h2>
+    <p>40 ta mashhur mototsiklni qidiring</p>
+  </div>
+
+  <div class="filters">
+
+    <input
+      id="motoSearch"
+      placeholder="🏍️ Moto qidirish..."
+      oninput="filterMotos()"
+    >
+
+    <select id="motoType" onchange="filterMotos()">
+      <option value="">Barcha kategoriyalar</option>
+      <option value="Sport">Sport</option>
+      <option value="Naked">Naked</option>
+      <option value="Adventure">Adventure</option>
+      <option value="Cruiser">Cruiser</option>
+      <option value="Touring">Touring</option>
+      <option value="Sport Touring">Sport Touring</option>
+    </select>
+
+  </div>
+
+  <div id="motoGrid" class="cards"></div>
+
+</div>
+
+</section>
+
+<section id="countries">
+
+<div class="container">
+
+  <div class="section-title">
+    <h2>🌍 195 ta davlat</h2>
+    <p>Davlat, poytaxt va asosiy xalqaro aeroportni qidiring</p>
+  </div>
+
+  <div class="filters">
+
+    <input
+      id="countrySearch"
+      placeholder="🌍 Davlat qidirish..."
+      oninput="filterCountries()"
+    >
+
+    <select id="continentFilter" onchange="filterCountries()">
+      <option value="">Barcha qit'alar</option>
+      <option value="Asia">Osiyo</option>
+      <option value="Europe">Yevropa</option>
+      <option value="Africa">Afrika</option>
+      <option value="North America">Shimoliy Amerika</option>
+      <option value="South America">Janubiy Amerika</option>
+      <option value="Oceania">Okeaniya</option>
+    </select>
+
+  </div>
+
+  <div id="countryGrid" class="country-grid"></div>
+
+</div>
+
+</section>
+
+<section id="ai">
+
+<div class="container">
+
+  <div class="section-title">
+    <h2>🤖 Motosicnavia AI</h2>
+    <p>Aviatsiya, mototsikl va davlatlar haqida savol bering</p>
+  </div>
+
+  <div class="ai-box">
+
+    <div id="aiMessages" class="ai-messages">
+
+      <div class="message bot">
+        👋 Salom! Men Motosicnavia yordamchisiman.
+        Moto, samolyot yoki davlat haqida savol bering.
+      </div>
+
+    </div>
+
+    <div class="ai-input">
 
       <input
-        id="question"
-        placeholder="Motosicnavia: Boeing 787 yoki Kawasaki Ninja H2R..."
-      />
+        id="aiQuestion"
+        placeholder="Savolingizni yozing..."
+        onkeydown="if(event.key==='Enter') sendAI()"
+      >
 
-      <button onclick="askQuestion()">
-        🔎 Motosicnavia qidiruvi
+      <button onclick="sendAI()">Yuborish</button>
+
+    </div>
+
+  </div>
+
+</div>
+
+</section>
+
+</main>
+
+<footer>
+  <p>🏍️ Motosicnavia ✈️</p>
+  <p>© 2026 — Aviation & Motorcycle Information</p>
+</footer>
+
+
+<!-- UNIVERSAL MODAL -->
+
+<div id="modalBg" class="modal-bg" onclick="closeModalOutside(event)">
+
+  <div class="modal">
+
+    <button class="close" onclick="closeModal()">✕</button>
+
+    <div id="modalContent"></div>
+
+  </div>
+
+</div>
+
+
+<!-- AUTH MODAL -->
+
+<div id="authBg" class="modal-bg" onclick="closeAuthOutside(event)">
+
+  <div class="modal">
+
+    <button class="close" onclick="closeAuth()">✕</button>
+
+    <h2>👤 Motosicnavia</h2>
+
+    <div class="auth-tabs">
+
+      <button id="loginTab" class="active" onclick="switchAuth('login')">
+        Login
+      </button>
+
+      <button id="registerTab" onclick="switchAuth('register')">
+        Register
       </button>
 
     </div>
 
-    <div id="answer" class="answer"></div>
+    <div id="loginForm" class="auth-form">
 
-  </section>
+      <input id="loginEmail" type="email" placeholder="Email">
 
+      <input id="loginPassword" type="password" placeholder="Parol">
 
-  <main>
-
-    <!-- SAMOLYOTLAR -->
-
-    <h2 class="section-title" id="aircraft">
-      ✈️ Samolyotlar
-    </h2>
-
-    <div class="grid">
-
-      <article class="card">
-
-        <div class="icon">
-          🛫
-        </div>
-
-        <h3>
-          Boeing 787
-        </h3>
-
-        <p>
-          Uzoq masofaga uchuvchi
-          yo'lovchi samolyoti.
-          Texnik ma'lumotlar keyingi
-          bosqichda bazadan olinadi.
-        </p>
-
-        <span class="tag">
-          Yo'lovchi
-        </span>
-
-      </article>
-
-
-      <article class="card">
-
-        <div class="icon">
-          ✈️
-        </div>
-
-        <h3>
-          Airbus A350
-        </h3>
-
-        <p>
-          Zamonaviy uzoq masofali
-          keng fyuzelyajli samolyot.
-        </p>
-
-        <span class="tag">
-          Yo'lovchi
-        </span>
-
-      </article>
-
-
-      <article class="card">
-
-        <div class="icon">
-          🛩️
-        </div>
-
-        <h3>
-          Cessna 172
-        </h3>
-
-        <p>
-          O'quv va yengil aviatsiyada
-          keng qo'llanadigan samolyot.
-        </p>
-
-        <span class="tag">
-          Yengil aviatsiya
-        </span>
-
-      </article>
+      <button onclick="loginUser()">Kirish</button>
 
     </div>
 
+    <div id="registerForm" class="auth-form hidden">
 
-    <!-- MOTOTSIKLлар -->
+      <input id="regName" placeholder="Ismingiz">
 
-    <h2 class="section-title" id="moto">
-      🏍️ Mototsikllar
-    </h2>
+      <input id="regEmail" type="email" placeholder="Email">
 
-    <div class="grid">
+      <input id="regPassword" type="password" placeholder="Parol">
 
-      <article class="card">
-
-        <div class="icon">
-          🏍️
-        </div>
-
-        <h3>
-          Kawasaki Ninja H2R
-        </h3>
-
-        <p>
-          Yuqori unumdorlikka ega
-          trek uchun mo'ljallangan
-          mototsikl.
-        </p>
-
-        <span class="tag">
-          Sport
-        </span>
-
-      </article>
-
-
-      <article class="card">
-
-        <div class="icon">
-          🏍️
-        </div>
-
-        <h3>
-          Yamaha R1
-        </h3>
-
-        <p>
-          Sport mototsikli.
-          Dvigatel, tezlik va boshqa
-          parametrlar keyinchalik
-          to'ldiriladi.
-        </p>
-
-        <span class="tag">
-          Sport
-        </span>
-
-      </article>
-
-
-      <article class="card">
-
-        <div class="icon">
-          🏍️
-        </div>
-
-        <h3>
-          BMW S 1000 RR
-        </h3>
-
-        <p>
-          Yuqori darajadagi
-          sport mototsikli.
-        </p>
-
-        <span class="tag">
-          Sport
-        </span>
-
-      </article>
+      <button onclick="registerUser()">Ro'yxatdan o'tish</button>
 
     </div>
 
-  </main>
+    <div class="auth-note">
+      Bu demo login tizimi. Ma'lumotlar faqat ushbu brauzerning
+      localStorage xotirasida saqlanadi.
+    </div>
+
+  </div>
+
+</div>
 
 
-  <footer>
-    Motosicnavia — Aviation & Motorcycle Information
-  </footer>
+<script>
+
+/* =========================
+   SAMOLYOTLAR
+========================= */
+
+const aircraft = [
+
+  {
+    name:"Boeing 787 Dreamliner",
+    type:"Wide-body passenger aircraft",
+    manufacturer:"Boeing",
+    speed:"Mach 0.85",
+    range:"13,620 km",
+    capacity:"240–330 passengers"
+  },
+
+  {
+    name:"Airbus A350",
+    type:"Wide-body passenger aircraft",
+    manufacturer:"Airbus",
+    speed:"Mach 0.85",
+    range:"15,000+ km",
+    capacity:"300+ passengers"
+  },
+
+  {
+    name:"Cessna 172",
+    type:"Light aircraft",
+    manufacturer:"Cessna",
+    speed:"~226 km/h",
+    range:"~1,180 km",
+    capacity:"4 persons"
+  }
+
+];
 
 
-  <script>
+/* =========================
+   40 MOTOTSIKL
+========================= */
 
-    function askQuestion(){
+const motos = [
 
-      const q =
-        document
-        .getElementById('question')
-        .value
-        .trim();
+["Kawasaki","Ninja H2R","998 cc","310 hp","400+ km/h","216 kg","Sport"],
+["Yamaha","YZF-R1","998 cc","200 hp","299 km/h","201 kg","Sport"],
+["BMW","S 1000 RR","999 cc","210 hp","303 km/h","197 kg","Sport"],
+["Ducati","Panigale V4","1103 cc","216 hp","305 km/h","198 kg","Sport"],
+["Honda","CBR1000RR-R Fireblade","999 cc","214 hp","299 km/h","201 kg","Sport"],
+["Suzuki","GSX-R1000R","999 cc","202 hp","299 km/h","203 kg","Sport"],
+["Aprilia","RSV4 Factory","1099 cc","220 hp","305+ km/h","204 kg","Sport"],
+["MV Agusta","F4","998 cc","195 hp","300+ km/h","191 kg","Sport"],
+["Kawasaki","Ninja ZX-10R","998 cc","203 hp","299 km/h","207 kg","Sport"],
+["Yamaha","MT-10","998 cc","166 hp","230+ km/h","212 kg","Naked"],
+["Honda","CB1000 Hornet","1000 cc","152 hp","230+ km/h","211 kg","Naked"],
+["Kawasaki","Z H2","998 cc","200 hp","240+ km/h","240 kg","Naked"],
+["BMW","M 1000 R","999 cc","210 hp","280+ km/h","199 kg","Naked"],
+["Ducati","Streetfighter V4","1103 cc","208 hp","300+ km/h","197 kg","Naked"],
+["Yamaha","MT-09","890 cc","119 hp","220+ km/h","193 kg","Naked"],
+["KTM","1290 Super Duke R","1301 cc","180 hp","250+ km/h","189 kg","Naked"],
+["Ducati","Multistrada V4","1158 cc","170 hp","250+ km/h","243 kg","Adventure"],
+["BMW","R 1300 GS","1300 cc","145 hp","220+ km/h","237 kg","Adventure"],
+["Honda","Africa Twin","1084 cc","102 hp","200+ km/h","231 kg","Adventure"],
+["Yamaha","Tenere 700","689 cc","72 hp","190+ km/h","205 kg","Adventure"],
+["KTM","1290 Super Adventure","1301 cc","160 hp","250+ km/h","220 kg","Adventure"],
+["Triumph","Tiger 1200","1160 cc","150 hp","220+ km/h","245 kg","Adventure"],
+["Suzuki","V-Strom 1050","1037 cc","107 hp","200+ km/h","236 kg","Adventure"],
+["Harley-Davidson","Sportster S","1252 cc","121 hp","200+ km/h","228 kg","Cruiser"],
+["Harley-Davidson","Fat Boy 114","1868 cc","94 hp","180+ km/h","317 kg","Cruiser"],
+["Indian","Scout Bobber","1250 cc","105 hp","200+ km/h","251 kg","Cruiser"],
+["Yamaha","Bolt R-Spec","942 cc","54 hp","170+ km/h","252 kg","Cruiser"],
+["Honda","Rebel 1100","1084 cc","87 hp","170+ km/h","223 kg","Cruiser"],
+["Kawasaki","Vulcan S","649 cc","61 hp","190+ km/h","229 kg","Cruiser"],
+["Ducati","Diavel V4","1158 cc","168 hp","270+ km/h","236 kg","Cruiser"],
+["Yamaha","R7","689 cc","73 hp","230+ km/h","188 kg","Sport"],
+["Honda","CBR650R","649 cc","95 hp","240+ km/h","208 kg","Sport"],
+["Kawasaki","Ninja 650","649 cc","68 hp","210 km/h","193 kg","Sport"],
+["Suzuki","Hayabusa","1340 cc","190 hp","299 km/h","264 kg","Sport"],
+["Kawasaki","Ninja 1000SX","1043 cc","142 hp","245 km/h","235 kg","Sport Touring"],
+["BMW","R 1250 RT","1254 cc","136 hp","225 km/h","279 kg","Touring"],
+["Honda","Gold Wing","1833 cc","126 hp","180+ km/h","390 kg","Touring"],
+["Yamaha","Tracer 9 GT","890 cc","119 hp","220+ km/h","227 kg","Touring"],
+["Triumph","Speed Triple 1200 RS","1160 cc","180 hp","250+ km/h","198 kg","Naked"],
+["KTM","1390 Super Duke R","1350 cc","190 hp","250+ km/h","200 kg","Naked"]
 
-      const box =
-        document
-        .getElementById('answer');
+];
 
 
-      if(!q){
+/* =========================
+   195 DAVLAT
+========================= */
 
-        box.style.display='block';
+const countries = [
 
-        box.textContent =
-          'Avval qidiruv so‘zini yozing.';
+["🇦🇫","Afghanistan","Kabul","Kabul International Airport","Asia"],
+["🇦🇱","Albania","Tirana","Tirana International Airport","Europe"],
+["🇩🇿","Algeria","Algiers","Houari Boumediene Airport","Africa"],
+["🇦🇩","Andorra","Andorra la Vella","Andorra–La Seu d'Urgell Airport","Europe"],
+["🇦🇴","Angola","Luanda","Quatro de Fevereiro Airport","Africa"],
+["🇦🇬","Antigua and Barbuda","Saint John's","V.C. Bird International Airport","North America"],
+["🇦🇷","Argentina","Buenos Aires","Ezeiza International Airport","South America"],
+["🇦🇲","Armenia","Yerevan","Zvartnots International Airport","Asia"],
+["🇦🇺","Australia","Canberra","Canberra Airport","Oceania"],
+["🇦🇹","Austria","Vienna","Vienna International Airport","Europe"],
+["🇦🇿","Azerbaijan","Baku","Heydar Aliyev International Airport","Asia"],
+["🇧🇸","Bahamas","Nassau","Lynden Pindling International Airport","North America"],
+["🇧🇭","Bahrain","Manama","Bahrain International Airport","Asia"],
+["🇧🇩","Bangladesh","Dhaka","Hazrat Shahjalal International Airport","Asia"],
+["🇧🇧","Barbados","Bridgetown","Grantley Adams International Airport","North America"],
+["🇧🇾","Belarus","Minsk","Minsk National Airport","Europe"],
+["🇧🇪","Belgium","Brussels","Brussels Airport","Europe"],
+["🇧🇿","Belize","Belmopan","Philip S. W. Goldson International Airport","North America"],
+["🇧🇯","Benin","Porto-Novo","Cadjehoun Airport","Africa"],
+["🇧🇹","Bhutan","Thimphu","Paro International Airport","Asia"],
+["🇧🇴","Bolivia","Sucre","El Alto International Airport","South America"],
+["🇧🇦","Bosnia and Herzegovina","Sarajevo","Sarajevo International Airport","Europe"],
+["🇧🇼","Botswana","Gaborone","Sir Seretse Khama International Airport","Africa"],
+["🇧🇷","Brazil","Brasilia","Brasília International Airport","South America"],
+["🇧🇳","Brunei","Bandar Seri Begawan","Brunei International Airport","Asia"],
+["🇧🇬","Bulgaria","Sofia","Sofia Airport","Europe"],
+["🇧🇫","Burkina Faso","Ouagadougou","Ouagadougou Airport","Africa"],
+["🇧🇮","Burundi","Gitega","Melchior Ndadaye International Airport","Africa"],
+["🇨🇻","Cabo Verde","Praia","Nelson Mandela International Airport","Africa"],
+["🇰🇭","Cambodia","Phnom Penh","Phnom Penh International Airport","Asia"],
+["🇨🇲","Cameroon","Yaounde","Yaoundé Nsimalen International Airport","Africa"],
+["🇨🇦","Canada","Ottawa","Ottawa International Airport","North America"],
+["🇨🇫","Central African Republic","Bangui","Bangui M'Poko International Airport","Africa"],
+["🇹🇩","Chad","N'Djamena","N'Djamena International Airport","Africa"],
+["🇨🇱","Chile","Santiago","Arturo Merino Benitez Airport","South America"],
+["🇨🇳","China","Beijing","Beijing Capital International Airport","Asia"],
+["🇨🇴","Colombia","Bogota","El Dorado International Airport","South America"],
+["🇰🇲","Comoros","Moroni","Prince Said Ibrahim International Airport","Africa"],
+["🇨🇬","Republic of the Congo","Brazzaville","Maya-Maya Airport","Africa"],
+["🇨🇩","Democratic Republic of the Congo","Kinshasa","N'djili International Airport","Africa"],
+["🇨🇷","Costa Rica","San Jose","Juan Santamaria International Airport","North America"],
+["🇨🇮","Cote d'Ivoire","Yamoussoukro","Felix-Houphouet-Boigny Airport","Africa"],
+["🇭🇷","Croatia","Zagreb","Franjo Tudman Airport","Europe"],
+["🇨🇺","Cuba","Havana","Jose Marti International Airport","North America"],
+["🇨🇾","Cyprus","Nicosia","Larnaca International Airport","Europe"],
+["🇨🇿","Czechia","Prague","Václav Havel Airport Prague","Europe"],
+["🇩🇰","Denmark","Copenhagen","Copenhagen Airport","Europe"],
+["🇩🇯","Djibouti","Djibouti","Djibouti-Ambouli International Airport","Africa"],
+["🇩🇲","Dominica","Roseau","Douglas-Charles Airport","North America"],
+["🇩🇴","Dominican Republic","Santo Domingo","Las Americas International Airport","North America"],
+["🇪🇨","Ecuador","Quito","Mariscal Sucre International Airport","South America"],
+["🇪🇬","Egypt","Cairo","Cairo International Airport","Africa"],
+["🇸🇻","El Salvador","San Salvador","Monseñor Óscar Arnulfo Romero Airport","North America"],
+["🇬🇶","Equatorial Guinea","Malabo","Malabo International Airport","Africa"],
+["🇪🇷","Eritrea","Asmara","Asmara International Airport","Africa"],
+["🇪🇪","Estonia","Tallinn","Tallinn Airport","Europe"],
+["🇸🇿","Eswatini","Mbabane","King Mswati III International Airport","Africa"],
+["🇪🇹","Ethiopia","Addis Ababa","Bole International Airport","Africa"],
+["🇫🇯","Fiji","Suva","Nadi International Airport","Oceania"],
+["🇫🇮","Finland","Helsinki","Helsinki Airport","Europe"],
+["🇫🇷","France","Paris","Charles de Gaulle Airport","Europe"],
+["🇬🇦","Gabon","Libreville","Leon-Mba International Airport","Africa"],
+["🇬🇲","Gambia","Banjul","Banjul International Airport","Africa"],
+["🇬🇪","Georgia","Tbilisi","Tbilisi International Airport","Asia"],
+["🇩🇪","Germany","Berlin","Berlin Brandenburg Airport","Europe"],
+["🇬🇭","Ghana","Accra","Kotoka International Airport","Africa"],
+["🇬🇷","Greece","Athens","Athens International Airport","Europe"],
+["🇬🇩","Grenada","Saint George's","Maurice Bishop International Airport","North America"],
+["🇬🇹","Guatemala","Guatemala City","La Aurora International Airport","North America"],
+["🇬🇳","Guinea","Conakry","Ahmed Sékou Touré International Airport","Africa"],
+["🇬🇼","Guinea-Bissau","Bissau","Osvaldo Vieira International Airport","Africa"],
+["🇬🇾","Guyana","Georgetown","Cheddi Jagan International Airport","South America"],
+["🇭🇹","Haiti","Port-au-Prince","Toussaint Louverture International Airport","North America"],
+["🇭🇳","Honduras","Tegucigalpa","Toncontín International Airport","North America"],
+["🇭🇺","Hungary","Budapest","Budapest Ferenc Liszt International Airport","Europe"],
+["🇮🇸","Iceland","Reykjavik","Keflavik International Airport","Europe"],
+["🇮🇳","India","New Delhi","Indira Gandhi International Airport","Asia"],
+["🇮🇩","Indonesia","Jakarta","Soekarno-Hatta International Airport","Asia"],
+["🇮🇷","Iran","Tehran","Imam Khomeini International Airport","Asia"],
+["🇮🇶","Iraq","Baghdad","Baghdad International Airport","Asia"],
+["🇮🇪","Ireland","Dublin","Dublin Airport","Europe"],
+["🇮🇱","Israel","Jerusalem","Ben Gurion Airport","Asia"],
+["🇮🇹","Italy","Rome","Leonardo da Vinci International Airport","Europe"],
+["🇯🇲","Jamaica","Kingston","Norman Manley International Airport","North America"],
+["🇯🇵","Japan","Tokyo","Haneda Airport","Asia"],
+["🇯🇴","Jordan","Amman","Queen Alia International Airport","Asia"],
+["🇰🇿","Kazakhstan","Astana","Nursultan Nazarbayev International Airport","Asia"],
+["🇰🇪","Kenya","Nairobi","Jomo Kenyatta International Airport","Africa"],
+["🇰🇮","Kiribati","South Tarawa","Bonriki International Airport","Oceania"],
+["🇰🇼","Kuwait","Kuwait City","Kuwait International Airport","Asia"],
+["🇰🇬","Kyrgyzstan","Bishkek","Manas International Airport","Asia"],
+["🇱🇦","Laos","Vientiane","Wattay International Airport","Asia"],
+["🇱🇻","Latvia","Riga","Riga International Airport","Europe"],
+["🇱🇧","Lebanon","Beirut","Beirut-Rafic Hariri International Airport","Asia"],
+["🇱🇸","Lesotho","Maseru","Moshoeshoe I International Airport","Africa"],
+["🇱🇷","Liberia","Monrovia","Roberts International Airport","Africa"],
+["🇱🇾","Libya","Tripoli","Mitiga International Airport","Africa"],
+["🇱🇮","Liechtenstein","Vaduz","Zurich Airport","Europe"],
+["🇱🇹","Lithuania","Vilnius","Vilnius Airport","Europe"],
+["🇱🇺","Luxembourg","Luxembourg","Luxembourg Airport","Europe"],
+["🇲🇬","Madagascar","Antananarivo","Ivato International Airport","Africa"],
+["🇲🇼","Malawi","Lilongwe","Kamuzu International Airport","Africa"],
+["🇲🇾","Malaysia","Kuala Lumpur","Kuala Lumpur International Airport","Asia"],
+["🇲🇻","Maldives","Male","Velana International Airport","Asia"],
+["🇲🇱","Mali","Bamako","Modibo Keita International Airport","Africa"],
+["🇲🇹","Malta","Valletta","Malta International Airport","Europe"],
+["🇲🇭","Marshall Islands","Majuro","Marshall Islands International Airport","Oceania"],
+["🇲🇷","Mauritania","Nouakchott","Nouakchott-Oumtounsy International Airport","Africa"],
+["🇲🇺","Mauritius","Port Louis","Sir Seewoosagur Ramgoolam Airport","Africa"],
+["🇲🇽","Mexico","Mexico City","Mexico City International Airport","North America"],
+["🇫🇲","Micronesia","Palikir","Pohnpei International Airport","Oceania"],
+["🇲🇩","Moldova","Chisinau","Chisinau International Airport","Europe"],
+["🇲🇨","Monaco","Monaco","Nice Côte d'Azur Airport","Europe"],
+["🇲🇳","Mongolia","Ulaanbaatar","Chinggis Khaan International Airport","Asia"],
+["🇲🇪","Montenegro","Podgorica","Podgorica Airport","Europe"],
+["🇲🇦","Morocco","Rabat","Mohammed V International Airport","Africa"],
+["🇲🇿","Mozambique","Maputo","Maputo International Airport","Africa"],
+["🇲🇲","Myanmar","Naypyidaw","Yangon International Airport","Asia"],
+["🇳🇦","Namibia","Windhoek","Hosea Kutako International Airport","Africa"],
+["🇳🇷","Nauru","Yaren","Nauru International Airport","Oceania"],
+["🇳🇵","Nepal","Kathmandu","Tribhuvan International Airport","Asia"],
+["🇳🇱","Netherlands","Amsterdam","Amsterdam Schiphol Airport","Europe"],
+["🇳🇿","New Zealand","Wellington","Auckland Airport","Oceania"],
+["🇳🇮","Nicaragua","Managua","Augusto C. Sandino International Airport","North America"],
+["🇳🇪","Niger","Niamey","Diori Hamani International Airport","Africa"],
+["🇳🇬","Nigeria","Abuja","Nnamdi Azikiwe International Airport","Africa"],
+["🇰🇵","North Korea","Pyongyang","Pyongyang International Airport","Asia"],
+["🇲🇰","North Macedonia","Skopje","Skopje International Airport","Europe"],
+["🇳🇴","Norway","Oslo","Oslo Airport","Europe"],
+["🇴🇲","Oman","Muscat","Muscat International Airport","Asia"],
+["🇵🇰","Pakistan","Islamabad","Islamabad International Airport","Asia"],
+["🇵🇼","Palau","Ngerulmud","Roman Tmetuchl International Airport","Oceania"],
+["🇵🇸","Palestine","Ramallah","Ben Gurion Airport","Asia"],
+["🇵🇦","Panama","Panama City","Tocumen International Airport","North America"],
+["🇵🇬","Papua New Guinea","Port Moresby","Jacksons International Airport","Oceania"],
+["🇵🇾","Paraguay","Asuncion","Silvio Pettirossi International Airport","South America"],
+["🇵🇪","Peru","Lima","Jorge Chavez International Airport","South America"],
+["🇵🇭","Philippines","Manila","Ninoy Aquino International Airport","Asia"],
+["🇵🇱","Poland","Warsaw","Warsaw Chopin Airport","Europe"],
+["🇵🇹","Portugal","Lisbon","Humberto Delgado Airport","Europe"],
+["🇶🇦","Qatar","Doha","Hamad International Airport","Asia"],
+["🇷🇴","Romania","Bucharest","Henri Coanda International Airport","Europe"],
+["🇷🇺","Russia","Moscow","Sheremetyevo International Airport","Europe"],
+["🇷🇼","Rwanda","Kigali","Kigali International Airport","Africa"],
+["🇰🇳","Saint Kitts and Nevis","Basseterre","Robert L. Bradshaw International Airport","North America"],
+["🇱🇨","Saint Lucia","Castries","Hewanorra International Airport","North America"],
+["🇻🇨","Saint Vincent and the Grenadines","Kingstown","Argyle International Airport","North America"],
+["🇼🇸","Samoa","Apia","Faleolo International Airport","Oceania"],
+["🇸🇲","San Marino","San Marino","Federico Fellini International Airport","Europe"],
+["🇸🇹","Sao Tome and Principe","Sao Tome","Sao Tome International Airport","Africa"],
+["🇸🇦","Saudi Arabia","Riyadh","King Khalid International Airport","Asia"],
+["🇸🇳","Senegal","Dakar","Blaise Diagne International Airport","Africa"],
+["🇷🇸","Serbia","Belgrade","Belgrade Nikola Tesla Airport","Europe"],
+["🇸🇨","Seychelles","Victoria","Seychelles International Airport","Africa"],
+["🇸🇱","Sierra Leone","Freetown","Freetown International Airport","Africa"],
+["🇸🇬","Singapore","Singapore","Singapore Changi Airport","Asia"],
+["🇸🇰","Slovakia","Bratislava","M. R. Stefanik Airport","Europe"],
+["🇸🇮","Slovenia","Ljubljana","Ljubljana Airport","Europe"],
+["🇸🇧","Solomon Islands","Honiara","Honiara International Airport","Oceania"],
+["🇸🇴","Somalia","Mogadishu","Aden Adde International Airport","Africa"],
+["🇿🇦","South Africa","Pretoria","O.R. Tambo International Airport","Africa"],
+["🇰🇷","South Korea","Seoul","Incheon International Airport","Asia"],
+["🇸🇸","South Sudan","Juba","Juba International Airport","Africa"],
+["🇪🇸","Spain","Madrid","Adolfo Suarez Madrid-Barajas Airport","Europe"],
+["🇱🇰","Sri Lanka","Sri Jayawardenepura Kotte","Bandaranaike International Airport","Asia"],
+["🇸🇩","Sudan","Khartoum","Khartoum International Airport","Africa"],
+["🇸🇷","Suriname","Paramaribo","Johan Adolf Pengel International Airport","South America"],
+["🇸🇪","Sweden","Stockholm","Stockholm Arlanda Airport","Europe"],
+["🇨🇭","Switzerland","Bern","Zurich Airport","Europe"],
+["🇸🇾","Syria","Damascus","Damascus International Airport","Asia"],
+["🇹🇯","Tajikistan","Dushanbe","Dushanbe International Airport","Asia"],
+["🇹🇿","Tanzania","Dodoma","Julius Nyerere International Airport","Africa"],
+["🇹🇭","Thailand","Bangkok","Suvarnabhumi Airport","Asia"],
+["🇹🇱","Timor-Leste","Dili","Presidente Nicolau Lobato Airport","Asia"],
+["🇹🇬","Togo","Lome","Lome-Tokoin Airport","Africa"],
+["🇹🇴","Tonga","Nuku'alofa","Fua'amotu International Airport","Oceania"],
+["🇹🇹","Trinidad and Tobago","Port of Spain","Piarco International Airport","North America"],
+["🇹🇳","Tunisia","Tunis","Tunis-Carthage International Airport","Africa"],
+["🇹🇷","Turkey","Ankara","Istanbul Airport","Asia"],
+["🇹🇲","Turkmenistan","Ashgabat","Ashgabat International Airport","Asia"],
+["🇹🇻","Tuvalu","Funafuti","Funafuti International Airport","Oceania"],
+["🇺🇬","Uganda","Kampala","Entebbe International Airport","Africa"],
+["🇺🇦","Ukraine","Kyiv","Boryspil International Airport","Europe"],
+["🇦🇪","United Arab Emirates","Abu Dhabi","Dubai International Airport","Asia"],
+["🇬🇧","United Kingdom","London","Heathrow Airport","Europe"],
+["🇺🇸","United States","Washington, D.C.","Hartsfield-Jackson Atlanta International Airport","North America"],
+["🇺🇾","Uruguay","Montevideo","Carrasco International Airport","South America"],
+["🇺🇿","Uzbekistan","Tashkent","Islam Karimov Tashkent International Airport","Asia"],
+["🇻🇺","Vanuatu","Port Vila","Bauerfield International Airport","Oceania"],
+["🇻🇦","Vatican City","Vatican City","Rome Fiumicino Airport","Europe"],
+["🇻🇪","Venezuela","Caracas","Simón Bolívar International Airport","South America"],
+["🇻🇳","Vietnam","Hanoi","Noi Bai International Airport","Asia"],
+["🇾🇪","Yemen","Sana'a","Sana'a International Airport","Asia"],
+["🇿🇲","Zambia","Lusaka","Kenneth Kaunda International Airport","Africa"],
+["🇿🇼","Zimbabwe","Harare","Robert Gabriel Mugabe International Airport","Africa"]
 
-        return;
-      }
+];
 
 
-      box.style.display='block';
+/* =========================
+   PROFIL
+========================= */
+
+function toggleProfile(){
+
+  const box=document.getElementById("socialBox");
+
+  box.style.display =
+    box.style.display==="block"
+    ? "none"
+    : "block";
+
+}
 
 
-      box.innerHTML =
-        '<b>Motosicnavia qidiruvi:</b> '
-        + q
-        + '<br><br>'
-        + 'Bu hozircha demo qidiruv tizimi. '
-        + 'Haqiqiy AI uchun xavfsiz server orqali '
-        + 'AI API ulanishi kerak.';
+/* =========================
+   MOTO RENDER
+========================= */
 
-    }
+function renderMotos(list=motos){
 
-  </script>
+  const grid=document.getElementById("motoGrid");
+
+  grid.innerHTML="";
+
+  if(!list.length){
+
+    grid.innerHTML=`
+      <div class="card">
+        <h3>❌ Topilmadi</h3>
+        <p>Qidiruvingiz bo'yicha mototsikl topilmadi.</p>
+      </div>
+    `;
+
+    return;
+  }
+
+  list.forEach((moto,index)=>{
+
+    const realIndex=motos.indexOf(moto);
+
+    const saved=getFavorites().includes(moto[1]);
+
+    grid.innerHTML+=`
+
+      <div class="card">
+
+        <button
+          class="favorite"
+          onclick="toggleFavorite('${moto[1]}')"
+          title="Sevimli"
+        >
+          ${saved ? "⭐" : "☆"}
+        </button>
+
+        <div class="card-icon">🏍️</div>
+
+        <h3>${moto[0]} ${moto[1]}</h3>
+
+        <p>
+          ${moto[2]} • ${moto[3]} • ${moto[4]}
+        </p>
+
+        <p>
+          ${moto[6]}
+        </p>
+
+        <button onclick="showMoto(${realIndex})">
+          Batafsil
+        </button>
+
+      </div>
+
+    `;
+
+  });
+
+}
+
+
+function filterMotos(){
+
+  const q=
+    document
+    .getElementById("motoSearch")
+    .value
+    .toLowerCase();
+
+  const type=
+    document
+    .getElementById("motoType")
+    .value;
+
+  const result=motos.filter(m=>{
+
+    const text=m.join(" ").toLowerCase();
+
+    return text.includes(q) &&
+           (!type || m[6]===type);
+
+  });
+
+  renderMotos(result);
+
+}
+
+
+/* =========================
+   MOTO DETAIL
+========================= */
+
+function showMoto(index){
+
+  const m=motos[index];
+
+  openModal(`
+
+    <h2>🏍️ ${m[0]} ${m[1]}</h2>
+
+    <div class="detail">
+
+      <div>
+        <b>Brend</b>
+        ${m[0]}
+      </div>
+
+      <div>
+        <b>Model</b>
+        ${m[1]}
+      </div>
+
+      <div>
+        <b>Dvigatel</b>
+        ${m[2]}
+      </div>
+
+      <div>
+        <b>Quvvat</b>
+        ${m[3]}
+      </div>
+
+      <div>
+        <b>Maksimal tezlik</b>
+        ${m[4]}
+      </div>
+
+      <div>
+        <b>Og'irlik</b>
+        ${m[5]}
+      </div>
+
+      <div>
+        <b>Kategoriya</b>
+        ${m[6]}
+      </div>
+
+    </div>
+
+  `);
+
+}
+
+
+/* =========================
+   SAMOLYOT DETAIL
+========================= */
+
+function showAircraft(index){
+
+  const a=aircraft[index];
+
+  openModal(`
+
+    <h2>✈️ ${a.name}</h2>
+
+    <div class="detail">
+
+      <div>
+        <b>Ishlab chiqaruvchi</b>
+        ${a.manufacturer}
+      </div>
+
+      <div>
+        <b>Turi</b>
+        ${a.type}
+      </div>
+
+      <div>
+        <b>Tezlik</b>
+        ${a.speed}
+      </div>
+
+      <div>
+        <b>Uchish masofasi</b>
+        ${a.range}
+      </div>
+
+      <div>
+        <b>Sig'im</b>
+        ${a.capacity}
+      </div>
+
+    </div>
+
+  `);
+
+}
+
+
+/* =========================
+   COUNTRIES
+========================= */
+
+function renderCountries(list=countries){
+
+  const grid=document.getElementById("countryGrid");
+
+  grid.innerHTML="";
+
+  if(!list.length){
+
+    grid.innerHTML=`
+      <div class="country-card">
+        ❌ Davlat topilmadi
+      </div>
+    `;
+
+    return;
+  }
+
+  list.forEach(country=>{
+
+    const index=countries.indexOf(country);
+
+    grid.innerHTML+=`
+
+      <div class="country-card"
+           onclick="showCountry(${index})">
+
+        <div class="country-flag">
+          ${country[0]}
+        </div>
+
+        <h3>${country[1]}</h3>
+
+        <p>
+          ${country[2]} • ${country[4]}
+        </p>
+
+      </div>
+
+    `;
+
+  });
+
+}
+
+
+function filterCountries(){
+
+  const q=
+    document
+    .getElementById("countrySearch")
+    .value
+    .toLowerCase();
+
+  const continent=
+    document
+    .getElementById("continentFilter")
+    .value;
+
+  const result=countries.filter(c=>{
+
+    const text=c.join(" ").toLowerCase();
+
+    return text.includes(q) &&
+      (!continent || c[4]===continent);
+
+  });
+
+  renderCountries(result);
+
+}
+
+
+/* =========================
+   COUNTRY DETAIL
+========================= */
+
+function showCountry(index){
+
+  const c=countries[index];
+
+  openModal(`
+
+    <h2>${c[0]} ${c[1]}</h2>
+
+    <div class="detail">
+
+      <div>
+        <b>Davlat</b>
+        ${c[1]}
+      </div>
+
+      <div>
+        <b>Qit'a</b>
+        ${c[4]}
+      </div>
+
+      <div>
+        <b>Poytaxt</b>
+        ${c[2]}
+      </div>
+
+      <div>
+        <b>Asosiy aeroport</b>
+        ${c[3]}
+      </div>
+
+    </div>
+
+  `);
+
+}
+
+
+/* =========================
+   UMUMIY QIDIRUV
+========================= */
+
+function askQuestion(){
+
+  const input=
+    document
+    .getElementById("question")
+    .value
+    .trim();
+
+  const answer=
+    document
+    .getElementById("answer");
+
+  if(!input){
+
+    answer.style.display="block";
+    answer.innerHTML="🔎 Avval qidiruv so'zini yozing.";
+    return;
+
+  }
+
+  const q=input.toLowerCase();
+
+  const moto=motos.find(m=>
+    m.join(" ").toLowerCase().includes(q)
+  );
+
+  if(moto){
+
+    const index=motos.indexOf(moto);
+
+    answer.style.display="block";
+
+    answer.innerHTML=`
+      🏍️ <b>${moto[0]} ${moto[1]}</b><br>
+      Dvigatel: ${moto[2]}<br>
+      Quvvat: ${moto[3]}<br>
+      Tezlik: ${moto[4]}<br>
+      Kategoriya: ${moto[6]}
+      <br><br>
+      <button onclick="showMoto(${index})">
+      Batafsil ko'rish
+      </button>
+    `;
+
+    return;
+
+  }
+
+  const country=countries.find(c=>
+    c.join(" ").toLowerCase().includes(q)
+  );
+
+  if(country){
+
+    const index=countries.indexOf(country);
+
+    answer.style.display="block";
+
+    answer.innerHTML=`
+      ${country[0]}
+      <b>${country[1]}</b><br>
+      Poytaxt: ${country[2]}<br>
+      Aeroport: ${country[3]}<br>
+      Qit'a: ${country[4]}
+      <br><br>
+      <button onclick="showCountry(${index})">
+      Batafsil ko'rish
+      </button>
+    `;
+
+    return;
+
+  }
+
+  const plane=aircraft.find(a=>
+    a.name.toLowerCase().includes(q)
+  );
+
+  if(plane){
+
+    const index=aircraft.indexOf(plane);
+
+    answer.style.display="block";
+
+    answer.innerHTML=`
+      ✈️ <b>${plane.name}</b><br>
+      Ishlab chiqaruvchi: ${plane.manufacturer}<br>
+      Tezlik: ${plane.speed}<br>
+      Masofa: ${plane.range}<br>
+      Sig'im: ${plane.capacity}
+      <br><br>
+      <button onclick="showAircraft(${index})">
+      Batafsil ko'rish
+      </button>
+    `;
+
+    return;
+
+  }
+
+  answer.style.display="block";
+
+  answer.innerHTML=`
+    ❌ <b>"${input}"</b> bo'yicha ma'lumot topilmadi.<br>
+    Mototsikl, davlat yoki samolyot nomini yozib ko'ring.
+  `;
+
+}
+
+
+/* =========================
+   FAVORITES
+========================= */
+
+function getFavorites(){
+
+  try{
+
+    return JSON.parse(
+      localStorage.getItem("motosicnaviaFavorites") || "[]"
+    );
+
+  }catch(e){
+
+    return [];
+
+  }
+
+}
+
+
+function toggleFavorite(name){
+
+  let favorites=getFavorites();
+
+  if(favorites.includes(name)){
+
+    favorites=favorites.filter(x=>x!==name);
+
+  }else{
+
+    favorites.push(name);
+
+  }
+
+  localStorage.setItem(
+    "motosicnaviaFavorites",
+    JSON.stringify(favorites)
+  );
+
+  filterMotos();
+
+}
+
+
+/* =========================
+   MODAL
+========================= */
+
+function openModal(content){
+
+  document.getElementById("modalContent").innerHTML=content;
+
+  document.getElementById("modalBg").style.display="flex";
+
+}
+
+function closeModal(){
+
+  document.getElementById("modalBg").style.display="none";
+
+}
+
+function closeModalOutside(event){
+
+  if(event.target===document.getElementById("modalBg")){
+    closeModal();
+  }
+
+}
+
+
+/* =========================
+   AUTH
+========================= */
+
+function openAuth(){
+
+  document.getElementById("authBg").style.display="flex";
+
+  const user=
+    JSON.parse(
+      localStorage.getItem("motosicUser") || "null"
+    );
+
+  if(user){
+
+    document.getElementById("loginEmail").value=user.email;
+
+  }
+
+}
+
+
+function closeAuth(){
+
+  document.getElementById("authBg").style.display="none";
+
+}
+
+
+function closeAuthOutside(event){
+
+  if(event.target===document.getElementById("authBg")){
+    closeAuth();
+  }
+
+}
+
+
+function switchAuth(type){
+
+  const loginForm=
+    document.getElementById("loginForm");
+
+  const registerForm=
+    document.getElementById("registerForm");
+
+  const loginTab=
+    document.getElementById("loginTab");
+
+  const registerTab=
+    document.getElementById("registerTab");
+
+  if(type==="login"){
+
+    loginForm.classList.remove("hidden");
+    registerForm.classList.add("hidden");
+
+    loginTab.classList.add("active");
+    registerTab.classList.remove("active");
+
+  }else{
+
+    loginForm.classList.add("hidden");
+    registerForm.classList.remove("hidden");
+
+    loginTab.classList.remove("active");
+    registerTab.classList.add("active");
+
+  }
+
+}
+
+
+function registerUser(){
+
+  const name=
+    document.getElementById("regName").value.trim();
+
+  const email=
+    document.getElementById("regEmail").value.trim();
+
+  const password=
+    document.getElementById("regPassword").value;
+
+  if(!name || !email || !password){
+
+    alert("❗ Barcha maydonlarni to'ldiring.");
+
+    return;
+
+  }
+
+  const user={
+    name:name,
+    email:email,
+    password:password
+  };
+
+  localStorage.setItem(
+    "motosicUser",
+    JSON.stringify(user)
+  );
+
+  alert("✅ Ro'yxatdan o'tish muvaffaqiyatli!");
+
+  switchAuth("login");
+
+  document.getElementById("loginEmail").value=email;
+
+}
+
+
+function loginUser(){
+
+  const email=
+    document.getElementById("loginEmail").value.trim();
+
+  const password=
+    document.getElementById("loginPassword").value;
+
+  const user=
+    JSON.parse(
+      localStorage.getItem("motosicUser") || "null"
+    );
+
+  if(!user){
+
+    alert("❌ Avval Register qiling.");
+
+    return;
+
+  }
+
+  if(
+    email===user.email &&
+    password===user.password
+  ){
+
+    alert("✅ Xush kelibsiz, "+user.name+"!");
+
+    closeAuth();
+
+  }else{
+
+    alert("❌ Email yoki parol noto'g'ri.");
+
+  }
+
+}
+
+
+/* =========================
+   AI DEMO
+========================= */
+
+function sendAI(){
+
+  const input=
+    document
+    .getElementById("aiQuestion");
+
+  const messages=
+    document
+    .getElementById("aiMessages");
+
+  const text=input.value.trim();
+
+  if(!text) return;
+
+  messages.innerHTML+=`
+    <div class="message user">
+      ${escapeHTML(text)}
+    </div>
+  `;
+
+  let response="";
+
+  const q=text.toLowerCase();
+
+  const moto=motos.find(m=>
+    m.join(" ").toLowerCase().includes(q)
+  );
+
+  const country=countries.find(c=>
+    c.join(" ").toLowerCase().includes(q)
+  );
+
+  const plane=aircraft.find(a=>
+    a.name.toLowerCase().includes(q)
+  );
+
+  if(moto){
+
+    response=
+      `🏍️ ${moto[0]} ${moto[1]} — `+
+      `${moto[2]}, ${moto[3]}, `+
+      `maksimal tezligi ${moto[4]}.`;
+
+  }else if(country){
+
+    response=
+      `${country[0]} ${country[1]} — `+
+      `poytaxti ${country[2]}. `+
+      `Asosiy aeroport: ${country[3]}.`;
+
+  }else if(plane){
+
+    response=
+      `✈️ ${plane.name} — `+
+      `${plane.manufacturer} tomonidan ishlab chiqarilgan. `+
+      `Tezligi ${plane.speed}, masofasi ${plane.range}.`;
+
+  }else if(
+    q.includes("salom") ||
+    q.includes("hello")
+  ){
+
+    response=
+      "👋 Salom! Motosicnavia'ga xush kelibsiz. " +
+      "Moto, samolyot yoki davlat nomini yozing.";
+
+  }else{
+
+    response=
+      "🤖 Hozirgi demo AI faqat Motosicnavia ichidagi " +
+      "ma'lumotlardan javob beradi. Haqiqiy AI ulash uchun " +
+      "backend/API kerak bo'ladi.";
+
+  }
+
+  messages.innerHTML+=`
+    <div class="message bot">
+      ${escapeHTML(response)}
+    </div>
+  `;
+
+  messages.scrollTop=messages.scrollHeight;
+
+  input.value="";
+
+}
+
+
+function escapeHTML(text){
+
+  return text
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+
+}
+
+
+/* =========================
+   START
+========================= */
+
+document.addEventListener("DOMContentLoaded",()=>{
+
+  renderMotos();
+
+  renderCountries();
+
+  document.getElementById("motoCount").textContent=motos.length;
+
+  document.getElementById("countryCount").textContent=
+    countries.length;
+
+});
+
+</script>
 
 </body>
 </html>
