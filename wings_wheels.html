@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wings Wheels</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:Arial,sans-serif;background:#07111f;color:#fff;line-height:1.5}
+    header{padding:22px 7%;display:flex;justify-content:space-between;align-items:center;background:#0b1b30;position:sticky;top:0;z-index:10}
+    .logo{font-size:23px;font-weight:800;color:#63d7ff}
+    nav a{color:#dbeafe;text-decoration:none;margin-left:14px;font-size:14px}
+    .hero{padding:70px 7%;text-align:center;background:linear-gradient(135deg,#102d4c,#07111f)}
+    .hero h1{font-size:clamp(34px,8vw,64px);margin-bottom:15px}
+    .hero h1 span{color:#63d7ff}
+    .hero p{color:#b8c9dc;max-width:650px;margin:auto}
+    .search{display:flex;max-width:650px;margin:28px auto 0;gap:8px}
+    input,button{border:0;border-radius:12px;padding:14px;font-size:15px}
+    input{flex:1;background:#fff;color:#111}
+    button{background:#22b8e6;color:#03111f;font-weight:bold;cursor:pointer}
+    main{padding:38px 7%;max-width:1200px;margin:auto}
+    .section-title{margin:22px 0 18px;font-size:27px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px}
+    .card{background:#102238;border:1px solid #203b57;border-radius:18px;padding:20px;transition:.2s}
+    .card:hover{transform:translateY(-4px);border-color:#63d7ff}
+    .icon{font-size:42px;margin-bottom:10px}
+    .card h3{margin-bottom:8px;color:#63d7ff}
+    .card p{color:#b8c9dc;font-size:14px}
+    .tag{display:inline-block;margin-top:12px;background:#173b55;color:#9ee8ff;padding:5px 9px;border-radius:20px;font-size:12px}
+    .answer{display:none;margin-top:20px;background:#102238;border-left:4px solid #22b8e6;padding:18px;border-radius:12px;color:#dbeafe}
+    footer{text-align:center;padding:28px;color:#8da4bb;background:#050c16;margin-top:30px}
+    @media(max-width:550px){header{display:block;text-align:center}nav{margin-top:10px}.search{flex-direction:column}}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">✈️ Wings Wheels 🏍️</div>
+    <nav>
+      <a href="#aircraft">Samolyotlar</a>
+      <a href="#moto">Mototsikllar</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>Explore <span>the Sky</span><br>& The Road</h1>
+    <p>Samolyotlar, mototsikllar, tezliklar, texnik ma'lumotlar va litsenziyalar haqida ma'lumot ol.</p>
+    <div class="search">
+      <input id="question" placeholder="Masalan: Boeing 787 tezligi qancha?" />
+      <button onclick="askQuestion()">Savol berish</button>
+    </div>
+    <div id="answer" class="answer"></div>
+  </section>
+
+  <main>
+    <h2 class="section-title" id="aircraft">✈️ Samolyotlar</h2>
+    <div class="grid">
+      <article class="card"><div class="icon">🛫</div><h3>Boeing 787</h3><p>Uzoq masofaga uchuvchi yo'lovchi samolyoti. Texnik ma'lumotlar keyingi bosqichda bazadan olinadi.</p><span class="tag">Yo'lovchi</span></article>
+      <article class="card"><div class="icon">✈️</div><h3>Airbus A350</h3><p>Zamonaviy uzoq masofali keng fyuzelyajli samolyot.</p><span class="tag">Yo'lovchi</span></article>
+      <article class="card"><div class="icon">🛩️</div><h3>Cessna 172</h3><p>O'quv va yengil aviatsiyada keng qo'llanadigan samolyot.</p><span class="tag">Yengil aviatsiya</span></article>
+    </div>
+
+    <h2 class="section-title" id="moto">🏍️ Mototsikllar</h2>
+    <div class="grid">
+      <article class="card"><div class="icon">🏍️</div><h3>Kawasaki Ninja H2R</h3><p>Yuqori unumdorlikka ega trek uchun mo'ljallangan mototsikl.</p><span class="tag">Sport</span></article>
+      <article class="card"><div class="icon">🏍️</div><h3>Yamaha R1</h3><p>Sport mototsikli. Dvigatel, tezlik va boshqa parametrlar keyinchalik to'ldiriladi.</p><span class="tag">Sport</span></article>
+      <article class="card"><div class="icon">🏍️</div><h3>BMW S 1000 RR</h3><p>Yuqori darajadagi sport mototsikli.</p><span class="tag">Sport</span></article>
+    </div>
+  </main>
+
+  <footer>Wings Wheels — loyiha prototipi. Ma'lumotlar keyingi bosqichlarda kengaytiriladi.</footer>
+
+  <script>
+    function askQuestion(){
+      const q=document.getElementById('question').value.trim();
+      const box=document.getElementById('answer');
+      if(!q){box.style.display='block';box.textContent='Avval savolingizni yozing.';return;}
+      box.style.display='block';
+      box.innerHTML='<b>Savolingiz:</b> '+q+'<br><br>Bu hozircha demo javob. Haqiqiy AI uchun xavfsiz server orqali AI API ulanishi kerak.';
+    }
+  </script>
+</body>
+</html>
