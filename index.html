@@ -1,82 +1,500 @@
+
+
 <!DOCTYPE html>
 <html lang="uz">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Wings Wheels</title>
+
   <style>
     *{box-sizing:border-box;margin:0;padding:0}
-    body{font-family:Arial,sans-serif;background:#07111f;color:#fff;line-height:1.5}
-    header{padding:22px 7%;display:flex;justify-content:space-between;align-items:center;background:#0b1b30;position:sticky;top:0;z-index:10}
-    .logo{font-size:23px;font-weight:800;color:#63d7ff}
-    nav a{color:#dbeafe;text-decoration:none;margin-left:14px;font-size:14px}
-    .hero{padding:70px 7%;text-align:center;background:linear-gradient(135deg,#102d4c,#07111f)}
-    .hero h1{font-size:clamp(34px,8vw,64px);margin-bottom:15px}
+
+    body{
+      font-family:Arial,sans-serif;
+      background:#07111f;
+      color:#fff;
+      line-height:1.5
+    }
+
+    header{
+      padding:22px 7%;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      background:#0b1b30;
+      position:sticky;
+      top:0;
+      z-index:10
+    }
+
+    .logo{
+      font-size:23px;
+      font-weight:800;
+      color:#63d7ff
+    }
+
+    nav a{
+      color:#dbeafe;
+      text-decoration:none;
+      margin-left:14px;
+      font-size:14px
+    }
+
+    button,input{
+      border:0;
+      border-radius:12px;
+      padding:14px;
+      font-size:15px
+    }
+
+    button{
+      background:#22b8e6;
+      color:#03111f;
+      font-weight:bold;
+      cursor:pointer
+    }
+
+    .login-btn{
+      margin-left:14px;
+      padding:9px 13px
+    }
+
+    .hero{
+      padding:70px 7%;
+      text-align:center;
+      background:linear-gradient(135deg,#102d4c,#07111f)
+    }
+
+    .hero h1{
+      font-size:clamp(34px,8vw,64px);
+      margin-bottom:15px
+    }
+
     .hero h1 span{color:#63d7ff}
-    .hero p{color:#b8c9dc;max-width:650px;margin:auto}
-    .search{display:flex;max-width:650px;margin:28px auto 0;gap:8px}
-    input,button{border:0;border-radius:12px;padding:14px;font-size:15px}
-    input{flex:1;background:#fff;color:#111}
-    button{background:#22b8e6;color:#03111f;font-weight:bold;cursor:pointer}
-    main{padding:38px 7%;max-width:1200px;margin:auto}
-    .section-title{margin:22px 0 18px;font-size:27px}
-    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px}
-    .card{background:#102238;border:1px solid #203b57;border-radius:18px;padding:20px;transition:.2s}
-    .card:hover{transform:translateY(-4px);border-color:#63d7ff}
-    .icon{font-size:42px;margin-bottom:10px}
-    .card h3{margin-bottom:8px;color:#63d7ff}
-    .card p{color:#b8c9dc;font-size:14px}
-    .tag{display:inline-block;margin-top:12px;background:#173b55;color:#9ee8ff;padding:5px 9px;border-radius:20px;font-size:12px}
-    .answer{display:none;margin-top:20px;background:#102238;border-left:4px solid #22b8e6;padding:18px;border-radius:12px;color:#dbeafe}
-    footer{text-align:center;padding:28px;color:#8da4bb;background:#050c16;margin-top:30px}
-    @media(max-width:550px){header{display:block;text-align:center}nav{margin-top:10px}.search{flex-direction:column}}
+
+    .hero p{
+      color:#b8c9dc;
+      max-width:650px;
+      margin:auto
+    }
+
+    .search{
+      display:flex;
+      max-width:650px;
+      margin:28px auto 0;
+      gap:8px
+    }
+
+    input{
+      flex:1;
+      background:#fff;
+      color:#111
+    }
+
+    main{
+      padding:38px 7%;
+      max-width:1200px;
+      margin:auto
+    }
+
+    .section-title{
+      margin:22px 0 18px;
+      font-size:27px
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+      gap:18px
+    }
+
+    .card{
+      background:#102238;
+      border:1px solid #203b57;
+      border-radius:18px;
+      padding:20px;
+      transition:.2s
+    }
+
+    .card:hover{
+      transform:translateY(-4px);
+      border-color:#63d7ff
+    }
+
+    .icon{
+      font-size:42px;
+      margin-bottom:10px
+    }
+
+    .card h3{
+      margin-bottom:8px;
+      color:#63d7ff
+    }
+
+    .card p{
+      color:#b8c9dc;
+      font-size:14px
+    }
+
+    .tag{
+      display:inline-block;
+      margin-top:12px;
+      background:#173b55;
+      color:#9ee8ff;
+      padding:5px 9px;
+      border-radius:20px;
+      font-size:12px
+    }
+
+    .answer{
+      display:none;
+      margin-top:20px;
+      background:#102238;
+      border-left:4px solid #22b8e6;
+      padding:18px;
+      border-radius:12px;
+      color:#dbeafe
+    }
+
+    /* AKKAUNT OCHISH OYNASI */
+
+    .auth-box{
+      display:none;
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,.8);
+      z-index:100;
+      align-items:center;
+      justify-content:center;
+      padding:20px
+    }
+
+    .auth-content{
+      background:#102238;
+      padding:25px;
+      border-radius:18px;
+      width:100%;
+      max-width:380px
+    }
+
+    .auth-content h2{
+      color:#63d7ff;
+      margin-bottom:18px
+    }
+
+    .auth-content input{
+      width:100%;
+      margin-bottom:12px
+    }
+
+    .auth-content button{
+      width:100%;
+      margin:5px 0
+    }
+
+    .close-btn{
+      background:#334155;
+      color:white
+    }
+
+    #authMessage{
+      margin-top:12px;
+      color:#9ee8ff;
+      text-align:center
+    }
+
+    .switch-btn{
+      background:transparent;
+      color:#63d7ff;
+      padding:8px
+    }
+
+    footer{
+      text-align:center;
+      padding:28px;
+      color:#8da4bb;
+      background:#050c16;
+      margin-top:30px
+    }
+
+    @media(max-width:550px){
+      header{
+        display:block;
+        text-align:center
+      }
+
+      nav{margin-top:10px}
+
+      .search{
+        flex-direction:column
+      }
+    }
   </style>
 </head>
+
 <body>
+
   <header>
     <div class="logo">✈️ Wings Wheels 🏍️</div>
+
     <nav>
       <a href="#aircraft">Samolyotlar</a>
       <a href="#moto">Mototsikllar</a>
+      <button class="login-btn" onclick="openAuth()">👤 Login</button>
     </nav>
   </header>
 
+  <!-- AKKAUNT OCHISH VA LOGIN -->
+
+  <div id="authBox" class="auth-box">
+    <div class="auth-content">
+
+      <h2 id="authTitle">👤 Akkaunt ochish</h2>
+
+      <div id="registerFields">
+        <input id="regUsername" placeholder="Username" />
+        <input id="regAge" type="number" placeholder="Yoshingiz" />
+        <input id="regPassword" type="password" placeholder="Parol yarating" />
+        <input id="regConfirm" type="password" placeholder="Parolni tasdiqlang" />
+        <button onclick="register()">Akkaunt ochish</button>
+      </div>
+
+      <div id="loginFields" style="display:none">
+        <input id="loginUsername" placeholder="Username" />
+        <input id="loginPassword" type="password" placeholder="Parol" />
+        <button onclick="login()">Kirish</button>
+      </div>
+
+      <button class="switch-btn" onclick="switchAuth()" id="switchButton">
+        Login qilish
+      </button>
+
+      <button class="close-btn" onclick="closeAuth()">Yopish</button>
+
+      <p id="authMessage"></p>
+
+    </div>
+  </div>
+
   <section class="hero">
     <h1>Explore <span>the Sky</span><br>& The Road</h1>
-    <p>Samolyotlar, mototsikllar, tezliklar, texnik ma'lumotlar va litsenziyalar haqida ma'lumot ol.</p>
+
+    <p>
+      Samolyotlar, mototsikllar, tezliklar,
+      texnik ma'lumotlar va litsenziyalar haqida ma'lumot ol.
+    </p>
+
     <div class="search">
       <input id="question" placeholder="Masalan: Boeing 787 tezligi qancha?" />
       <button onclick="askQuestion()">Savol berish</button>
     </div>
+
     <div id="answer" class="answer"></div>
   </section>
 
   <main>
+
     <h2 class="section-title" id="aircraft">✈️ Samolyotlar</h2>
+
     <div class="grid">
-      <article class="card"><div class="icon">🛫</div><h3>Boeing 787</h3><p>Uzoq masofaga uchuvchi yo'lovchi samolyoti. Texnik ma'lumotlar keyingi bosqichda bazadan olinadi.</p><span class="tag">Yo'lovchi</span></article>
-      <article class="card"><div class="icon">✈️</div><h3>Airbus A350</h3><p>Zamonaviy uzoq masofali keng fyuzelyajli samolyot.</p><span class="tag">Yo'lovchi</span></article>
-      <article class="card"><div class="icon">🛩️</div><h3>Cessna 172</h3><p>O'quv va yengil aviatsiyada keng qo'llanadigan samolyot.</p><span class="tag">Yengil aviatsiya</span></article>
+
+      <article class="card">
+        <div class="icon">🛫</div>
+        <h3>Boeing 787</h3>
+        <p>
+          Uzoq masofaga uchuvchi yo'lovchi samolyoti.
+          Texnik ma'lumotlar keyingi bosqichda bazadan olinadi.
+        </p>
+        <span class="tag">Yo'lovchi</span>
+      </article>
+
+      <article class="card">
+        <div class="icon">✈️</div>
+        <h3>Airbus A350</h3>
+        <p>
+          Zamonaviy uzoq masofali keng fyuzelyajli samolyot.
+        </p>
+        <span class="tag">Yo'lovchi</span>
+      </article>
+
+      <article class="card">
+        <div class="icon">🛩️</div>
+        <h3>Cessna 172</h3>
+        <p>
+          O'quv va yengil aviatsiyada keng qo'llanadigan samolyot.
+        </p>
+        <span class="tag">Yengil aviatsiya</span>
+      </article>
+
     </div>
 
     <h2 class="section-title" id="moto">🏍️ Mototsikllar</h2>
+
     <div class="grid">
-      <article class="card"><div class="icon">🏍️</div><h3>Kawasaki Ninja H2R</h3><p>Yuqori unumdorlikka ega trek uchun mo'ljallangan mototsikl.</p><span class="tag">Sport</span></article>
-      <article class="card"><div class="icon">🏍️</div><h3>Yamaha R1</h3><p>Sport mototsikli. Dvigatel, tezlik va boshqa parametrlar keyinchalik to'ldiriladi.</p><span class="tag">Sport</span></article>
-      <article class="card"><div class="icon">🏍️</div><h3>BMW S 1000 RR</h3><p>Yuqori darajadagi sport mototsikli.</p><span class="tag">Sport</span></article>
+
+      <article class="card">
+        <div class="icon">🏍️</div>
+        <h3>Kawasaki Ninja H2R</h3>
+        <p>
+          Yuqori unumdorlikka ega trek uchun mo'ljallangan mototsikl.
+        </p>
+        <span class="tag">Sport</span>
+      </article>
+
+      <article class="card">
+        <div class="icon">🏍️</div>
+        <h3>Yamaha R1</h3>
+        <p>
+          Sport mototsikli. Dvigatel, tezlik va boshqa parametrlar keyinchalik to'ldiriladi.
+        </p>
+        <span class="tag">Sport</span>
+      </article>
+
+      <article class="card">
+        <div class="icon">🏍️</div>
+        <h3>BMW S 1000 RR</h3>
+        <p>
+          Yuqori darajadagi sport mototsikli.
+        </p>
+        <span class="tag">Sport</span>
+      </article>
+
     </div>
+
   </main>
 
-  <footer>Wings Wheels — loyiha prototipi. Ma'lumotlar keyingi bosqichlarda kengaytiriladi.</footer>
+  <footer>
+    Wings Wheels — loyiha prototipi.
+    Ma'lumotlar keyingi bosqichlarda kengaytiriladi.
+  </footer>
 
   <script>
-    function askQuestion(){
-      const q=document.getElementById('question').value.trim();
-      const box=document.getElementById('answer');
-      if(!q){box.style.display='block';box.textContent='Avval savolingizni yozing.';return;}
-      box.style.display='block';
-      box.innerHTML='<b>Savolingiz:</b> '+q+'<br><br>Bu hozircha demo javob. Haqiqiy AI uchun xavfsiz server orqali AI API ulanishi kerak.';
+
+    let loginMode=false;
+
+    function openAuth(){
+      document.getElementById("authBox").style.display="flex";
     }
+
+    function closeAuth(){
+      document.getElementById("authBox").style.display="none";
+      document.getElementById("authMessage").textContent="";
+    }
+
+    function switchAuth(){
+
+      loginMode=!loginMode;
+
+      document.getElementById("registerFields").style.display=
+        loginMode ? "none" : "block";
+
+      document.getElementById("loginFields").style.display=
+        loginMode ? "block" : "none";
+
+      document.getElementById("authTitle").textContent=
+        loginMode ? "🔐 Login" : "👤 Akkaunt ochish";
+
+      document.getElementById("switchButton").textContent=
+        loginMode ? "Akkaunt ochish" : "Login qilish";
+
+      document.getElementById("authMessage").textContent="";
+    }
+
+    function register(){
+
+      const username=document.getElementById("regUsername").value.trim();
+      const age=Number(document.getElementById("regAge").value);
+      const password=document.getElementById("regPassword").value;
+      const confirm=document.getElementById("regConfirm").value;
+
+      if(!username || !age || !password || !confirm){
+        showAuth("Barcha joylarni to‘ldiring.");
+        return;
+      }
+
+      if(age<13 || age>100){
+        showAuth("Yosh 13 dan 100 gacha bo‘lishi kerak.");
+        return;
+      }
+
+      if(password.length<6){
+        showAuth("Parol kamida 6 ta belgidan iborat bo‘lsin.");
+        return;
+      }
+
+      if(password!==confirm){
+        showAuth("Parollar bir xil emas.");
+        return;
+      }
+
+      const oldUser=JSON.parse(localStorage.getItem("wingsUser"));
+
+      if(oldUser && oldUser.username===username){
+        showAuth("Bu username allaqachon mavjud.");
+        return;
+      }
+
+      localStorage.setItem("wingsUser",JSON.stringify({
+        username:username,
+        age:age,
+        password:password
+      }));
+
+      showAuth("✅ Akkaunt muvaffaqiyatli ochildi!");
+
+      setTimeout(()=>{
+        switchAuth();
+      },1000);
+    }
+
+    function login(){
+
+      const username=document.getElementById("loginUsername").value.trim();
+      const password=document.getElementById("loginPassword").value;
+
+      const saved=JSON.parse(localStorage.getItem("wingsUser"));
+
+      if(!saved){
+        showAuth("Avval akkaunt oching.");
+        return;
+      }
+
+      if(saved.username===username && saved.password===password){
+
+        showAuth("✅ Xush kelibsiz, "+saved.username+"!");
+
+      }else{
+
+        showAuth("❌ Username yoki parol noto‘g‘ri.");
+
+      }
+    }
+
+    function showAuth(message){
+      document.getElementById("authMessage").textContent=message;
+    }
+
+    function askQuestion(){
+
+      const q=document.getElementById("question").value.trim();
+      const box=document.getElementById("answer");
+
+      if(!q){
+        box.style.display="block";
+        box.textContent="Avval savolingizni yozing.";
+        return;
+      }
+
+      box.style.display="block";
+
+      box.innerHTML=
+        "<b>Savolingiz:</b> "+
+        q+
+        "<br><br>Bu hozircha demo javob. Haqiqiy AI uchun xavfsiz server orqali AI API ulanishi kerak.";
+    }
+
   </script>
+
 </body>
 </html>
