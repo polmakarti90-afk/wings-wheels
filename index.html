@@ -1,1518 +1,440 @@
 <!DOCTYPE html>
 <html lang="uz">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Wings Wheels</title>
-
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
-
-html{scroll-behavior:smooth}
-
-body{
-  font-family:Arial,sans-serif;
-  background:#07111f;
-  color:#fff;
-  line-height:1.5
-}
-
-header{
-  padding:18px 7%;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  background:#0b1b30;
-  position:sticky;
-  top:0;
-  z-index:50;
-  box-shadow:0 3px 20px #0006
-}
-
-.logo{
-  font-size:23px;
-  font-weight:800;
-  color:#63d7ff
-}
-
-nav{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  flex-wrap:wrap;
-  justify-content:center
-}
-
-nav a{
-  color:#dbeafe;
-  text-decoration:none;
-  font-size:14px
-}
-
-nav a:hover{color:#63d7ff}
-
-button,input,select{
-  border:0;
-  border-radius:12px;
-  padding:13px;
-  font-size:15px
-}
-
-button{
-  background:#22b8e6;
-  color:#03111f;
-  font-weight:bold;
-  cursor:pointer;
-  transition:.2s
-}
-
-button:hover{
-  transform:translateY(-2px);
-  filter:brightness(1.1)
-}
-
-.login-btn{
-  padding:9px 13px;
-  margin-left:5px
-}
-
-/* PROFIL */
-
-.profile{
-  padding:18px 7%;
-  background:#08182a;
-  border-bottom:1px solid #203b57
-}
-
-.profile-card{
-  max-width:1200px;
-  margin:auto;
-  display:flex;
-  align-items:center;
-  gap:18px;
-  cursor:pointer
-}
-
-.avatar{
-  width:68px;
-  height:68px;
-  border-radius:50%;
-  background:#182d42;
-  border:2px solid #63d7ff;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:37px
-}
-
-.profile-name{
-  font-size:22px;
-  font-weight:bold
-}
-
-.profile-name small{
-  display:block;
-  font-size:13px;
-  color:#8da4bb;
-  font-weight:normal
-}
-
-.social-box{
-  display:none;
-  max-width:1200px;
-  margin:15px auto 0;
-  background:#102238;
-  border-radius:16px;
-  padding:18px;
-  border:1px solid #203b57
-}
-
-.social-box.show{display:block}
-
-.social-links{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-  margin-top:12px
-}
-
-.social-links a{
-  text-decoration:none;
-  color:#fff;
-  background:#173b55;
-  padding:10px 14px;
-  border-radius:10px
-}
-
-.social-links a:hover{background:#245b7d}
-
-/* HERO */
-
-.hero{
-  padding:65px 7%;
-  text-align:center;
-  background:linear-gradient(135deg,#102d4c,#07111f)
-}
-
-.hero h1{
-  font-size:clamp(34px,8vw,64px);
-  margin-bottom:15px
-}
-
-.hero h1 span{color:#63d7ff}
-
-.hero p{
-  color:#b8c9dc;
-  max-width:650px;
-  margin:auto
-}
-
-.search{
-  display:flex;
-  max-width:700px;
-  margin:28px auto 0;
-  gap:8px
-}
-
-.search input{
-  flex:1;
-  background:#fff;
-  color:#111
-}
-
-main{
-  padding:38px 7%;
-  max-width:1250px;
-  margin:auto
-}
-
-.section-title{
-  margin:35px 0 18px;
-  font-size:27px
-}
-
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
-  gap:18px
-}
-
-.card{
-  background:#102238;
-  border:1px solid #203b57;
-  border-radius:18px;
-  padding:20px;
-  transition:.2s
-}
-
-.card:hover{
-  transform:translateY(-4px);
-  border-color:#63d7ff
-}
-
-.icon{
-  font-size:42px;
-  margin-bottom:10px
-}
-
-.card h3{
-  margin-bottom:8px;
-  color:#63d7ff
-}
-
-.card p{
-  color:#b8c9dc;
-  font-size:14px
-}
-
-.tag{
-  display:inline-block;
-  margin-top:12px;
-  background:#173b55;
-  color:#9ee8ff;
-  padding:5px 9px;
-  border-radius:20px;
-  font-size:12px
-}
-
-.specs{
-  margin-top:12px;
-  padding-top:10px;
-  border-top:1px solid #29445d;
-  color:#c9d9e9;
-  font-size:13px
-}
-
-.answer{
-  display:none;
-  margin:20px auto 0;
-  max-width:700px;
-  background:#102238;
-  border-left:4px solid #22b8e6;
-  padding:18px;
-  border-radius:12px;
-  color:#dbeafe;
-  text-align:left
-}
-
-/* FILTER */
-
-.filter-box{
-  display:flex;
-  gap:10px;
-  margin-bottom:20px;
-  flex-wrap:wrap
-}
-
-.filter-box input,
-.filter-box select{
-  background:#fff;
-  color:#111;
-  flex:1;
-  min-width:180px
-}
-
-/* DAVLAT */
-
-.country-card{
-  cursor:pointer
-}
-
-.country-flag{
-  font-size:48px;
-  margin-bottom:8px
-}
-
-.country-info{
-  color:#b8c9dc;
-  font-size:13px;
-  margin-top:7px
-}
-
-/* MODAL */
-
-.modal{
-  display:none;
-  position:fixed;
-  inset:0;
-  background:#000b;
-  z-index:100;
-  align-items:center;
-  justify-content:center;
-  padding:20px
-}
-
-.modal.show{display:flex}
-
-.modal-content{
-  width:100%;
-  max-width:650px;
-  max-height:85vh;
-  overflow:auto;
-  background:#102238;
-  border:1px solid #31516d;
-  border-radius:20px;
-  padding:25px
-}
-
-.modal-content h2{
-  color:#63d7ff;
-  margin-bottom:15px
-}
-
-.modal-content p{
-  color:#c7d6e5;
-  margin:8px 0
-}
-
-.close{
-  background:#334155;
-  color:white;
-  margin-top:15px
-}
-
-/* AUTH */
-
-.auth-box{
-  display:none;
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.8);
-  z-index:200;
-  align-items:center;
-  justify-content:center;
-  padding:20px
-}
-
-.auth-content{
-  background:#102238;
-  padding:25px;
-  border-radius:18px;
-  width:100%;
-  max-width:380px
-}
-
-.auth-content h2{
-  color:#63d7ff;
-  margin-bottom:18px
-}
-
-.auth-content input{
-  width:100%;
-  margin-bottom:12px
-}
-
-.auth-content button{
-  width:100%;
-  margin:5px 0
-}
-
-.close-btn{
-  background:#334155;
-  color:white
-}
-
-#authMessage{
-  margin-top:12px;
-  color:#9ee8ff;
-  text-align:center
-}
-
-.switch-btn{
-  background:transparent;
-  color:#63d7ff;
-  padding:8px
-}
-
-/* ADMIN */
-
-.admin{
-  background:#0c1e33;
-  border:1px solid #203b57;
-  border-radius:18px;
-  padding:20px;
-  margin-top:20px
-}
-
-.admin a{
-  color:#63d7ff;
-  text-decoration:none
-}
-
-footer{
-  text-align:center;
-  padding:28px;
-  color:#8da4bb;
-  background:#050c16;
-  margin-top:30px
-}
-
-.hidden{display:none!important}
-
-@media(max-width:700px){
-  header{
-    display:block;
-    text-align:center
-  }
-
-  nav{
-    margin-top:12px
-  }
-
-  .search{
-    flex-direction:column
-  }
-
-  .profile-card{
-    justify-content:center
-  }
-}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Motosicnavia</title>
+
+  <style>
+    *{
+      box-sizing:border-box;
+      margin:0;
+      padding:0
+    }
+
+    body{
+      font-family:Arial,sans-serif;
+      background:#07111f;
+      color:#fff;
+      line-height:1.5
+    }
+
+    header{
+      padding:22px 7%;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      background:#0b1b30;
+      position:sticky;
+      top:0;
+      z-index:10
+    }
+
+    .logo{
+      font-size:23px;
+      font-weight:800;
+      color:#63d7ff
+    }
+
+    nav a{
+      color:#dbeafe;
+      text-decoration:none;
+      margin-left:14px;
+      font-size:14px
+    }
+
+    .hero{
+      padding:70px 7%;
+      text-align:center;
+      background:linear-gradient(135deg,#102d4c,#07111f)
+    }
+
+    .hero h1{
+      font-size:clamp(34px,8vw,64px);
+      margin-bottom:15px
+    }
+
+    .hero h1 span{
+      color:#63d7ff
+    }
+
+    .hero p{
+      color:#b8c9dc;
+      max-width:650px;
+      margin:auto
+    }
+
+    .search{
+      display:flex;
+      max-width:650px;
+      margin:28px auto 0;
+      gap:8px
+    }
+
+    input,button{
+      border:0;
+      border-radius:12px;
+      padding:14px;
+      font-size:15px
+    }
+
+    input{
+      flex:1;
+      background:#fff;
+      color:#111
+    }
+
+    button{
+      background:#22b8e6;
+      color:#03111f;
+      font-weight:bold;
+      cursor:pointer
+    }
+
+    main{
+      padding:38px 7%;
+      max-width:1200px;
+      margin:auto
+    }
+
+    .section-title{
+      margin:22px 0 18px;
+      font-size:27px
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+      gap:18px
+    }
+
+    .card{
+      background:#102238;
+      border:1px solid #203b57;
+      border-radius:18px;
+      padding:20px;
+      transition:.2s
+    }
+
+    .card:hover{
+      transform:translateY(-4px);
+      border-color:#63d7ff
+    }
+
+    .icon{
+      font-size:42px;
+      margin-bottom:10px
+    }
+
+    .card h3{
+      margin-bottom:8px;
+      color:#63d7ff
+    }
+
+    .card p{
+      color:#b8c9dc;
+      font-size:14px
+    }
+
+    .tag{
+      display:inline-block;
+      margin-top:12px;
+      background:#173b55;
+      color:#9ee8ff;
+      padding:5px 9px;
+      border-radius:20px;
+      font-size:12px
+    }
+
+    .answer{
+      display:none;
+      margin-top:20px;
+      background:#102238;
+      border-left:4px solid #22b8e6;
+      padding:18px;
+      border-radius:12px;
+      color:#dbeafe
+    }
+
+    footer{
+      text-align:center;
+      padding:28px;
+      color:#8da4bb;
+      background:#050c16;
+      margin-top:30px
+    }
+
+    @media(max-width:550px){
+      header{
+        display:block;
+        text-align:center
+      }
+
+      nav{
+        margin-top:10px
+      }
+
+      .search{
+        flex-direction:column
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-<header>
-  <div class="logo">✈️ Wings Wheels 🏍️</div>
+  <header>
 
-  <nav>
-    <a href="#aircraft">✈️ Samolyotlar</a>
-    <a href="#moto">🏍️ Mototsikllar</a>
-    <a href="#countries">🌍 Davlatlar</a>
-    <button class="login-btn" onclick="openAuth()">👤 Login</button>
-  </nav>
-</header>
-
-<!-- BEXRUZ PROFIL -->
-
-<section class="profile">
-
-  <div class="profile-card" onclick="toggleProfile()">
-
-    <div class="avatar">🏍️</div>
-
-    <div>
-      <div class="profile-name">
-        Bexruz
-        <small>Profil va ijtimoiy tarmoqlar</small>
-      </div>
+    <div class="logo">
+      🏍️ Motosicnavia ✈️
     </div>
 
-  </div>
+    <nav>
+      <a href="#aircraft">✈️ Samolyotlar</a>
+      <a href="#moto">🏍️ Mototsikllar</a>
+    </nav>
 
-  <div id="socialBox" class="social-box">
+  </header>
 
-    <b>📱 Ijtimoiy tarmoqlar</b>
 
-    <div class="social-links">
+  <section class="hero">
 
-      <a href="https://www.instagram.com/kukonboev_216"
-         target="_blank">
-        📸 Bexruz Instagram
-      </a>
+    <h1>
+      Explore <span>the Sky</span><br>
+      & The Road
+    </h1>
 
-      <a href="https://www.instagram.com/motosicn"
-         target="_blank">
-        🏍️ Moto Instagram
-      </a>
+    <p>
+      Motosicnavia — samolyotlar, mototsikllar,
+      tezliklar, texnik ma'lumotlar va litsenziyalar
+      haqida ma'lumot beruvchi platforma.
+    </p>
 
-      <a href="https://t.me/motosicn"
-         target="_blank">
-        ✈️ Moto Telegram
-      </a>
+    <div class="search">
 
-    </div>
+      <input
+        id="question"
+        placeholder="Motosicnavia: Boeing 787 yoki Kawasaki Ninja H2R..."
+      />
 
-    <div class="admin">
-
-      <b>👨‍💼 Telegram Adminlar</b>
-
-      <p>
-        <a href="https://t.me/mtcavia" target="_blank">
-          @mtcavia
-        </a>
-      </p>
-
-      <p>
-        <a href="https://t.me/mtcrider" target="_blank">
-          @mtcrider
-        </a>
-      </p>
-
-    </div>
-
-  </div>
-
-</section>
-
-<!-- AUTH -->
-
-<div id="authBox" class="auth-box">
-
-  <div class="auth-content">
-
-    <h2 id="authTitle">👤 Akkaunt ochish</h2>
-
-    <div id="registerFields">
-
-      <input id="regUsername" placeholder="Username">
-
-      <input id="regAge"
-             type="number"
-             placeholder="Yoshingiz">
-
-      <input id="regPassword"
-             type="password"
-             placeholder="Parol yarating">
-
-      <input id="regConfirm"
-             type="password"
-             placeholder="Parolni tasdiqlang">
-
-      <button onclick="register()">
-        Akkaunt ochish
+      <button onclick="askQuestion()">
+        🔎 Motosicnavia qidiruvi
       </button>
 
     </div>
 
-    <div id="loginFields" style="display:none">
+    <div id="answer" class="answer"></div>
 
-      <input id="loginUsername"
-             placeholder="Username">
+  </section>
 
-      <input id="loginPassword"
-             type="password"
-             placeholder="Parol">
 
-      <button onclick="login()">
-        Kirish
-      </button>
+  <main>
 
-    </div>
+    <!-- SAMOLYOTLAR -->
 
-    <button class="switch-btn"
-            onclick="switchAuth()"
-            id="switchButton">
-      Login qilish
-    </button>
+    <h2 class="section-title" id="aircraft">
+      ✈️ Samolyotlar
+    </h2>
 
-    <button class="close-btn"
-            onclick="closeAuth()">
-      Yopish
-    </button>
+    <div class="grid">
 
-    <p id="authMessage"></p>
+      <article class="card">
 
-  </div>
-
-</div>
-
-<!-- HERO -->
-
-<section class="hero">
-
-  <h1>
-    Explore <span>the Sky</span><br>
-    & The Road
-  </h1>
-
-  <p>
-    Samolyotlar, mototsikllar, davlatlar,
-    xalqaro aeroportlar va texnik ma'lumotlar.
-  </p>
-
-  <div class="search">
-
-    <input
-      id="question"
-      placeholder="Masalan: Kawasaki Ninja H2R yoki Uzbekistan">
-
-    <button onclick="askQuestion()">
-      🔎 Qidirish
-    </button>
-
-  </div>
-
-  <div id="answer" class="answer"></div>
-
-</section>
-
-<main>
-
-<!-- SAMOLYOTLAR -->
-
-<h2 class="section-title" id="aircraft">
-  ✈️ Samolyotlar
-</h2>
-
-<div class="grid">
-
-  <article class="card">
-    <div class="icon">🛫</div>
-    <h3>Boeing 787</h3>
-    <p>
-      Uzoq masofaga uchuvchi zamonaviy
-      yo'lovchi samolyoti.
-    </p>
-    <span class="tag">Yo'lovchi</span>
-  </article>
-
-  <article class="card">
-    <div class="icon">✈️</div>
-    <h3>Airbus A350</h3>
-    <p>
-      Uzoq masofali keng fyuzelyajli
-      yo'lovchi samolyoti.
-    </p>
-    <span class="tag">Yo'lovchi</span>
-  </article>
-
-  <article class="card">
-    <div class="icon">🛩️</div>
-    <h3>Cessna 172</h3>
-    <p>
-      O'quv va yengil aviatsiyada
-      keng ishlatiladigan samolyot.
-    </p>
-    <span class="tag">Yengil aviatsiya</span>
-  </article>
-
-</div>
-
-
-<!-- MOTOSIKLLAR -->
-
-<h2 class="section-title" id="moto">
-  🏍️ 40 ta Mototsikl
-</h2>
-
-<div class="filter-box">
-
-  <input
-    id="motoSearch"
-    placeholder="Mototsikl qidirish..."
-    oninput="renderMotos()">
-
-</div>
-
-<div id="motoGrid" class="grid"></div>
-
-
-<!-- DAVLATLAR -->
-
-<h2 class="section-title" id="countries">
-  🌍 195 ta Davlat
-</h2>
-
-<div class="filter-box">
-
-  <input
-    id="countrySearch"
-    placeholder="Davlat qidirish..."
-    oninput="renderCountries()">
-
-</div>
-
-<div id="countryGrid" class="grid"></div>
-
-</main>
-
-
-<!-- MODAL -->
-
-<div id="modal" class="modal">
-
-  <div class="modal-content">
-
-    <div id="modalContent"></div>
-
-    <button class="close" onclick="closeModal()">
-      Yopish
-    </button>
-
-  </div>
-
-</div>
-
-
-<footer>
-  Wings Wheels — Aviation & Motorcycle Information
-</footer>
-
-
-<script>
-
-/* =========================
-   PROFIL
-========================= */
-
-function toggleProfile(){
-
-  document
-    .getElementById("socialBox")
-    .classList.toggle("show");
-
-}
-
-
-/* =========================
-   MOTOSIKLLAR
-========================= */
-
-const motos = [
-
-["Kawasaki","Ninja H2R","998 cc","310 hp","400+ km/h","216 kg","Sport"],
-["Yamaha","YZF-R1","998 cc","200 hp","299 km/h","201 kg","Sport"],
-["BMW","S 1000 RR","999 cc","210 hp","303 km/h","197 kg","Sport"],
-["Ducati","Panigale V4","1103 cc","216 hp","305 km/h","198 kg","Sport"],
-["Honda","CBR1000RR-R Fireblade","999 cc","214 hp","299 km/h","201 kg","Sport"],
-["Suzuki","GSX-R1000R","999 cc","202 hp","299 km/h","203 kg","Sport"],
-["Aprilia","RSV4 Factory","1099 cc","220 hp","305+ km/h","204 kg","Sport"],
-["MV Agusta","F4","998 cc","195 hp","300+ km/h","191 kg","Sport"],
-["Kawasaki","Ninja ZX-10R","998 cc","203 hp","299 km/h","207 kg","Sport"],
-["Yamaha","MT-10","998 cc","166 hp","230+ km/h","212 kg","Naked"],
-["Honda","CB1000 Hornet","1000 cc","152 hp","230+ km/h","211 kg","Naked"],
-["Kawasaki","Z H2","998 cc","200 hp","240+ km/h","240 kg","Naked"],
-["BMW","M 1000 R","999 cc","210 hp","280+ km/h","199 kg","Naked"],
-["Ducati","Streetfighter V4","1103 cc","208 hp","300+ km/h","197 kg","Naked"],
-["Yamaha","MT-09","890 cc","119 hp","220+ km/h","193 kg","Naked"],
-["KTM","1290 Super Duke R","1301 cc","180 hp","250+ km/h","189 kg","Naked"],
-["Ducati","Multistrada V4","1158 cc","170 hp","250+ km/h","243 kg","Adventure"],
-["BMW","R 1300 GS","1300 cc","145 hp","220+ km/h","237 kg","Adventure"],
-["Honda","Africa Twin","1084 cc","102 hp","200+ km/h","231 kg","Adventure"],
-["Yamaha","Tenere 700","689 cc","72 hp","190+ km/h","205 kg","Adventure"],
-["KTM","1290 Super Adventure","1301 cc","160 hp","250+ km/h","220 kg","Adventure"],
-["Triumph","Tiger 1200","1160 cc","150 hp","220+ km/h","245 kg","Adventure"],
-["Suzuki","V-Strom 1050","1037 cc","107 hp","200+ km/h","236 kg","Adventure"],
-["Harley-Davidson","Sportster S","1252 cc","121 hp","200+ km/h","228 kg","Cruiser"],
-["Harley-Davidson","Fat Boy 114","1868 cc","94 hp","180+ km/h","317 kg","Cruiser"],
-["Indian","Scout Bobber","1250 cc","105 hp","200+ km/h","251 kg","Cruiser"],
-["Yamaha","Bolt R-Spec","942 cc","54 hp","170+ km/h","252 kg","Cruiser"],
-["Honda","Rebel 1100","1084 cc","87 hp","170+ km/h","223 kg","Cruiser"],
-["Kawasaki","Vulcan S","649 cc","61 hp","190+ km/h","229 kg","Cruiser"],
-["Ducati","Diavel V4","1158 cc","168 hp","270+ km/h","236 kg","Cruiser"],
-["Yamaha","R7","689 cc","73 hp","230+ km/h","188 kg","Sport"],
-["Honda","CBR650R","649 cc","95 hp","240+ km/h","208 kg","Sport"],
-["Kawasaki","Ninja 650","649 cc","68 hp","210+ km/h","193 kg","Sport"],
-["Suzuki","Hayabusa","1340 cc","190 hp","299 km/h","264 kg","Sport"],
-["Kawasaki","Ninja 1000SX","1043 cc","142 hp","245 km/h","235 kg","Sport Touring"],
-["BMW","R 1250 RT","1254 cc","136 hp","225 km/h","279 kg","Touring"],
-["Honda","Gold Wing","1833 cc","126 hp","180+ km/h","390 kg","Touring"],
-["Yamaha","Tracer 9 GT","890 cc","119 hp","220+ km/h","227 kg","Touring"],
-["Triumph","Speed Triple 1200 RS","1160 cc","180 hp","250+ km/h","198 kg","Naked"],
-["KTM","1390 Super Duke R","1350 cc","190 hp","250+ km/h","200 kg","Naked"]
-
-];
-
-
-/* =========================
-   MOTOSIKLNI CHIQARISH
-========================= */
-
-function renderMotos(){
-
-  const grid=document.getElementById("motoGrid");
-
-  const q=document
-    .getElementById("motoSearch")
-    .value
-    .toLowerCase();
-
-  grid.innerHTML="";
-
-  motos
-    .filter(m =>
-      (m[0]+" "+m[1]+" "+m[6])
-      .toLowerCase()
-      .includes(q)
-    )
-    .forEach((m,index)=>{
-
-      grid.innerHTML += `
-
-      <article class="card country-card"
-        onclick="showMoto(${index})">
-
-        <div class="icon">🏍️</div>
-
-        <h3>${m[0]} ${m[1]}</h3>
-
-        <p>
-          ${m[6]} mototsikli.
-        </p>
-
-        <div class="specs">
-          ⚙️ Dvigatel: ${m[2]}<br>
-          🐎 Quvvat: ${m[3]}<br>
-          🚀 Tezlik: ${m[4]}<br>
-          ⚖️ Og'irlik: ${m[5]}
+        <div class="icon">
+          🛫
         </div>
 
+        <h3>
+          Boeing 787
+        </h3>
+
+        <p>
+          Uzoq masofaga uchuvchi
+          yo'lovchi samolyoti.
+          Texnik ma'lumotlar keyingi
+          bosqichda bazadan olinadi.
+        </p>
+
         <span class="tag">
-          ${m[6]}
+          Yo'lovchi
         </span>
 
       </article>
 
-      `;
 
-    });
+      <article class="card">
 
-}
-
-
-function showMoto(index){
-
-  const m=motos[index];
-
-  document.getElementById("modalContent").innerHTML=`
-
-    <div class="icon">🏍️</div>
-
-    <h2>${m[0]} ${m[1]}</h2>
-
-    <p><b>🏷️ Turi:</b> ${m[6]}</p>
-
-    <p><b>⚙️ Dvigatel:</b> ${m[2]}</p>
-
-    <p><b>🐎 Quvvat:</b> ${m[3]}</p>
-
-    <p><b>🚀 Maksimal tezlik:</b> ${m[4]}</p>
-
-    <p><b>⚖️ Og'irligi:</b> ${m[5]}</p>
-
-    <p style="margin-top:15px">
-      Ushbu mototsikl yuqori unumdorlik,
-      dizayn va texnologik imkoniyatlari bilan
-      mashhur.
-    </p>
-
-  `;
-
-  document
-    .getElementById("modal")
-    .classList.add("show");
-
-}
-
-
-/* =========================
-   195 DAVLAT
-========================= */
-
-/*
-  Bayroq + davlat + davlat rahbari +
-  asosiy xalqaro aeroport.
-*/
-
-const countries = [
-
-["🇦🇫","Afg'oniston","Hibatullah Akhundzada","Hamid Karzai International (KBL)"],
-["🇦🇱","Albaniya","Bajram Begaj","Tirana International (TIA)"],
-["🇩🇿","Jazoir","Abdelmadjid Tebboune","Houari Boumediene (ALG)"],
-["🇦🇩","Andorra","Co-Princes","Andorra–La Seu d'Urgell (LEU)"],
-["🇦🇴","Angola","João Lourenço","Quatro de Fevereiro (LAD)"],
-["🇦🇬","Antigua va Barbuda","Charles Savarin","V.C. Bird International (ANU)"],
-["🇦🇷","Argentina","Javier Milei","Ministro Pistarini (EZE)"],
-["🇦🇲","Armaniston","Vahagn Khachaturyan","Zvartnots International (EVN)"],
-["🇦🇺","Avstraliya","King Charles III","Sydney Kingsford Smith (SYD)"],
-["🇦🇹","Avstriya","Alexander Van der Bellen","Vienna International (VIE)"],
-["🇦🇿","Ozarbayjon","Ilham Aliyev","Heydar Aliyev International (GYD)"],
-["🇧🇸","Bagama orollari","Cynthia Pratt","Lynden Pindling International (NAS)"],
-["🇧🇭","Bahrayn","Hamad bin Isa Al Khalifa","Bahrain International (BAH)"],
-["🇧🇩","Bangladesh","Mohammed Shahabuddin","Hazrat Shahjalal International (DAC)"],
-["🇧🇧","Barbados","Sandra Mason","Grantley Adams International (BGI)"],
-["🇧🇾","Belarus","Alexander Lukashenko","Minsk National (MSQ)"],
-["🇧🇪","Belgiya","King Philippe","Brussels Airport (BRU)"],
-["🇧🇿","Beliz","Froyla Tzalam","Philip S. W. Goldson International (BZE)"],
-["🇧🇯","Benin","Patrice Talon","Cotonou Cadjehoun (COO)"],
-["🇧🇹","Butan","King Jigme Khesar Namgyel Wangchuck","Paro International (PBH)"],
-["🇧🇴","Boliviya","Rodrigo Paz","El Alto International (LPB)"],
-["🇧🇦","Bosniya va Gersegovina","Presidency of Bosnia and Herzegovina","Sarajevo International (SJJ)"],
-["🇧🇼","Botsvana","Duma Boko","Sir Seretse Khama International (GBE)"],
-["🇧🇷","Braziliya","Luiz Inácio Lula da Silva","São Paulo–Guarulhos (GRU)"],
-["🇧🇳","Bruney","Sultan Hassanal Bolkiah","Brunei International (BWN)"],
-["🇧🇬","Bolgariya","Iliana Iotova","Sofia Airport (SOF)"],
-["🇧🇫","Burkina-Faso","Ibrahim Traoré","Ouagadougou (OUA)"],
-["🇧🇮","Burundi","Évariste Ndayishimiye","Melchior Ndadaye International (BJM)"],
-["🇨🇻","Kabo-Verde","José Maria Neves","Nelson Mandela International (RAI)"],
-["🇰🇭","Kambodja","King Norodom Sihamoni","Phnom Penh International (PNH)"],
-["🇨🇲","Kamerun","Paul Biya","Yaoundé Nsimalen (NSI)"],
-["🇨🇦","Kanada","King Charles III","Toronto Pearson (YYZ)"],
-["🇨🇫","Markaziy Afrika Respublikasi","Faustin-Archange Touadéra","Bangui M'Poko (BGF)"],
-["🇹🇩","Chad","Mahamat Déby","N'Djamena International (NDJ)"],
-["🇨🇱","Chili","Gabriel Boric","Arturo Merino Benítez (SCL)"],
-["🇨🇳","Xitoy","Xi Jinping","Beijing Capital (PEK)"],
-["🇨🇴","Kolumbiya","Abelardo Gabriel de la Espriella","El Dorado (BOG)"],
-["🇰🇲","Komor orollari","Azali Assoumani","Prince Said Ibrahim (HAH)"],
-["🇨🇬","Kongo Respublikasi","Denis Sassou Nguesso","Maya-Maya (BZV)"],
-["🇨🇩","Kongo DR","Félix Tshisekedi","N'djili International (FIH)"],
-["🇨🇷","Kosta-Rika","Rodrigo Chaves Robles","Juan Santamaría (SJO)"],
-["🇨🇮","Kot-d’Ivuar","Alassane Ouattara","Félix-Houphouët-Boigny (ABJ)"],
-["🇭🇷","Xorvatiya","Zoran Milanović","Franjo Tuđman (ZAG)"],
-["🇨🇺","Kuba","Miguel Díaz-Canel","José Martí International (HAV)"],
-["🇨🇾","Kipr","Nikos Christodoulides","Larnaca International (LCA)"],
-["🇨🇿","Chexiya","Petr Pavel","Václav Havel Prague (PRG)"],
-["🇩🇰","Daniya","King Frederik X","Copenhagen Airport (CPH)"],
-["🇩🇯","Jibuti","Ismaïl Omar Guelleh","Djibouti-Ambouli (JIB)"],
-["🇩🇲","Dominika","Sylvanie Burton","Douglas–Charles (DOM)"],
-["🇩🇴","Dominikan Respublikasi","Luis Abinader","Punta Cana International (PUJ)"],
-["🇪🇨","Ekvador","Daniel Noboa","Mariscal Sucre (UIO)"],
-["🇪🇬","Misr","Abdel Fattah el-Sisi","Cairo International (CAI)"],
-["🇸🇻","Salvador","Nayib Bukele","El Salvador International (SAL)"],
-["🇬🇶","Ekvatorial Gvineya","Teodoro Obiang Nguema Mbasogo","Malabo International (SSG)"],
-["🇪🇷","Eritreya","Isaias Afwerki","Asmara International (ASM)"],
-["🇪🇪","Estoniya","Alar Karis","Tallinn Airport (TLL)"],
-["🇸🇿","Esvatini","King Mswati III","King Mswati III International (SHO)"],
-["🇪🇹","Efiopiya","Taye Atske Selassie","Addis Ababa Bole (ADD)"],
-["🇫🇯","Fiji","Ratu Wiliame Katonivere","Nadi International (NAN)"],
-["🇫🇮","Finlandiya","Alexander Stubb","Helsinki Airport (HEL)"],
-["🇫🇷","Fransiya","Emmanuel Macron","Paris Charles de Gaulle (CDG)"],
-["🇬🇦","Gabon","Brice Clotaire Oligui Nguema","Libreville Léon-Mba (LBV)"],
-["🇬🇲","Gambiya","Adama Barrow","Banjul International (BJL)"],
-["🇬🇪","Gruziya","Mikheil Kavelashvili","Tbilisi International (TBS)"],
-["🇩🇪","Germaniya","Frank-Walter Steinmeier","Frankfurt Airport (FRA)"],
-["🇬🇭","Gana","John Dramani Mahama","Kotoka International (ACC)"],
-["🇬🇷","Gretsiya","Konstantinos Tasoulas","Athens International (ATH)"],
-["🇬🇩","Grenada","Charles Jeremiah","Maurice Bishop International (GND)"],
-["🇬🇹","Gvatemala","Bernardo Arévalo","La Aurora International (GUA)"],
-["🇬🇳","Gvineya","Mamady Doumbouya","Ahmed Sékou Touré (CKY)"],
-["🇬🇼","Gvineya-Bisau","Umaro Sissoco Embaló","Osvaldo Vieira (OXB)"],
-["🇬🇾","Gayana","Irfaan Ali","Cheddi Jagan International (GEO)"],
-["🇭🇹","Gaiti","Conseil Présidentiel de Transition","Toussaint Louverture (PAP)"],
-["🇭🇳","Gonduras","Xiomara Castro","Palmerola International (XPL)"],
-["🇭🇺","Vengriya","Tamás Sulyok","Budapest Ferenc Liszt (BUD)"],
-["🇮🇸","Islandiya","Halla Tómasdóttir","Keflavík International (KEF)"],
-["🇮🇳","Hindiston","Droupadi Murmu","Indira Gandhi International (DEL)"],
-["🇮🇩","Indoneziya","Prabowo Subianto","Soekarno-Hatta (CGK)"],
-["🇮🇷","Eron","Masoud Pezeshkian","Imam Khomeini International (IKA)"],
-["🇮🇶","Iroq","Abdul Latif Rashid","Baghdad International (BGW)"],
-["🇮🇪","Irlandiya","Catherine Connolly","Dublin Airport (DUB)"],
-["🇮🇱","Isroil","Isaac Herzog","Ben Gurion (TLV)"],
-["🇮🇹","Italiya","Sergio Mattarella","Leonardo da Vinci–Fiumicino (FCO)"],
-["🇯🇲","Yamayka","Andrew Holness","Norman Manley International (KIN)"],
-["🇯🇵","Yaponiya","Emperor Naruhito","Narita International (NRT)"],
-["🇯🇴","Iordaniya","King Abdullah II","Queen Alia International (AMM)"],
-["🇰🇿","Qozog'iston","Kasym-Zhomart Tokayev","Almaty International (ALA)"],
-["🇰🇪","Keniya","William Ruto","Jomo Kenyatta International (NBO)"],
-["🇰🇮","Kiribati","Taneti Maamau","Bonriki International (TRW)"],
-["🇰🇼","Quvayt","Mishal Al-Ahmad Al-Jaber Al-Sabah","Kuwait International (KWI)"],
-["🇰🇬","Qirg'iziston","Sadyr Japarov","Manas International (FRU)"],
-["🇱🇦","Laos","Thongloun Sisoulith","Wattay International (VTE)"],
-["🇱🇻","Latviya","Edgars Rinkēvičs","Riga International (RIX)"],
-["🇱🇧","Livan","Joseph Aoun","Beirut-Rafic Hariri (BEY)"],
-["🇱🇸","Lesoto","King Letsie III","Moshoeshoe I International (MSU)"],
-["🇱🇷","Liberiya","Joseph Boakai","Roberts International (ROB)"],
-["🇱🇾","Liviya","Mohamed al-Menfi","Mitiga International (MJI)"],
-["🇱🇮","Lixtenshteyn","Prince Hans-Adam II","Zurich Airport (ZRH)"],
-["🇱🇹","Litva","Gitanas Nausėda","Vilnius Airport (VNO)"],
-["🇱🇺","Lyuksemburg","Grand Duke Guillaume","Luxembourg Airport (LUX)"],
-["🇲🇬","Madagaskar","Andry Rajoelina","Ivato International (TNR)"],
-["🇲🇼","Malavi","Peter Mutharika","Kamuzu International (LLW)"],
-["🇲🇾","Malayziya","Sultan Ibrahim","Kuala Lumpur International (KUL)"],
-["🇲🇻","Maldiv","Mohamed Muizzu","Velana International (MLE)"],
-["🇲🇱","Mali","Assimi Goïta","Modibo Keïta International (BKO)"],
-["🇲🇹","Malta","Myriam Spiteri Debono","Malta International (MLA)"],
-["🇲🇭","Marshall orollari","Hilda Heine","Amata Kabua International (MAJ)"],
-["🇲🇷","Mavritaniya","Mohamed Ould Ghazouani","Nouakchott-Oumtounsy (NKC)"],
-["🇲🇺","Mavrikiy","Dharam Gokhool","Sir Seewoosagur Ramgoolam (MRU)"],
-["🇲🇽","Meksika","Claudia Sheinbaum","Mexico City International (MEX)"],
-["🇫🇲","Mikroneziya","Wesley Simina","Pohnpei International (PNI)"],
-["🇲🇩","Moldova","Maia Sandu","Chișinău International (RMO)"],
-["🇲🇨","Monako","Prince Albert II","Nice Côte d'Azur (NCE)"],
-["🇲🇳","Mo'g'uliston","Ukhnaagiin Khürelsükh","Chinggis Khaan International (UBN)"],
-["🇲🇪","Chernogoriya","Jakov Milatović","Podgorica Airport (TGD)"],
-["🇲🇦","Marokash","King Mohammed VI","Mohammed V International (CMN)"],
-["🇲🇿","Mozambik","Daniel Chapo","Maputo International (MPM)"],
-["🇲🇲","Myanma","Min Aung Hlaing","Yangon International (RGN)"],
-["🇳🇦","Namibiya","Netumbo Nandi-Ndaitwah","Hosea Kutako International (WDH)"],
-["🇳🇷","Nauru","David Adeang","Nauru International (INU)"],
-["🇳🇵","Nepal","Ram Chandra Paudel","Tribhuvan International (KTM)"],
-["🇳🇱","Niderlandiya","King Willem-Alexander","Amsterdam Schiphol (AMS)"],
-["🇳🇿","Yangi Zelandiya","King Charles III","Auckland International (AKL)"],
-["🇳🇮","Nikaragua","Daniel Ortega","Augusto C. Sandino (MGA)"],
-["🇳🇪","Niger","Abdourahamane Tiani","Diori Hamani International (NIM)"],
-["🇳🇬","Nigeriya","Bola Tinubu","Murtala Muhammed International (LOS)"],
-["🇰🇵","Shimoliy Koreya","Kim Jong Un","Pyongyang Sunan (FNJ)"],
-["🇲🇰","Shimoliy Makedoniya","Gordana Siljanovska-Davkova","Skopje International (SKP)"],
-["🇳🇴","Norvegiya","King Harald V","Oslo Gardermoen (OSL)"],
-["🇴🇲","Ummon","Sultan Haitham bin Tariq","Muscat International (MCT)"],
-["🇵🇰","Pokiston","Asif Ali Zardari","Islamabad International (ISB)"],
-["🇵🇼","Palau","Surangel Whipps Jr.","Roman Tmetuchl International (ROR)"],
-["🇵🇦","Panama","José Raúl Mulino","Tocumen International (PTY)"],
-["🇵🇬","Papua-Yangi Gvineya","King Charles III","Jacksons International (POM)"],
-["🇵🇾","Paragvay","Santiago Peña","Silvio Pettirossi (ASU)"],
-["🇵🇪","Peru","José María Balcázar","Jorge Chávez International (LIM)"],
-["🇵🇭","Filippin","Ferdinand Marcos Jr.","Ninoy Aquino International (MNL)"],
-["🇵🇱","Polsha","Karol Nawrocki","Warsaw Chopin (WAW)"],
-["🇵🇹","Portugaliya","Marcelo Rebelo de Sousa","Lisbon Humberto Delgado (LIS)"],
-["🇶🇦","Qatar","Tamim bin Hamad Al Thani","Hamad International (DOH)"],
-["🇷🇴","Ruminiya","Nicușor Dan","Henri Coandă (OTP)"],
-["🇷🇺","Rossiya","Vladimir Putin","Sheremetyevo International (SVO)"],
-["🇷🇼","Ruanda","Paul Kagame","Kigali International (KGL)"],
-["🇰🇳","Sent-Kits va Nevis","Terrance Drew","Robert L. Bradshaw (SKB)"],
-["🇱🇨","Sent-Lyusiya","Errol Charles","Hewanorra International (UVF)"],
-["🇻🇨","Sent-Vinsent va Grenadinlar","F. Scott","Argyle International (SVD)"],
-["🇼🇸","Samoa","Va'aleto'a Sualauvi II","Faleolo International (APW)"],
-["🇸🇲","San-Marino","Captains Regent","Federico Fellini International (RMI)"],
-["🇸🇹","San-Tome va Prinsipi","Carlos Vila Nova","São Tomé International (TMS)"],
-["🇸🇦","Saudiya Arabistoni","King Salman bin Abdulaziz","King Abdulaziz International (JED)"],
-["🇸🇳","Senegal","Bassirou Diomaye Faye","Blaise Diagne International (DSS)"],
-["🇷🇸","Serbiya","Aleksandar Vučić","Belgrade Nikola Tesla (BEG)"],
-["🇸🇨","Seyshel orollari","Wavel Ramkalawan","Seychelles International (SEZ)"],
-["🇸🇱","Syerra-Leone","Julius Maada Bio","Freetown International (FNA)"],
-["🇸🇬","Singapur","Tharman Shanmugaratnam","Changi Airport (SIN)"],
-["🇸🇰","Slovakiya","Peter Pellegrini","M. R. Štefánik (BTS)"],
-["🇸🇮","Sloveniya","Nataša Pirc Musar","Ljubljana Jože Pučnik (LJU)"],
-["🇸🇧","Solomon orollari","David Tiva Kapu","Honiara International (HIR)"],
-["🇸🇴","Somali","Hassan Sheikh Mohamud","Aden Adde International (MGQ)"],
-["🇿🇦","Janubiy Afrika","Cyril Ramaphosa","O. R. Tambo International (JNB)"],
-["🇰🇷","Janubiy Koreya","Lee Jae-myung","Incheon International (ICN)"],
-["🇸🇸","Janubiy Sudan","Salva Kiir Mayardit","Juba International (JUB)"],
-["🇪🇸","Ispaniya","King Felipe VI","Adolfo Suárez Madrid-Barajas (MAD)"],
-["🇱🇰","Shri-Lanka","Anura Kumara Dissanayake","Bandaranaike International (CMB)"],
-["🇸🇩","Sudan","Abdel Fattah al-Burhan","Port Sudan International (PZU)"],
-["🇸🇷","Surinam","Jennifer Geerlings-Simons","Johan Adolf Pengel (PBM)"],
-["🇸🇪","Shvetsiya","King Carl XVI Gustaf","Stockholm Arlanda (ARN)"],
-["🇨🇭","Shveytsariya","Federal Council","Zurich Airport (ZRH)"],
-["🇸🇾","Suriya","Ahmed al-Sharaa","Damascus International (DAM)"],
-["🇹🇯","Tojikiston","Emomali Rahmon","Dushanbe International (DYU)"],
-["🇹🇿","Tanzaniya","Samia Suluhu Hassan","Julius Nyerere International (DAR)"],
-["🇹🇭","Tailand","King Maha Vajiralongkorn","Suvarnabhumi (BKK)"],
-["🇹🇱","Sharqiy Timor","José Ramos-Horta","Presidente Nicolau Lobato (DIL)"],
-["🇹🇬","Togo","Faure Gnassingbé","Lomé-Tokoin (LFW)"],
-["🇹🇴","Tonga","King Tupou VI","Fua'amotu International (TBU)"],
-["🇹🇹","Trinidad va Tobago","Christine Kangaloo","Piarco International (POS)"],
-["🇹🇳","Tunis","Kaïs Saied","Tunis-Carthage (TUN)"],
-["🇹🇷","Turkiya","Recep Tayyip Erdoğan","Istanbul Airport (IST)"],
-["🇹🇲","Turkmaniston","Serdar Berdimuhamedow","Ashgabat International (ASB)"],
-["🇹🇻","Tuvalu","Feleti Teo","Funafuti International (FUN)"],
-["🇺🇬","Uganda","Yoweri Museveni","Entebbe International (EBB)"],
-["🇺🇦","Ukraina","Volodymyr Zelenskyy","Boryspil International (KBP)"],
-["🇦🇪","BAA","Mohamed bin Zayed Al Nahyan","Dubai International (DXB)"],
-["🇬🇧","Buyuk Britaniya","King Charles III","London Heathrow (LHR)"],
-["🇺🇸","AQSh","Donald Trump","John F. Kennedy International (JFK)"],
-["🇺🇾","Urugvay","Yamandú Orsi","Carrasco International (MVD)"],
-["🇺🇿","O'zbekiston","Shavkat Mirziyoyev","Tashkent International (TAS)"],
-["🇻🇺","Vanuatu","Nikenike Vurobaravu","Bauerfield International (VLI)"],
-["🇻🇦","Vatikan","Pope Leo XIV","Rome Fiumicino (FCO)"],
-["🇻🇪","Venesuela","Nicolás Maduro","Simón Bolívar International (CCS)"],
-["🇻🇳","Vetnam","Tô Lâm","Tan Son Nhat International (SGN)"],
-["🇾🇪","Yaman","Rashad al-Alimi","Aden International (ADE)"],
-["🇿🇲","Zambiya","Hakainde Hichilema","Kenneth Kaunda International (LUN)"],
-["🇿🇼","Zimbabve","Emmerson Mnangagwa","Robert Gabriel Mugabe International (HRE)"]
-
-];
-
-
-/* =========================
-   DAVLATLARNI CHIQARISH
-========================= */
-
-function renderCountries(){
-
-  const grid=document.getElementById("countryGrid");
-
-  const q=document
-    .getElementById("countrySearch")
-    .value
-    .toLowerCase();
-
-  grid.innerHTML="";
-
-  countries
-    .filter(c =>
-      (c[1]+" "+c[2]+" "+c[3])
-      .toLowerCase()
-      .includes(q)
-    )
-    .forEach((c,index)=>{
-
-      grid.innerHTML += `
-
-      <article
-        class="card country-card"
-        onclick="showCountry(${index})">
-
-        <div class="country-flag">
-          ${c[0]}
+        <div class="icon">
+          ✈️
         </div>
 
-        <h3>${c[1]}</h3>
+        <h3>
+          Airbus A350
+        </h3>
 
-        <div class="country-info">
-          👤 ${c[2]}
-        </div>
+        <p>
+          Zamonaviy uzoq masofali
+          keng fyuzelyajli samolyot.
+        </p>
 
-        <div class="country-info">
-          ✈️ ${c[3]}
-        </div>
+        <span class="tag">
+          Yo'lovchi
+        </span>
 
       </article>
 
-      `;
 
-    });
+      <article class="card">
 
-}
+        <div class="icon">
+          🛩️
+        </div>
 
+        <h3>
+          Cessna 172
+        </h3>
 
-function showCountry(index){
+        <p>
+          O'quv va yengil aviatsiyada
+          keng qo'llanadigan samolyot.
+        </p>
 
-  const c=countries[index];
+        <span class="tag">
+          Yengil aviatsiya
+        </span>
 
-  document.getElementById("modalContent").innerHTML=`
+      </article>
 
-    <div class="country-flag">
-      ${c[0]}
     </div>
 
-    <h2>${c[1]}</h2>
 
-    <p>
-      👤 <b>Davlat rahbari:</b><br>
-      ${c[2]}
-    </p>
+    <!-- MOTOTSIKLлар -->
 
-    <p>
-      ✈️ <b>Asosiy xalqaro aeroport:</b><br>
-      ${c[3]}
-    </p>
+    <h2 class="section-title" id="moto">
+      🏍️ Mototsikllar
+    </h2>
 
-    <p>
-      🌍 Ushbu davlat bo'yicha aeroport,
-      aviatsiya va sayohat ma'lumotlarini
-      keyinchalik yanada kengaytirish mumkin.
-    </p>
+    <div class="grid">
 
-  `;
+      <article class="card">
 
-  document
-    .getElementById("modal")
-    .classList.add("show");
+        <div class="icon">
+          🏍️
+        </div>
 
-}
+        <h3>
+          Kawasaki Ninja H2R
+        </h3>
+
+        <p>
+          Yuqori unumdorlikka ega
+          trek uchun mo'ljallangan
+          mototsikl.
+        </p>
+
+        <span class="tag">
+          Sport
+        </span>
+
+      </article>
 
 
-/* =========================
-   MODAL
-========================= */
+      <article class="card">
 
-function closeModal(){
+        <div class="icon">
+          🏍️
+        </div>
 
-  document
-    .getElementById("modal")
-    .classList.remove("show");
+        <h3>
+          Yamaha R1
+        </h3>
 
-}
+        <p>
+          Sport mototsikli.
+          Dvigatel, tezlik va boshqa
+          parametrlar keyinchalik
+          to'ldiriladi.
+        </p>
 
-document
-  .getElementById("modal")
-  .addEventListener("click",function(e){
+        <span class="tag">
+          Sport
+        </span>
 
-    if(e.target===this){
-      closeModal();
+      </article>
+
+
+      <article class="card">
+
+        <div class="icon">
+          🏍️
+        </div>
+
+        <h3>
+          BMW S 1000 RR
+        </h3>
+
+        <p>
+          Yuqori darajadagi
+          sport mototsikli.
+        </p>
+
+        <span class="tag">
+          Sport
+        </span>
+
+      </article>
+
+    </div>
+
+  </main>
+
+
+  <footer>
+    Motosicnavia — Aviation & Motorcycle Information
+  </footer>
+
+
+  <script>
+
+    function askQuestion(){
+
+      const q =
+        document
+        .getElementById('question')
+        .value
+        .trim();
+
+      const box =
+        document
+        .getElementById('answer');
+
+
+      if(!q){
+
+        box.style.display='block';
+
+        box.textContent =
+          'Avval qidiruv so‘zini yozing.';
+
+        return;
+      }
+
+
+      box.style.display='block';
+
+
+      box.innerHTML =
+        '<b>Motosicnavia qidiruvi:</b> '
+        + q
+        + '<br><br>'
+        + 'Bu hozircha demo qidiruv tizimi. '
+        + 'Haqiqiy AI uchun xavfsiz server orqali '
+        + 'AI API ulanishi kerak.';
+
     }
 
-  });
-
-
-/* =========================
-   AUTH
-========================= */
-
-let loginMode=false;
-
-function openAuth(){
-
-  document
-    .getElementById("authBox")
-    .style.display="flex";
-
-}
-
-function closeAuth(){
-
-  document
-    .getElementById("authBox")
-    .style.display="none";
-
-  document
-    .getElementById("authMessage")
-    .textContent="";
-
-}
-
-function switchAuth(){
-
-  loginMode=!loginMode;
-
-  document
-    .getElementById("registerFields")
-    .style.display=loginMode?"none":"block";
-
-  document
-    .getElementById("loginFields")
-    .style.display=loginMode?"block":"none";
-
-  document
-    .getElementById("authTitle")
-    .textContent=
-      loginMode ? "🔐 Login" : "👤 Akkaunt ochish";
-
-  document
-    .getElementById("switchButton")
-    .textContent=
-      loginMode ? "Akkaunt ochish" : "Login qilish";
-
-  document
-    .getElementById("authMessage")
-    .textContent="";
-
-}
-
-function register(){
-
-  const username=
-    document.getElementById("regUsername").value.trim();
-
-  const age=
-    Number(document.getElementById("regAge").value);
-
-  const password=
-    document.getElementById("regPassword").value;
-
-  const confirm=
-    document.getElementById("regConfirm").value;
-
-  if(!username || !age || !password || !confirm){
-
-    showAuth("Barcha joylarni to‘ldiring.");
-    return;
-
-  }
-
-  if(age<13 || age>100){
-
-    showAuth("Yosh 13 dan 100 gacha bo‘lishi kerak.");
-    return;
-
-  }
-
-  if(password.length<6){
-
-    showAuth("Parol kamida 6 ta belgidan iborat bo‘lsin.");
-    return;
-
-  }
-
-  if(password!==confirm){
-
-    showAuth("Parollar bir xil emas.");
-    return;
-
-  }
-
-  const oldUser=
-    JSON.parse(localStorage.getItem("wingsUser"));
-
-  if(oldUser && oldUser.username===username){
-
-    showAuth("Bu username allaqachon mavjud.");
-    return;
-
-  }
-
-  localStorage.setItem(
-    "wingsUser",
-    JSON.stringify({
-      username:username,
-      age:age,
-      password:password
-    })
-  );
-
-  showAuth("✅ Akkaunt muvaffaqiyatli ochildi!");
-
-  setTimeout(()=>{
-
-    switchAuth();
-
-  },1000);
-
-}
-
-function login(){
-
-  const username=
-    document.getElementById("loginUsername").value.trim();
-
-  const password=
-    document.getElementById("loginPassword").value;
-
-  const saved=
-    JSON.parse(localStorage.getItem("wingsUser"));
-
-  if(!saved){
-
-    showAuth("Avval akkaunt oching.");
-    return;
-
-  }
-
-  if(
-    saved.username===username &&
-    saved.password===password
-  ){
-
-    showAuth(
-      "✅ Xush kelibsiz, "+saved.username+"!"
-    );
-
-  }else{
-
-    showAuth(
-      "❌ Username yoki parol noto‘g‘ri."
-    );
-
-  }
-
-}
-
-function showAuth(message){
-
-  document
-    .getElementById("authMessage")
-    .textContent=message;
-
-}
-
-
-/* =========================
-   QIDIRUV
-========================= */
-
-function askQuestion(){
-
-  const q=
-    document
-      .getElementById("question")
-      .value
-      .trim();
-
-  const box=
-    document.getElementById("answer");
-
-  if(!q){
-
-    box.style.display="block";
-    box.textContent=
-      "Avval qidiruv so'zini yozing.";
-
-    return;
-
-  }
-
-  const lower=q.toLowerCase();
-
-
-  /* MOTOSIKL QIDIRUV */
-
-  const motoIndex=
-    motos.findIndex(m =>
-      (m[0]+" "+m[1])
-      .toLowerCase()
-      .includes(lower)
-    );
-
-  if(motoIndex!==-1){
-
-    box.style.display="block";
-
-    const m=motos[motoIndex];
-
-    box.innerHTML=`
-
-      <b>🏍️ ${m[0]} ${m[1]}</b>
-
-      <br><br>
-
-      ⚙️ Dvigatel: ${m[2]}<br>
-      🐎 Quvvat: ${m[3]}<br>
-      🚀 Tezlik: ${m[4]}<br>
-      ⚖️ Og'irlik: ${m[5]}<br>
-      🏷️ Turi: ${m[6]}
-
-    `;
-
-    return;
-
-  }
-
-
-  /* DAVLAT QIDIRUV */
-
-  const countryIndex=
-    countries.findIndex(c =>
-      (c[1]+" "+c[2])
-      .toLowerCase()
-      .includes(lower)
-    );
-
-  if(countryIndex!==-1){
-
-    box.style.display="block";
-
-    const c=countries[countryIndex];
-
-    box.innerHTML=`
-
-      <b>${c[0]} ${c[1]}</b>
-
-      <br><br>
-
-      👤 Davlat rahbari: ${c[2]}<br>
-      ✈️ Xalqaro aeroport: ${c[3]}
-
-    `;
-
-    return;
-
-  }
-
-
-  /* SAMOLYOT */
-
-  if(
-    lower.includes("boeing") ||
-    lower.includes("787")
-  ){
-
-    box.style.display="block";
-
-    box.innerHTML=`
-
-      <b>✈️ Boeing 787</b>
-
-      <br><br>
-
-      Uzoq masofali zamonaviy
-      yo'lovchi samolyoti.
-
-    `;
-
-    return;
-
-  }
-
-
-  if(
-    lower.includes("airbus") ||
-    lower.includes("a350")
-  ){
-
-    box.style.display="block";
-
-    box.innerHTML=`
-
-      <b>✈️ Airbus A350</b>
-
-      <br><br>
-
-      Uzoq masofali keng fyuzelyajli
-      yo'lovchi samolyoti.
-
-    `;
-
-    return;
-
-  }
-
-
-  box.style.display="block";
-
-  box.innerHTML=`
-
-    <b>🔎 Natija topilmadi</b>
-
-    <br><br>
-
-    Davlat, mototsikl yoki samolyot
-    nomini aniqroq yozib ko'ring.
-
-  `;
-
-}
-
-
-/* =========================
-   BOSHLANG'ICH YUKLASH
-========================= */
-
-renderMotos();
-renderCountries();
-
-</script>
+  </script>
 
 </body>
 </html>
