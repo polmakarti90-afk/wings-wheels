@@ -1,319 +1,435 @@
- <!DOCTYPE html>  <html lang="uz">  
-<head>  
-<meta charset="UTF-8">  
-<meta name="viewport" content="width=device-width,initial-scale=1">  
-<title>Motosicnavia</title>  
-<style>  
-*{box-sizing:border-box;margin:0;padding:0}  
-body{font-family:Arial,sans-serif;background:#07111f;color:#fff}  
-header{position:sticky;top:0;z-index:10;background:#0b2035;padding:16px 5%;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}  
-.logo{font-size:23px;font-weight:bold;color:#00d9ff}  
-nav{display:flex;gap:8px;flex-wrap:wrap}  
-a,button{border:0;border-radius:8px;padding:10px 13px;background:#123b59;color:#fff;text-decoration:none;cursor:pointer}  
-button:hover,a:hover{background:#00a8d6}  
-main{max-width:1250px;margin:auto;padding:18px}  
-.hero{text-align:center;padding:45px 10px}  
-.hero h1{font-size:44px;margin-bottom:15px}  
-.hero span,h2{color:#00d9ff}  
-.hero p{color:#b5c9da;margin-bottom:20px}  
-.search{display:flex;gap:8px;max-width:700px;margin:auto}  
-input{width:100%;padding:12px;border-radius:8px;border:1px solid #31536d;background:#0b2035;color:#fff}  
-section{margin:30px 0}  
-h2{margin-bottom:17px}  
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(235px,1fr));gap:16px}  
-.card{background:#0d253c;border:1px solid #23455f;border-radius:14px;padding:14px}  
-.card img{width:100%;height:165px;object-fit:cover;border-radius:9px;margin-bottom:10px}  
-.card h3{margin-bottom:9px}  
-.card p{color:#b8cada;margin:6px 0;font-size:14px}  
-.card button{margin-top:9px}  
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px}  
-.stat{background:#102e48;padding:20px;text-align:center;border-radius:12px}  
-.stat b{display:block;font-size:28px;color:#00d9ff}  
-.profile{background:#0d253c;padding:20px;border-radius:14px}  
-.profile-head{display:flex;gap:14px;align-items:center}  
-.avatar{width:65px;height:65px;border-radius:50%;display:grid;place-items:center;background:#174766;font-size:32px}  
-.social{display:none;margin-top:18px}  
-.social a{display:block;margin:7px 0;color:#00d9ff}  
-.modal{display:none;position:fixed;inset:0;background:#000b;z-index:30;align-items:center;justify-content:center;padding:18px}  
-.modal-box{background:#102b44;border-radius:14px;padding:22px;width:100%;max-width:520px;max-height:90vh;overflow:auto}  
-.close{float:right;background:#a52b3b}  
-.modal-box input{margin:7px 0}  
-.modal-box button{margin:5px 3px 0 0}  
-.chat-layout{display:grid;grid-template-columns:230px 1fr;min-height:470px;background:#0d253c;border-radius:14px;overflow:hidden}  
-.chat-users{border-right:1px solid #294a63}  
-.chat-users h3{padding:15px;color:#00d9ff}  
-.chat-user{padding:13px;border-top:1px solid #294a63;cursor:pointer}  
-.chat-user.active,.chat-user:hover{background:#174766}  
-.chat-area{display:flex;flex-direction:column}  
-.chat-title{padding:15px;background:#123b59;color:#00d9ff}  
-.messages{padding:15px;min-height:330px;max-height:400px;overflow-y:auto}  
-.message{max-width:75%;background:#1b405b;padding:10px 13px;border-radius:12px;margin:8px 0;word-break:break-word}  
-.message.mine{margin-left:auto;background:#087fa8}  
-.message small{display:block;font-size:10px;color:#c9e3ee;margin-top:5px}  
-.send{display:flex;gap:8px;padding:12px;background:#102f49}  
-.send input{margin:0}  
-footer{text-align:center;padding:30px;background:#0b2035;color:#9eb6c8}  
-@media(max-width:650px){.hero h1{font-size:32px}.search{flex-direction:column}.chat-layout{grid-template-columns:1fr}.chat-users{border-right:0}.messages{max-height:350px}}  
-</style>  
-</head>  
-<body>  <header>  
-<div class="logo">🏍️ Motosicnavia ✈️</div>  
-<nav>  
-<a href="#aircraft">✈️ Samolyotlar</a>  
-<a href="#moto">🏍️ Motolar</a>  
-<a href="#countries">🌍 Davlatlar</a>  
-<a href="#chat">💬 Chat</a>  
-<a href="#profile">👤 Profil</a>  
-<button onclick="openAuth()">Login</button>  
-</nav>  
-</header>  <main>  
-<section class="hero">  
-<h1>Explore <span>the Sky</span><br>and the Road</h1>  
-<p>Aviatsiya, mototsikllar, davlatlar va texnologiyalar olami.</p>  
-<div class="search">  
-<input id="globalSearch" placeholder="Moto, samolyot yoki davlat qidiring...">  
-<button onclick="globalSearch()">🔎 Qidirish</button>  
-</div>  
-<p id="searchResult"></p>  
-</section>  <section class="stats">  
-<div class="stat"><b id="airCount">0</b>Samolyot</div>  
-<div class="stat"><b id="motoCount">0</b>Mototsikl</div>  
-<div class="stat"><b id="countryCount">195</b>Davlat</div>  
-<div class="stat"><b>💬</b>Demo Chat</div>  
-</section>  <section id="profile" class="profile">  
-<h2>👤 Profil</h2>  
-<div class="profile-head">  
-<div class="avatar">🏍️</div>  
-<div><h3 id="profileName">Bexruz</h3><p id="profileEmail">Mehmon foydalanuvchi</p></div>  
-</div>  
-<div class="social" id="socialBox">  
-<a href="https://www.instagram.com/kukonboev_216" target="_blank">Instagram — Bexruz</a>  
-<a href="https://www.instagram.com/motosicn" target="_blank">Instagram — Moto</a>  
-<a href="https://t.me/motosicn" target="_blank">Telegram — Motosicnavia</a>  
-<p>Adminlar: @mtcavia · @mtcrider</p>  
-</div>  
-<br>  
-<button onclick="toggleSocial()">Ijtimoiy tarmoqlar</button>  
-<button onclick="openAuth()">Kirish / Ro‘yxatdan o‘tish</button>  
-<button onclick="logout()">Chiqish</button>  
-</section>  <section id="aircraft">  
-<h2>✈️ Samolyotlar</h2>  
-<div class="cards" id="aircraftCards"></div>  
-</section>  <section id="moto">  
-<h2>🏍️ Mototsikllar</h2>  
-<div class="cards" id="motoCards"></div>  
-</section>  <section id="countries">  
-<h2>🌍 Davlatlar</h2>  
-<input id="countrySearch" placeholder="Davlat qidirish..." oninput="renderCountries()">  
-<br><br>  
-<div class="cards" id="countryCards"></div>  
-</section>  <section id="chat">  
-<h2>💬 Shaxsiy demo chat</h2>  
-<p style="color:#9eb6c8;margin-bottom:15px">Bu demo chat xabarlarni faqat shu brauzerda saqlaydi.</p>  
-<div class="chat-layout">  
-<div class="chat-users">  
-<h3>👥 Foydalanuvchilar</h3>  
-<div class="chat-user active" onclick="selectChatUser('Bexruz')">👤 Bexruz</div>  
-<div class="chat-user" onclick="selectChatUser('Neymar')">👤 Neymar</div>  
-<div class="chat-user" onclick="selectChatUser('Messi')">👤 Messi</div>  
-<div class="chat-user" onclick="selectChatUser('Ronaldo')">👤 Ronaldo</div>  
-</div>  
-<div class="chat-area">  
-<div class="chat-title" id="chatTitle">💬 Aziz bilan chat</div>  
-<div class="messages" id="messages"></div>  
-<div class="send">  
-<input id="messageInput" placeholder="Xabar yozing..." onkeydown="enterSend(event)">  
-<button onclick="sendMessage()">Yuborish</button>  
-</div>  
-</div>  
-</div>  
-<br>  
-<button onclick="clearChat()">Chatni tozalash</button>  
-</section>  <section>  
-<h2>🤖 Motosicnavia AI</h2>  
-<div class="card">  
-<p>Mahalliy demo yordamchi. Savolingizni yozing.</p><br>  
-<input id="aiInput" placeholder="Masalan: Kawasaki yoki Boeing">  
-<br><button onclick="askAI()">AI ga savol berish</button>  
-<p id="aiAnswer"></p>  
-</div>  
-</section>  
-</main>  <footer>Motosicnavia © 2026 — Aviation & Motorcycle Information</footer>  <div class="modal" id="detailModal">  
-<div class="modal-box"><button class="close" onclick="closeModal()">X</button><div id="detailContent"></div></div>  
-</div>  <div class="modal" id="authModal">  
-<div class="modal-box">  
-<button class="close" onclick="closeAuth()">X</button>  
-<h2 id="authTitle">Kirish</h2>  
-<input id="authName" placeholder="Ism">  
-<input id="authEmail" type="email" placeholder="Email">  
-<input id="authPassword" type="password" placeholder="Parol">  
-<button onclick="submitAuth()" id="authButton">Kirish</button>  
-<button onclick="switchAuth()">Rejimni almashtirish</button>  
-<p id="authMessage"></p>  
-</div>  
-</div>  <script>  
-const aircraft=[  
-["Boeing","737","850 km/h","6500 km","https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=900"],  
-["Boeing","747","907 km/h","13450 km","https://images.unsplash.com/photo-1540962351504-03099e0a754b?w=900"],  
-["Boeing","777","905 km/h","15843 km","https://images.unsplash.com/photo-1529070296461-9a7b7e7e8f6f?w=900"],  
-["Boeing","787 Dreamliner","903 km/h","13620 km","https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=900"],  
-["Airbus","A320","840 km/h","6200 km","https://images.unsplash.com/photo-1517479149777-5f3b1511d5ad?w=900"],  
-["Airbus","A330","871 km/h","13450 km","https://images.unsplash.com/photo-1542296332-2e4473faf563?w=900"],  
-["Airbus","A350","903 km/h","15000 km","https://images.unsplash.com/photo-1556388158-158ea5ccacbd?w=900"],  
-["Airbus","A380","903 km/h","15200 km","https://images.unsplash.com/photo-1556388158-158ea5ccacbd?w=900"],  
-["Cessna","172","226 km/h","1180 km","https://images.unsplash.com/photo-1474302770737-173ee21bab63?w=900"],  
-["Embraer","E195","870 km/h","4800 km","https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=900"]  
-];  
-  
-const motos=[  
-["Kawasaki","Ninja H2R","998 cc","310 hp","400+ km/h"],  
-["Yamaha","YZF-R1","998 cc","200 hp","299 km/h"],  
-["BMW","S 1000 RR","999 cc","210 hp","303 km/h"],  
-["Ducati","Panigale V4","1103 cc","216 hp","305 km/h"],  
-["Honda","CBR1000RR-R","999 cc","214 hp","299 km/h"],  
-["Suzuki","GSX-R1000R","999 cc","202 hp","299 km/h"],  
-["Aprilia","RSV4 Factory","1099 cc","220 hp","305 km/h"],  
-["MV Agusta","F4","998 cc","195 hp","300 km/h"],  
-["Kawasaki","Ninja ZX-10R","998 cc","203 hp","299 km/h"],  
-["Yamaha","MT-10","998 cc","166 hp","230 km/h"],  
-["Honda","CB1000 Hornet","1000 cc","152 hp","230 km/h"],  
-["Kawasaki","Z H2","998 cc","200 hp","240 km/h"],  
-["BMW","M 1000 R","999 cc","210 hp","280 km/h"],  
-["Ducati","Streetfighter V4","1103 cc","208 hp","300 km/h"],  
-["Yamaha","MT-09","890 cc","119 hp","220 km/h"],  
-["KTM","1290 Super Duke R","1301 cc","180 hp","250 km/h"],  
-["Ducati","Multistrada V4","1158 cc","170 hp","250 km/h"],  
-["BMW","R 1300 GS","1300 cc","145 hp","220 km/h"],  
-["Honda","Africa Twin","1084 cc","102 hp","200 km/h"],  
-["Yamaha","Tenere 700","689 cc","72 hp","190 km/h"],  
-["KTM","1290 Super Adventure","1301 cc","160 hp","250 km/h"],  
-["Triumph","Tiger 1200","1160 cc","150 hp","220 km/h"],  
-["Suzuki","V-Strom 1050","1037 cc","107 hp","200 km/h"],  
-["Harley-Davidson","Sportster S","1252 cc","121 hp","200 km/h"],  
-["Harley-Davidson","Fat Boy 114","1868 cc","94 hp","180 km/h"],  
-["Indian","Scout Bobber","1250 cc","105 hp","200 km/h"],  
-["Yamaha","Bolt R-Spec","942 cc","54 hp","170 km/h"],  
-["Honda","Rebel 1100","1084 cc","87 hp","170 km/h"],  
-["Kawasaki","Vulcan S","649 cc","61 hp","190 km/h"],  
-["Ducati","Diavel V4","1158 cc","168 hp","270 km/h"],  
-["Yamaha","R7","689 cc","73 hp","230 km/h"],  
-["Honda","CBR650R","649 cc","95 hp","240 km/h"],  
-["Kawasaki","Ninja 650","649 cc","68 hp","210 km/h"],  
-["Suzuki","Hayabusa","1340 cc","190 hp","299 km/h"],  
-["Kawasaki","Ninja 1000SX","1043 cc","142 hp","245 km/h"],  
-["BMW","R 1250 RT","1254 cc","136 hp","225 km/h"],  
-["Honda","Gold Wing","1833 cc","126 hp","180 km/h"],  
-["Yamaha","Tracer 9 GT","890 cc","119 hp","220 km/h"],  
-["Triumph","Speed Triple 1200 RS","1160 cc","180 hp","250 km/h"],  
-["KTM","1390 Super Duke R","1350 cc","190 hp","250 km/h"],  
-["Ducati","Monster 937","937 cc","111 hp","225 km/h"]  
-];  
-  
-const countryText=`Afghanistan,Albania,Algeria,Andorra,Angola,Antigua and Barbuda,Argentina,Armenia,Australia,Austria,Azerbaijan,Bahamas,Bahrain,Bangladesh,Barbados,Belarus,Belgium,Belize,Benin,Bhutan,Bolivia,Bosnia and Herzegovina,Botswana,Brazil,Brunei,Bulgaria,Burkina Faso,Burundi,Cabo Verde,Cambodia,Cameroon,Canada,Central African Republic,Chad,Chile,China,Colombia,Comoros,Congo,Costa Rica,Croatia,Cuba,Cyprus,Czechia,Denmark,Djibouti,Dominica,Dominican Republic,Ecuador,Egypt,El Salvador,Equatorial Guinea,Eritrea,Estonia,Eswatini,Ethiopia,Fiji,Finland,France,Gabon,Gambia,Georgia,Germany,Ghana,Greece,Grenada,Guatemala,Guinea,Guinea-Bissau,Guyana,Haiti,Honduras,Hungary,Iceland,India,Indonesia,Iran,Iraq,Ireland,Israel,Italy,Jamaica,Japan,Jordan,Kazakhstan,Kenya,Kiribati,Kuwait,Kyrgyzstan,Laos,Latvia,Lebanon,Lesotho,Liberia,Libya,Liechtenstein,Lithuania,Luxembourg,Madagascar,Malawi,Malaysia,Maldives,Mali,Malta,Marshall Islands,Mauritania,Mauritius,Mexico,Micronesia,Moldova,Monaco,Mongolia,Montenegro,Morocco,Mozambique,Myanmar,Namibia,Nauru,Nepal,Netherlands,New Zealand,Nicaragua,Niger,Nigeria,North Korea,North Macedonia,Norway,Oman,Pakistan,Palau,Palestine,Panama,Papua New Guinea,Paraguay,Peru,Philippines,Poland,Portugal,Qatar,Romania,Russia,Rwanda,Saint Kitts and Nevis,Saint Lucia,Saint Vincent and the Grenadines,Samoa,San Marino,Sao Tome and Principe,Saudi Arabia,Senegal,Serbia,Seychelles,Sierra Leone,Singapore,Slovakia,Slovenia,Solomon Islands,Somalia,South Africa,South Sudan,Spain,Sri Lanka,Sudan,Suriname,Sweden,Switzerland,Syria,Tajikistan,Tanzania,Thailand,Timor-Leste,Togo,Tonga,Trinidad and Tobago,Tunisia,Turkey,Turkmenistan,Tuvalu,Uganda,Ukraine,United Arab Emirates,United Kingdom,United States,Uruguay,Uzbekistan,Vanuatu,Vatican City,Venezuela,Vietnam,Yemen,Zambia,Zimbabwe`;  
-const countries=countryText.split(",");  
-let selectedChatUser="Aziz";  
-let demoMessages=JSON.parse(localStorage.getItem("motosicnaviaChat")||"[]");  
-let authMode="login";  
-  
-function safe(t){return String(t).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]))}  
-function showDetail(html){document.getElementById("detailContent").innerHTML=html;document.getElementById("detailModal").style.display="flex"}  
-function closeModal(){document.getElementById("detailModal").style.display="none"}  
-  
-function renderAircraft(){  
-document.getElementById("aircraftCards").innerHTML=aircraft.map((a,i)=>`  
-<div class="card"><img src="${a[4]}" alt="${a[0]} ${a[1]}"><h3>✈️ ${a[0]} ${a[1]}</h3><p>Tezlik: ${a[2]}</p><p>Masofa: ${a[3]}</p><button onclick="showAircraft(${i})">Batafsil</button></div>`).join("");  
-document.getElementById("airCount").textContent=aircraft.length;  
-}  
-function showAircraft(i){let a=aircraft[i];showDetail(`<h2>${a[0]} ${a[1]}</h2><p>Tezlik: ${a[2]}</p><p>Uchish masofasi: ${a[3]}</p>`)}  
-  
-function renderMotos(){  
-document.getElementById("motoCards").innerHTML=motos.map((m,i)=>`  
-<div class="card"><img src="https://loremflickr.com/800/500/motorcycle?lock=${i+20}" alt="${m[0]} ${m[1]}"><h3>🏍️ ${m[0]} ${m[1]}</h3><p>Dvigatel: ${m[2]}</p><p>Quvvat: ${m[3]}</p><p>Tezlik: ${m[4]}</p><button onclick="showMoto(${i})">Batafsil</button></div>`).join("");  
-document.getElementById("motoCount").textContent=motos.length;  
-}  
-function showMoto(i){let m=motos[i];showDetail(`<h2>${m[0]} ${m[1]}</h2><p>Dvigatel: ${m[2]}</p><p>Quvvat: ${m[3]}</p><p>Tezlik: ${m[4]}</p>`)}  
-  
-function renderCountries(){  
-let q=document.getElementById("countrySearch").value.toLowerCase();  
-let list=countries.filter(c=>c.toLowerCase().includes(q));  
-document.getElementById("countryCards").innerHTML=list.map(c=>`<div class="card"><h3>🌍 ${safe(c)}</h3><p>Davlat haqida ma'lumot</p><button onclick="showCountry('${safe(c)}')">Batafsil</button></div>`).join("");  
-document.getElementById("countryCount").textContent=countries.length;  
-}  
-function showCountry(c){showDetail(`<h2>🌍 ${safe(c)}</h2><p>${safe(c)} Motosicnavia davlatlar ro‘yxatida mavjud.</p>`)}  
-  
-function globalSearch(){  
-let q=document.getElementById("globalSearch").value.toLowerCase();  
-let m=motos.find(x=>(x[0]+" "+x[1]).toLowerCase().includes(q));  
-let a=aircraft.find(x=>(x[0]+" "+x[1]).toLowerCase().includes(q));  
-let c=countries.find(x=>x.toLowerCase().includes(q));  
-document.getElementById("searchResult").textContent=m?`🏍️ ${m[0]} ${m[1]} topildi`:a?`✈️ ${a[0]} ${a[1]} topildi`:c?`🌍 ${c} topildi`:"Ma'lumot topilmadi";  
-}  
-  
-function askAI(){  
-let q=document.getElementById("aiInput").value.toLowerCase();  
-let m=motos.find(x=>(x[0]+" "+x[1]).toLowerCase().includes(q));  
-let a=aircraft.find(x=>(x[0]+" "+x[1]).toLowerCase().includes(q));  
-let c=countries.find(x=>x.toLowerCase().includes(q));  
-document.getElementById("aiAnswer").textContent=m?`${m[0]} ${m[1]}: ${m[2]}, ${m[3]}, ${m[4]}.`:a?`${a[0]} ${a[1]}: ${a[2]}, masofa ${a[3]}.`:c?`${c} davlatlar ro‘yxatidan topildi.`:"Javob topilmadi.";  
-}  
-  
-function toggleSocial(){let e=document.getElementById("socialBox");e.style.display=e.style.display==="block"?"none":"block"}  
-function openAuth(){document.getElementById("authModal").style.display="flex"}  
-function closeAuth(){document.getElementById("authModal").style.display="none"}  
-function switchAuth(){  
-authMode=authMode==="login"?"register":"login";  
-document.getElementById("authTitle").textContent=authMode==="login"?"Kirish":"Ro‘yxatdan o‘tish";  
-document.getElementById("authButton").textContent=authMode==="login"?"Kirish":"Ro‘yxatdan o‘tish";  
-document.getElementById("authName").style.display=authMode==="login"?"none":"block";  
-}  
-function submitAuth(){  
-let name=document.getElementById("authName").value.trim();  
-let email=document.getElementById("authEmail").value.trim();  
-let password=document.getElementById("authPassword").value;  
-let users=JSON.parse(localStorage.getItem("motosicnaviaUsers")||"[]");  
-if(!email||!password||(authMode==="register"&&!name)){document.getElementById("authMessage").textContent="Maydonlarni to‘ldiring.";return}  
-if(authMode==="register"){  
-if(users.some(u=>u.email===email)){document.getElementById("authMessage").textContent="Email band.";return}  
-users.push({name,email,password});  
-localStorage.setItem("motosicnaviaUsers",JSON.stringify(users));  
-localStorage.setItem("motosicnaviaSession",JSON.stringify({name,email}));  
-}else{  
-let u=users.find(u=>u.email===email&&u.password===password);  
-if(!u){document.getElementById("authMessage").textContent="Email yoki parol noto‘g‘ri.";return}  
-localStorage.setItem("motosicnaviaSession",JSON.stringify({name:u.name,email:u.email}));  
-}  
-updateProfile();closeAuth();  
-}  
-function updateProfile(){  
-let u=JSON.parse(localStorage.getItem("motosicnaviaSession")||"null");  
-document.getElementById("profileName").textContent=u?u.name:"Bexruz";  
-document.getElementById("profileEmail").textContent=u?u.email:"Guest";  
-}  
-function logout(){localStorage.removeItem("motosicnaviaSession");updateProfile()}  
-  
-function selectChatUser(name){  
-selectedChatUser=name;  
-document.getElementById("chatTitle").textContent="💬 "+name+" bilan chat";  
-document.querySelectorAll(".chat-user").forEach(e=>e.classList.toggle("active",e.textContent.includes(name)));  
-renderChat();  
-}  
-function renderChat(){  
-let list=demoMessages.filter(m=>(m.from==="Bexruz"&&m.to===selectedChatUser)||(m.from===selectedChatUser&&m.to==="Bexruz"));  
-let box=document.getElementById("messages");  
-box.innerHTML=list.length?list.map(m=>`<div class="message ${m.from==="Bexruz"?"mine":""}">${safe(m.text)}<small>${safe(m.from)} · ${m.time}</small></div>`).join(""):'<p style="text-align:center;color:#9eb6c8;padding:35px">Hali xabarlar yo‘q.</p>';  
-box.scrollTop=box.scrollHeight;  
-}  
-function sendMessage(){  
-let input=document.getElementById("messageInput"),text=input.value.trim();  
-if(!text)return;  
-demoMessages.push({from:"Bexruz",to:selectedChatUser,text,time:new Date().toLocaleTimeString()});  
-localStorage.setItem("motosicnaviaChat",JSON.stringify(demoMessages));  
-input.value="";renderChat();  
-}  
-function enterSend(e){if(e.key==="Enter")sendMessage()}  
-function clearChat(){demoMessages=[];localStorage.removeItem("motosicnaviaChat");renderChat()}  
-  
-document.getElementById("authName").style.display="none";  
-renderAircraft();renderMotos();renderCountries();renderChat();updateProfile();  
-</script>  </body>  
-</html>  
+
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Motosicnavia</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+ font-family:Arial,sans-serif;
+ background:#050d18;color:#fff;
+ padding-bottom:75px
+}
+header{
+ background:#0a1d31;padding:16px 5%;
+ display:flex;justify-content:space-between;
+ align-items:center;gap:10px
+}
+.logo{font-size:21px;font-weight:bold;color:#00d9ff}
+header button{background:#123b59;color:white;border:0;
+ padding:9px;border-radius:8px}
+main{max-width:900px;margin:auto;padding:15px}
+.page{display:none}
+.page.active{display:block}
+h2{color:#00d9ff;margin:20px 0}
+.card{
+ background:#0c2238;border:1px solid #1d405b;
+ border-radius:14px;padding:15px;margin-bottom:15px
+}
+input,textarea{
+ width:100%;padding:12px;margin:7px 0;
+ background:#081827;color:#fff;
+ border:1px solid #31536d;border-radius:9px
+}
+button{
+ background:#123b59;color:#fff;border:0;
+ padding:11px 14px;border-radius:9px;
+ cursor:pointer
+}
+button:hover{background:#00a8d6}
+.search{display:flex;gap:8px}
+.search button{white-space:nowrap}
+.post-head{display:flex;align-items:center;gap:10px}
+.avatar{
+ width:45px;height:45px;border-radius:50%;
+ display:grid;place-items:center;
+ background:#174766;font-size:22px
+}
+.post img{
+ width:100%;max-height:400px;
+ object-fit:cover;border-radius:10px;
+ margin-top:12px
+}
+.post p{color:#c0d2df;margin:10px 0}
+.post-actions{display:flex;gap:8px;margin-top:12px}
+.stats{
+ display:grid;grid-template-columns:repeat(3,1fr);
+ gap:10px;text-align:center
+}
+.stat{
+ background:#102e48;padding:15px;border-radius:10px
+}
+.stat b{font-size:22px;color:#00d9ff;display:block}
+.profile-top{text-align:center;padding:20px}
+.big-avatar{
+ width:90px;height:90px;border-radius:50%;
+ background:#174766;margin:auto;
+ display:grid;place-items:center;font-size:42px
+}
+.bio{color:#b5c9da;margin:10px}
+.grid{
+ display:grid;grid-template-columns:repeat(3,1fr);
+ gap:4px
+}
+.grid img{width:100%;height:120px;object-fit:cover}
+.result{
+ background:#102e48;padding:13px;
+ border-radius:10px;margin:8px 0
+}
+.bottom-nav{
+ position:fixed;bottom:0;left:0;right:0;
+ background:#0a1d31;border-top:1px solid #25455e;
+ display:grid;grid-template-columns:repeat(4,1fr);
+ padding:9px 5px;z-index:20
+}
+.bottom-nav button{
+ background:transparent;padding:8px 2px;
+ font-size:12px
+}
+.bottom-nav button.active{color:#00d9ff}
+.empty{text-align:center;color:#9eb6c8;padding:25px}
+.small{color:#9eb6c8;font-size:13px}
+@media(max-width:500px){
+ main{padding:10px}
+ .logo{font-size:18px}
+ .grid img{height:95px}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<div class="logo">🏍️ Motosicnavia ✈️</div>
+<button onclick="showPage('profile')">👤 Profil</button>
+</header>
+
+<main>
+
+<!-- ASOSIY -->
+<section id="home" class="page active">
+<h2>🏠 Asosiy</h2>
+
+<div class="card">
+<h3>Explore the Sky and the Road 🌍</h3>
+<p class="small">Aviatsiya, mototsikllar va texnologiyalar olami.</p>
+</div>
+
+<div class="card">
+<h3>✈️ Aviatsiya yangiliklari</h3>
+<p>Boeing, Airbus va xalqaro uchuvchilik haqida ma'lumotlar.</p>
+<button onclick="showPage('search')">Qidirish 🔍</button>
+</div>
+
+<div class="card">
+<h3>🏍️ Moto olami</h3>
+<p>Kawasaki, Yamaha, BMW va boshqa mototsikllar.</p>
+<button onclick="showPage('search')">Motolarni topish</button>
+</div>
+
+<h2>📰 Postlar</h2>
+<div id="homePosts"></div>
+</section>
+
+
+<!-- QIDIRUV -->
+<section id="search" class="page">
+<h2>🔍 Qidiruv</h2>
+
+<div class="card">
+<input id="searchInput"
+placeholder="Moto, samolyot yoki davlat..."
+oninput="searchAll()">
+<div id="searchResults"></div>
+</div>
+</section>
+
+
+<!-- POST -->
+<section id="create" class="page">
+<h2>➕ Post qo‘shish</h2>
+
+<div class="card">
+<label>Post matni</label>
+<textarea id="postText" rows="4"
+placeholder="Nima haqida yozmoqchisiz?"></textarea>
+
+<label>Rasm URL (ixtiyoriy)</label>
+<input id="postImage"
+placeholder="https://...">
+
+<button onclick="createPost()">📤 Post joylash</button>
+<p id="postMessage" class="small"></p>
+</div>
+</section>
+
+
+<!-- PROFIL -->
+<section id="profile" class="page">
+<h2>👤 Profil</h2>
+
+<div class="card profile-top">
+<div class="big-avatar">🏍️</div>
+<h3 id="profileName">Bexruz</h3>
+<p class="bio" id="profileBio">
+Aviation ✈️ | Motorcycle 🏍️ | Travel 🌍
+</p>
+<button onclick="editProfile()">✏️ Profilni tahrirlash</button>
+</div>
+
+<div class="stats">
+<div class="stat"><b id="postCount">0</b>Post</div>
+<div class="stat"><b>0</b>Obunachi</div>
+<div class="stat"><b>0</b>Obuna</div>
+</div>
+
+<h2>📸 Mening postlarim</h2>
+<div class="grid" id="profileGrid"></div>
+</section>
+
+</main>
+
+
+<!-- PASTKI NAVIGATSIYA -->
+<nav class="bottom-nav">
+<button class="active" data-page="home"
+onclick="showPage('home')">🏠<br>Asosiy</button>
+
+<button data-page="search"
+onclick="showPage('search')">🔍<br>Qidiruv</button>
+
+<button data-page="create"
+onclick="showPage('create')">➕<br>Post</button>
+
+<button data-page="profile"
+onclick="showPage('profile')">👤<br>Profil</button>
+</nav>
+
+
+<script>
+
+const aircraft=[
+["Boeing 737","Samolyot","850 km/h"],
+["Boeing 747","Samolyot","907 km/h"],
+["Boeing 777","Samolyot","905 km/h"],
+["Boeing 787","Samolyot","903 km/h"],
+["Airbus A320","Samolyot","840 km/h"],
+["Airbus A350","Samolyot","903 km/h"],
+["Airbus A380","Samolyot","903 km/h"]
+];
+
+const motos=[
+["Kawasaki Ninja H2R","Moto","400+ km/h"],
+["Yamaha YZF-R1","Moto","299 km/h"],
+["BMW S 1000 RR","Moto","303 km/h"],
+["Ducati Panigale V4","Moto","305 km/h"],
+["Honda CBR1000RR-R","Moto","299 km/h"],
+["Suzuki Hayabusa","Moto","299 km/h"],
+["Kawasaki Ninja ZX-10R","Moto","299 km/h"],
+["Yamaha MT-09","Moto","220 km/h"]
+];
+
+const countries=[
+"Uzbekistan","Turkey","United States","United Kingdom",
+"Germany","France","Italy","Spain","Portugal",
+"South Korea","Japan","China","United Arab Emirates",
+"Egypt","Iran","Kazakhstan","Australia","Canada"
+];
+
+let posts=JSON.parse(
+ localStorage.getItem("motosicnaviaPosts")||"[]"
+);
+
+function showPage(page){
+
+document.querySelectorAll(".page").forEach(p=>{
+ p.classList.remove("active");
+});
+
+document.getElementById(page).classList.add("active");
+
+document.querySelectorAll(".bottom-nav button").forEach(b=>{
+ b.classList.toggle("active",b.dataset.page===page);
+});
+
+if(page==="home")renderPosts();
+if(page==="profile")renderProfile();
+
+window.scrollTo(0,0);
+}
+
+function renderPosts(){
+
+const box=document.getElementById("homePosts");
+
+if(!posts.length){
+ box.innerHTML='<div class="empty">Hali postlar yo‘q. Birinchi postni sen joyla! 🚀</div>';
+ return;
+}
+
+box.innerHTML=posts.map((p,i)=>`
+<div class="card post">
+<div class="post-head">
+<div class="avatar">🏍️</div>
+<div>
+<b>${safe(p.name)}</b>
+<div class="small">${safe(p.time)}</div>
+</div>
+</div>
+
+<p>${safe(p.text)}</p>
+${p.image?`<img src="${safe(p.image)}" alt="Post rasmi"
+onerror="this.style.display='none'">`:""}
+
+<div class="post-actions">
+<button onclick="likePost(${i})">❤️ ${p.likes||0}</button>
+<button onclick="deletePost(${i})">🗑️ O‘chirish</button>
+</div>
+</div>
+`).join("");
+
+}
+
+function createPost(){
+
+const text=document.getElementById("postText").value.trim();
+const image=document.getElementById("postImage").value.trim();
+const msg=document.getElementById("postMessage");
+
+if(!text){
+ msg.textContent="Post matnini yozing.";
+ return;
+}
+
+posts.unshift({
+ name:localStorage.getItem("motosicnaviaName")||"Bexruz",
+ text:text,
+ image:image,
+ likes:0,
+ time:new Date().toLocaleString()
+});
+
+localStorage.setItem("motosicnaviaPosts",JSON.stringify(posts));
+
+document.getElementById("postText").value="";
+document.getElementById("postImage").value="";
+msg.textContent="Post joylandi! ✅";
+
+renderPosts();
+renderProfile();
+
+}
+
+function likePost(i){
+
+posts[i].likes=(posts[i].likes||0)+1;
+localStorage.setItem("motosicnaviaPosts",JSON.stringify(posts));
+renderPosts();
+
+}
+
+function deletePost(i){
+
+if(!confirm("Post o‘chirilsinmi?"))return;
+
+posts.splice(i,1);
+localStorage.setItem("motosicnaviaPosts",JSON.stringify(posts));
+renderPosts();
+renderProfile();
+
+}
+
+function searchAll(){
+
+const q=document.getElementById("searchInput").value.toLowerCase().trim();
+const box=document.getElementById("searchResults");
+
+if(!q){
+ box.innerHTML='<p class="empty">Qidiruvni boshlang 🔍</p>';
+ return;
+}
+
+const all=[
+ ...aircraft.map(x=>({name:x[0],type:x[1],info:x[2]})),
+ ...motos.map(x=>({name:x[0],type:x[1],info:x[2]})),
+ ...countries.map(x=>({name:x,type:"Davlat",info:"Mamlakat"}))
+];
+
+const results=all.filter(x=>x.name.toLowerCase().includes(q));
+
+box.innerHTML=results.length?
+results.map(x=>`
+<div class="result">
+<b>${x.type==="Moto"?"🏍️":x.type==="Samolyot"?"✈️":"🌍"} ${safe(x.name)}</b>
+<p class="small">${safe(x.type)} · ${safe(x.info)}</p>
+</div>`).join("")
+:'<p class="empty">Ma’lumot topilmadi.</p>';
+
+}
+
+function renderProfile(){
+
+const name=localStorage.getItem("motosicnaviaName")||"Bexruz";
+const bio=localStorage.getItem("motosicnaviaBio")||
+"Aviation ✈️ | Motorcycle 🏍️ | Travel 🌍";
+
+document.getElementById("profileName").textContent=name;
+document.getElementById("profileBio").textContent=bio;
+document.getElementById("postCount").textContent=posts.length;
+
+const mine=posts.filter(p=>p.name===name);
+const grid=document.getElementById("profileGrid");
+
+grid.innerHTML=mine.length?
+mine.map(p=>p.image?
+`<img src="${safe(p.image)}" alt="Post"
+onerror="this.style.display='none'">`
+:`<div class="card" style="font-size:12px">${safe(p.text)}</div>`
+).join("")
+:'<p class="empty">Postlaringiz shu yerda ko‘rinadi.</p>';
+
+}
+
+function editProfile(){
+
+const oldName=localStorage.getItem("motosicnaviaName")||"Bexruz";
+const oldBio=localStorage.getItem("motosicnaviaBio")||
+"Aviation ✈️ | Motorcycle 🏍️ | Travel 🌍";
+
+const name=prompt("Ismingiz:",oldName);
+if(name===null)return;
+
+const bio=prompt("Bio:",oldBio);
+if(bio===null)return;
+
+if(!name.trim())return;
+
+localStorage.setItem("motosicnaviaName",name.trim());
+localStorage.setItem("motosicnaviaBio",bio.trim());
+
+renderProfile();
+
+}
+
+function safe(t){
+
+return String(t).replace(/[&<>"']/g,c=>({
+"&":"&amp;",
+"<":"&lt;",
+">":"&gt;",
+'"':"&quot;",
+"'":"&#039;"
+}[c]));
+
+}
+
+renderPosts();
+renderProfile();
+
+</script>
+
+</body>
+</html>
