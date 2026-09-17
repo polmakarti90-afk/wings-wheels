@@ -113,10 +113,10 @@ footer{text-align:center;padding:30px;background:#0b2035;color:#9eb6c8}
 <div class="chat-layout">  
 <div class="chat-users">  
 <h3>👥 Foydalanuvchilar</h3>  
-<div class="chat-user active" onclick="selectChatUser('Aziz')">👤 Aziz</div>  
-<div class="chat-user" onclick="selectChatUser('Sardor')">👤 Sardor</div>  
-<div class="chat-user" onclick="selectChatUser('Malika')">👤 Malika</div>  
-<div class="chat-user" onclick="selectChatUser('Jasur')">👤 Jasur</div>  
+<div class="chat-user active" onclick="selectChatUser('Bexruz')">👤 Bexruz</div>  
+<div class="chat-user" onclick="selectChatUser('Neymar')">👤 Neymar</div>  
+<div class="chat-user" onclick="selectChatUser('Messi')">👤 Messi</div>  
+<div class="chat-user" onclick="selectChatUser('Ronaldo')">👤 Ronaldo</div>  
 </div>  
 <div class="chat-area">  
 <div class="chat-title" id="chatTitle">💬 Aziz bilan chat</div>  
@@ -287,7 +287,7 @@ updateProfile();closeAuth();
 function updateProfile(){  
 let u=JSON.parse(localStorage.getItem("motosicnaviaSession")||"null");  
 document.getElementById("profileName").textContent=u?u.name:"Bexruz";  
-document.getElementById("profileEmail").textContent=u?u.email:"Mehmon foydalanuvchi";  
+document.getElementById("profileEmail").textContent=u?u.email:"Guest";  
 }  
 function logout(){localStorage.removeItem("motosicnaviaSession");updateProfile()}  
   
