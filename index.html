@@ -5,431 +5,501 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Motosicnavia</title>
-
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{
- font-family:Arial,sans-serif;
- background:#050d18;color:#fff;
- padding-bottom:75px
-}
-header{
- background:#0a1d31;padding:16px 5%;
- display:flex;justify-content:space-between;
- align-items:center;gap:10px
-}
-.logo{font-size:21px;font-weight:bold;color:#00d9ff}
-header button{background:#123b59;color:white;border:0;
- padding:9px;border-radius:8px}
-main{max-width:900px;margin:auto;padding:15px}
-.page{display:none}
-.page.active{display:block}
-h2{color:#00d9ff;margin:20px 0}
-.card{
- background:#0c2238;border:1px solid #1d405b;
- border-radius:14px;padding:15px;margin-bottom:15px
-}
-input,textarea{
- width:100%;padding:12px;margin:7px 0;
- background:#081827;color:#fff;
- border:1px solid #31536d;border-radius:9px
-}
-button{
- background:#123b59;color:#fff;border:0;
- padding:11px 14px;border-radius:9px;
- cursor:pointer
-}
+body{font-family:Arial,sans-serif;background:#050d18;color:#fff;padding-bottom:80px}
+header{background:#0a1d31;padding:16px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:5}
+.logo{color:#00d9ff;font-size:20px;font-weight:bold}
+main{max-width:1000px;margin:auto;padding:15px}
+.page{display:none}.page.active{display:block}
+h2{color:#00d9ff;margin:20px 0 15px}
+h3{margin-bottom:8px}
+.card{background:#0c2238;border:1px solid #23455f;border-radius:14px;padding:15px;margin-bottom:15px}
+button{background:#123b59;color:#fff;border:0;border-radius:9px;padding:11px 14px;cursor:pointer;margin:4px 2px}
 button:hover{background:#00a8d6}
-.search{display:flex;gap:8px}
-.search button{white-space:nowrap}
-.post-head{display:flex;align-items:center;gap:10px}
-.avatar{
- width:45px;height:45px;border-radius:50%;
- display:grid;place-items:center;
- background:#174766;font-size:22px
-}
-.post img{
- width:100%;max-height:400px;
- object-fit:cover;border-radius:10px;
- margin-top:12px
-}
-.post p{color:#c0d2df;margin:10px 0}
-.post-actions{display:flex;gap:8px;margin-top:12px}
-.stats{
- display:grid;grid-template-columns:repeat(3,1fr);
- gap:10px;text-align:center
-}
-.stat{
- background:#102e48;padding:15px;border-radius:10px
-}
-.stat b{font-size:22px;color:#00d9ff;display:block}
-.profile-top{text-align:center;padding:20px}
-.big-avatar{
- width:90px;height:90px;border-radius:50%;
- background:#174766;margin:auto;
- display:grid;place-items:center;font-size:42px
-}
-.bio{color:#b5c9da;margin:10px}
-.grid{
- display:grid;grid-template-columns:repeat(3,1fr);
- gap:4px
-}
-.grid img{width:100%;height:120px;object-fit:cover}
-.result{
- background:#102e48;padding:13px;
- border-radius:10px;margin:8px 0
-}
-.bottom-nav{
- position:fixed;bottom:0;left:0;right:0;
- background:#0a1d31;border-top:1px solid #25455e;
- display:grid;grid-template-columns:repeat(4,1fr);
- padding:9px 5px;z-index:20
-}
-.bottom-nav button{
- background:transparent;padding:8px 2px;
- font-size:12px
-}
-.bottom-nav button.active{color:#00d9ff}
-.empty{text-align:center;color:#9eb6c8;padding:25px}
+input,textarea,select{width:100%;padding:12px;margin:7px 0;background:#081827;color:white;border:1px solid #31536d;border-radius:9px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
 .small{color:#9eb6c8;font-size:13px}
-@media(max-width:500px){
- main{padding:10px}
- .logo{font-size:18px}
- .grid img{height:95px}
-}
+.badge{display:inline-block;background:#174766;padding:5px 8px;border-radius:7px;color:#00d9ff;font-size:12px}
+.hero{text-align:center;padding:25px 0}
+.hero h1{font-size:38px;color:#00d9ff;margin-bottom:10px}
+.hero p{color:#b5c9da}
+.statgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:15px 0}
+.stat{background:#102e48;padding:15px;text-align:center;border-radius:10px}
+.stat b{display:block;color:#00d9ff;font-size:23px}
+.bottom{position:fixed;bottom:0;left:0;right:0;background:#0a1d31;border-top:1px solid #294a63;display:grid;grid-template-columns:repeat(5,1fr);z-index:10}
+.bottom button{background:transparent;font-size:11px;padding:10px 2px;margin:0}
+.bottom button.active{color:#00d9ff}
+.list{display:flex;gap:8px;flex-wrap:wrap}
+.list button{flex:1;min-width:100px}
+.bar{height:15px;background:#173b56;border-radius:20px;overflow:hidden;margin:10px 0}
+.bar span{display:block;height:100%;background:#00b5e2}
+.simulator{background:linear-gradient(#102d46,#071522);border:1px solid #2c526d;border-radius:14px;padding:15px;text-align:center}
+.plane{font-size:65px;transition:transform .3s}
+.track{height:120px;border:1px dashed #31536d;display:flex;align-items:center;justify-content:center;overflow:hidden}
+#travelList p,#communityList p{color:#b5c9da;margin:7px 0}
+.product img{width:100%;height:150px;object-fit:cover;border-radius:10px}
+.lesson{cursor:pointer}
+.lesson:hover{border-color:#00d9ff}
 </style>
 </head>
-
 <body>
 
 <header>
 <div class="logo">🏍️ Motosicnavia ✈️</div>
-<button onclick="showPage('profile')">👤 Profil</button>
+<button onclick="showPage('profile')">👤</button>
 </header>
 
 <main>
 
-<!-- ASOSIY -->
+<!-- HOME -->
 <section id="home" class="page active">
-<h2>🏠 Asosiy</h2>
-
-<div class="card">
-<h3>Explore the Sky and the Road 🌍</h3>
-<p class="small">Aviatsiya, mototsikllar va texnologiyalar olami.</p>
+<div class="hero">
+<h1>Motosicnavia</h1>
+<p>Explore the Sky and the Road 🌍</p>
+<p class="small">Aviation • Motorcycle • Travel • Community</p>
 </div>
 
-<div class="card">
-<h3>✈️ Aviatsiya yangiliklari</h3>
-<p>Boeing, Airbus va xalqaro uchuvchilik haqida ma'lumotlar.</p>
-<button onclick="showPage('search')">Qidirish 🔍</button>
+<div class="statgrid">
+<div class="stat"><b>✈️</b> Aviation</div>
+<div class="stat"><b>🏍️</b> Moto</div>
+<div class="stat"><b>🌍</b> Travel</div>
 </div>
 
-<div class="card">
-<h3>🏍️ Moto olami</h3>
-<p>Kawasaki, Yamaha, BMW va boshqa mototsikllar.</p>
-<button onclick="showPage('search')">Motolarni topish</button>
+<h2>🚀 Explore</h2>
+<div class="grid">
+<div class="card"><h3>✈️ Flight Simulator</h3><p class="small">Parvoz o‘yinini boshlang.</p><button onclick="showPage('simulator')">Boshlash</button></div>
+<div class="card"><h3>🏍️ Moto Garage</h3><p class="small">Sevimli motolaringiz.</p><button onclick="showPage('garage')">Garaj</button></div>
+<div class="card"><h3>📚 Academy</h3><p class="small">Uchuvchilikni o‘rganing.</p><button onclick="showPage('academy')">O‘qish</button></div>
+<div class="card"><h3>🛒 Marketplace</h3><p class="small">Moto va aviation mahsulotlari.</p><button onclick="showPage('shop')">Ko‘rish</button></div>
 </div>
 
-<h2>📰 Postlar</h2>
-<div id="homePosts"></div>
+<h2>🧑‍🤝‍🧑 Community</h2>
+<div id="homeCommunity"></div>
 </section>
 
 
-<!-- QIDIRUV -->
-<section id="search" class="page">
-<h2>🔍 Qidiruv</h2>
-
-<div class="card">
-<input id="searchInput"
-placeholder="Moto, samolyot yoki davlat..."
-oninput="searchAll()">
-<div id="searchResults"></div>
+<!-- SIMULATOR -->
+<section id="simulator" class="page">
+<h2>✈️ Flight Simulator</h2>
+<div class="simulator">
+<div class="track"><div id="plane" class="plane">✈️</div></div>
+<h3 id="flightStatus">Samolyot tayyor</h3>
+<p class="small">Tezlik: <span id="speed">0</span> km/h</p>
+<div class="bar"><span id="speedBar" style="width:0%"></span></div>
+<button onclick="takeOff()">🛫 Uchish</button>
+<button onclick="land()">🛬 Qo‘nish</button>
+<button onclick="resetFlight()">🔄 Reset</button>
 </div>
-</section>
-
-
-<!-- POST -->
-<section id="create" class="page">
-<h2>➕ Post qo‘shish</h2>
-
 <div class="card">
-<label>Post matni</label>
-<textarea id="postText" rows="4"
-placeholder="Nima haqida yozmoqchisiz?"></textarea>
-
-<label>Rasm URL (ixtiyoriy)</label>
-<input id="postImage"
-placeholder="https://...">
-
-<button onclick="createPost()">📤 Post joylash</button>
-<p id="postMessage" class="small"></p>
+<h3>Parvoz boshqaruvi</h3>
+<p class="small">Bu o‘quv/demo simulyatsiya. Haqiqiy uchuvchilik trenajyori emas.</p>
+<p id="flightLog" class="small">Holat: yerda</p>
 </div>
 </section>
 
 
-<!-- PROFIL -->
+<!-- GARAGE -->
+<section id="garage" class="page">
+<h2>🏍️ Virtual Moto Garage</h2>
+<div class="card">
+<input id="garageName" placeholder="Moto nomi (masalan: Kawasaki H2R)">
+<input id="garageNote" placeholder="Izoh yoki maqsad">
+<button onclick="addGarage()">➕ Garajga qo‘shish</button>
+</div>
+<div id="garageList"></div>
+</section>
+
+
+<!-- TRAVEL -->
+<section id="travel" class="page">
+<h2>🌍 Travel Journal</h2>
+<div class="card">
+<input id="travelPlace" placeholder="Joy nomi (masalan: Istanbul)">
+<textarea id="travelNote" rows="3" placeholder="Sayohat xotiralari..."></textarea>
+<button onclick="addTravel()">📔 Saqlash</button>
+</div>
+<div id="travelList"></div>
+</section>
+
+
+<!-- COMPARE -->
+<section id="compare" class="page">
+<h2>📊 Moto Comparison</h2>
+<div class="card">
+<label>Birinchi moto</label>
+<select id="compareA"></select>
+<label>Ikkinchi moto</label>
+<select id="compareB"></select>
+<button onclick="compareMotos()">📊 Solishtirish</button>
+</div>
+<div id="compareResult"></div>
+</section>
+
+
+<!-- ACADEMY -->
+<section id="academy" class="page">
+<h2>📚 Aviation Academy</h2>
+<p class="small">Boshlang‘ich aviatsiya darslari va testlar.</p>
+<div class="grid">
+<div class="card lesson" onclick="lesson(0)"><span class="badge">1-dars</span><h3>✈️ Aerodinamika</h3><p class="small">Samolyot qanday uchadi?</p></div>
+<div class="card lesson" onclick="lesson(1)"><span class="badge">2-dars</span><h3>🧭 Navigatsiya</h3><p class="small">Yo‘nalish va xaritalar.</p></div>
+<div class="card lesson" onclick="lesson(2)"><span class="badge">3-dars</span><h3>🌤️ Ob-havo</h3><p class="small">Aviatsiya meteorologiyasi.</p></div>
+<div class="card lesson" onclick="lesson(3)"><span class="badge">4-dars</span><h3>🛫 Parvoz xavfsizligi</h3><p class="small">Xavfsizlik asoslari.</p></div>
+</div>
+<div id="lessonBox"></div>
+</section>
+
+
+<!-- COMMUNITY -->
+<section id="community" class="page">
+<h2>🧑‍🤝‍🧑 Moto Community</h2>
+<div class="card">
+<input id="communityName" placeholder="Ismingiz">
+<textarea id="communityText" rows="3" placeholder="Jamoaga xabar yozing..."></textarea>
+<button onclick="addCommunity()">📤 Joylash</button>
+</div>
+<div id="communityList"></div>
+</section>
+
+
+<!-- STORIES -->
+<section id="stories" class="page">
+<h2>📸 Stories & Reels</h2>
+<div class="card">
+<input id="storyText" placeholder="Story matni">
+<input id="storyUrl" placeholder="Rasm yoki video URL">
+<button onclick="addStory()">📸 Story qo‘shish</button>
+</div>
+<div id="storyList"></div>
+</section>
+
+
+<!-- SHOP -->
+<section id="shop" class="page">
+<h2>🛒 Marketplace</h2>
+<p class="small">Demo mahsulotlar. Haqiqiy sotuv va to‘lov ulanmagan.</p>
+<div class="grid" id="shopList"></div>
+<h2>🛍️ Savatcha</h2>
+<div class="card">
+<div id="cartList"></div>
+<b id="cartTotal">Jami: $0</b><br>
+<button onclick="clearCart()">🗑️ Savatchani tozalash</button>
+</div>
+</section>
+
+
+<!-- PROFILE -->
 <section id="profile" class="page">
 <h2>👤 Profil</h2>
-
-<div class="card profile-top">
-<div class="big-avatar">🏍️</div>
+<div class="card" style="text-align:center">
+<div style="font-size:70px">🏍️</div>
 <h3 id="profileName">Bexruz</h3>
-<p class="bio" id="profileBio">
-Aviation ✈️ | Motorcycle 🏍️ | Travel 🌍
-</p>
-<button onclick="editProfile()">✏️ Profilni tahrirlash</button>
+<p class="small">Aviation ✈️ | Moto 🏍️ | Travel 🌍</p>
+<button onclick="editName()">✏️ Ismni o‘zgartirish</button>
 </div>
-
-<div class="stats">
-<div class="stat"><b id="postCount">0</b>Post</div>
-<div class="stat"><b>0</b>Obunachi</div>
-<div class="stat"><b>0</b>Obuna</div>
+<div class="statgrid">
+<div class="stat"><b id="profilePosts">0</b>Postlar</div>
+<div class="stat"><b id="profileGarage">0</b>Motolar</div>
+<div class="stat"><b id="profileTravel">0</b>Sayohat</div>
 </div>
-
-<h2>📸 Mening postlarim</h2>
-<div class="grid" id="profileGrid"></div>
 </section>
 
 </main>
 
 
-<!-- PASTKI NAVIGATSIYA -->
-<nav class="bottom-nav">
-<button class="active" data-page="home"
-onclick="showPage('home')">🏠<br>Asosiy</button>
-
-<button data-page="search"
-onclick="showPage('search')">🔍<br>Qidiruv</button>
-
-<button data-page="create"
-onclick="showPage('create')">➕<br>Post</button>
-
-<button data-page="profile"
-onclick="showPage('profile')">👤<br>Profil</button>
+<!-- NAV -->
+<nav class="bottom">
+<button data-page="home" class="active" onclick="showPage('home')">🏠<br>Home</button>
+<button data-page="search" onclick="showPage('search')">🔍<br>Search</button>
+<button data-page="stories" onclick="showPage('stories')">📸<br>Stories</button>
+<button data-page="community" onclick="showPage('community')">👥<br>Community</button>
+<button data-page="profile" onclick="showPage('profile')">👤<br>Profile</button>
 </nav>
 
 
 <script>
 
-const aircraft=[
-["Boeing 737","Samolyot","850 km/h"],
-["Boeing 747","Samolyot","907 km/h"],
-["Boeing 777","Samolyot","905 km/h"],
-["Boeing 787","Samolyot","903 km/h"],
-["Airbus A320","Samolyot","840 km/h"],
-["Airbus A350","Samolyot","903 km/h"],
-["Airbus A380","Samolyot","903 km/h"]
-];
-
 const motos=[
-["Kawasaki Ninja H2R","Moto","400+ km/h"],
-["Yamaha YZF-R1","Moto","299 km/h"],
-["BMW S 1000 RR","Moto","303 km/h"],
-["Ducati Panigale V4","Moto","305 km/h"],
-["Honda CBR1000RR-R","Moto","299 km/h"],
-["Suzuki Hayabusa","Moto","299 km/h"],
-["Kawasaki Ninja ZX-10R","Moto","299 km/h"],
-["Yamaha MT-09","Moto","220 km/h"]
+{name:"Kawasaki Ninja H2R",cc:"998 cc",hp:310,speed:400},
+{name:"Yamaha YZF-R1",cc:"998 cc",hp:200,speed:299},
+{name:"BMW S 1000 RR",cc:"999 cc",hp:210,speed:303},
+{name:"Ducati Panigale V4",cc:"1103 cc",hp:216,speed:305},
+{name:"Honda CBR1000RR-R",cc:"999 cc",hp:214,speed:299},
+{name:"Suzuki Hayabusa",cc:"1340 cc",hp:190,speed:299},
+{name:"Kawasaki Ninja ZX-10R",cc:"998 cc",hp:203,speed:299},
+{name:"Yamaha MT-09",cc:"890 cc",hp:119,speed:220}
 ];
 
-const countries=[
-"Uzbekistan","Turkey","United States","United Kingdom",
-"Germany","France","Italy","Spain","Portugal",
-"South Korea","Japan","China","United Arab Emirates",
-"Egypt","Iran","Kazakhstan","Australia","Canada"
+const lessons=[
+["Aerodinamika","Samolyotga ko‘taruvchi kuch, og‘irlik, tortish kuchi va qarshilik ta’sir qiladi.","Savol: Samolyotni yuqoriga ko‘tarishga yordam beradigan kuch qaysi?","Ko‘taruvchi kuch"],
+["Navigatsiya","Uchuvchi yo‘nalish, xaritalar, asboblar va parvoz rejasidan foydalanadi.","Savol: Navigatsiyaning asosiy maqsadi nima?","Yo‘nalishni aniqlash"],
+["Ob-havo","Bulutlar, shamol, ko‘rinish va bosim parvoz rejasiga ta’sir qiladi.","Savol: Aviatsiyada ob-havo nima uchun muhim?","Xavfsiz parvoz rejalash"],
+["Parvoz xavfsizligi","Tekshiruvlar, protseduralar, aloqa va ekipaj hamkorligi muhim.","Savol: Parvozdan oldin nima bajariladi?","Samolyotning tekshiruvi"]
 ];
 
-let posts=JSON.parse(
- localStorage.getItem("motosicnaviaPosts")||"[]"
-);
+const products=[
+{name:"Aviation Notebook",price:12,img:"https://images.unsplash.com/photo-1495446815901-a7297e633e8d?w=700"},
+{name:"Moto Gloves",price:35,img:"https://images.unsplash.com/photo-1558981806-ec527fa84c39?w=700"},
+{name:"Pilot Headset",price:85,img:"https://images.unsplash.com/photo-1546435770-a3e426bf472b?w=700"},
+{name:"Travel Backpack",price:45,img:"https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=700"}
+];
 
-function showPage(page){
+let garage=JSON.parse(localStorage.getItem("garage")||"[]");
+let travels=JSON.parse(localStorage.getItem("travels")||"[]");
+let community=JSON.parse(localStorage.getItem("community")||"[]");
+let stories=JSON.parse(localStorage.getItem("stories")||"[]");
+let cart=JSON.parse(localStorage.getItem("cart")||"[]");
+let postCount=Number(localStorage.getItem("postCount")||0);
 
-document.querySelectorAll(".page").forEach(p=>{
- p.classList.remove("active");
-});
+function save(key,data){
+localStorage.setItem(key,JSON.stringify(data));
+}
 
-document.getElementById(page).classList.add("active");
-
-document.querySelectorAll(".bottom-nav button").forEach(b=>{
- b.classList.toggle("active",b.dataset.page===page);
-});
-
-if(page==="home")renderPosts();
-if(page==="profile")renderProfile();
-
+function showPage(id){
+document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+document.getElementById(id).classList.add("active");
+document.querySelectorAll(".bottom button").forEach(b=>b.classList.toggle("active",b.dataset.page===id));
+if(id==="home")renderHome();
+if(id==="profile")renderProfile();
 window.scrollTo(0,0);
 }
 
-function renderPosts(){
-
-const box=document.getElementById("homePosts");
-
-if(!posts.length){
- box.innerHTML='<div class="empty">Hali postlar yo‘q. Birinchi postni sen joyla! 🚀</div>';
- return;
+function safe(t){
+return String(t).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));
 }
 
-box.innerHTML=posts.map((p,i)=>`
-<div class="card post">
-<div class="post-head">
-<div class="avatar">🏍️</div>
-<div>
-<b>${safe(p.name)}</b>
-<div class="small">${safe(p.time)}</div>
-</div>
-</div>
-
-<p>${safe(p.text)}</p>
-${p.image?`<img src="${safe(p.image)}" alt="Post rasmi"
-onerror="this.style.display='none'">`:""}
-
-<div class="post-actions">
-<button onclick="likePost(${i})">❤️ ${p.likes||0}</button>
-<button onclick="deletePost(${i})">🗑️ O‘chirish</button>
-</div>
-</div>
-`).join("");
-
-}
-
-function createPost(){
-
-const text=document.getElementById("postText").value.trim();
-const image=document.getElementById("postImage").value.trim();
-const msg=document.getElementById("postMessage");
-
-if(!text){
- msg.textContent="Post matnini yozing.";
- return;
-}
-
-posts.unshift({
- name:localStorage.getItem("motosicnaviaName")||"Bexruz",
- text:text,
- image:image,
- likes:0,
- time:new Date().toLocaleString()
-});
-
-localStorage.setItem("motosicnaviaPosts",JSON.stringify(posts));
-
-document.getElementById("postText").value="";
-document.getElementById("postImage").value="";
-msg.textContent="Post joylandi! ✅";
-
-renderPosts();
-renderProfile();
-
-}
-
-function likePost(i){
-
-posts[i].likes=(posts[i].likes||0)+1;
-localStorage.setItem("motosicnaviaPosts",JSON.stringify(posts));
-renderPosts();
-
-}
-
-function deletePost(i){
-
-if(!confirm("Post o‘chirilsinmi?"))return;
-
-posts.splice(i,1);
-localStorage.setItem("motosicnaviaPosts",JSON.stringify(posts));
-renderPosts();
-renderProfile();
-
-}
-
-function searchAll(){
-
-const q=document.getElementById("searchInput").value.toLowerCase().trim();
-const box=document.getElementById("searchResults");
-
-if(!q){
- box.innerHTML='<p class="empty">Qidiruvni boshlang 🔍</p>';
- return;
-}
-
-const all=[
- ...aircraft.map(x=>({name:x[0],type:x[1],info:x[2]})),
- ...motos.map(x=>({name:x[0],type:x[1],info:x[2]})),
- ...countries.map(x=>({name:x,type:"Davlat",info:"Mamlakat"}))
-];
-
-const results=all.filter(x=>x.name.toLowerCase().includes(q));
-
-box.innerHTML=results.length?
-results.map(x=>`
-<div class="result">
-<b>${x.type==="Moto"?"🏍️":x.type==="Samolyot"?"✈️":"🌍"} ${safe(x.name)}</b>
-<p class="small">${safe(x.type)} · ${safe(x.info)}</p>
-</div>`).join("")
-:'<p class="empty">Ma’lumot topilmadi.</p>';
-
+function renderHome(){
+document.getElementById("homeCommunity").innerHTML=community.length?
+community.slice(0,3).map(p=>`<div class="card"><b>👤 ${safe(p.name)}</b><p>${safe(p.text)}</p><p class="small">${safe(p.time)}</p></div>`).join(""):
+'<div class="card"><p class="small">Jamoada hali post yo‘q.</p></div>';
 }
 
 function renderProfile(){
-
-const name=localStorage.getItem("motosicnaviaName")||"Bexruz";
-const bio=localStorage.getItem("motosicnaviaBio")||
-"Aviation ✈️ | Motorcycle 🏍️ | Travel 🌍";
-
-document.getElementById("profileName").textContent=name;
-document.getElementById("profileBio").textContent=bio;
-document.getElementById("postCount").textContent=posts.length;
-
-const mine=posts.filter(p=>p.name===name);
-const grid=document.getElementById("profileGrid");
-
-grid.innerHTML=mine.length?
-mine.map(p=>p.image?
-`<img src="${safe(p.image)}" alt="Post"
-onerror="this.style.display='none'">`
-:`<div class="card" style="font-size:12px">${safe(p.text)}</div>`
-).join("")
-:'<p class="empty">Postlaringiz shu yerda ko‘rinadi.</p>';
-
+document.getElementById("profileName").textContent=localStorage.getItem("userName")||"Bexruz";
+document.getElementById("profilePosts").textContent=postCount;
+document.getElementById("profileGarage").textContent=garage.length;
+document.getElementById("profileTravel").textContent=travels.length;
 }
 
-function editProfile(){
-
-const oldName=localStorage.getItem("motosicnaviaName")||"Bexruz";
-const oldBio=localStorage.getItem("motosicnaviaBio")||
-"Aviation ✈️ | Motorcycle 🏍️ | Travel 🌍";
-
-const name=prompt("Ismingiz:",oldName);
-if(name===null)return;
-
-const bio=prompt("Bio:",oldBio);
-if(bio===null)return;
-
-if(!name.trim())return;
-
-localStorage.setItem("motosicnaviaName",name.trim());
-localStorage.setItem("motosicnaviaBio",bio.trim());
-
+function editName(){
+const name=prompt("Ismingiz:",localStorage.getItem("userName")||"Bexruz");
+if(name&&name.trim()){
+localStorage.setItem("userName",name.trim());
 renderProfile();
-
+}
 }
 
-function safe(t){
 
-return String(t).replace(/[&<>"']/g,c=>({
-"&":"&amp;",
-"<":"&lt;",
-">":"&gt;",
-'"':"&quot;",
-"'":"&#039;"
-}[c]));
+// FLIGHT SIMULATOR
+let flightSpeed=0;
 
+function updateFlight(){
+document.getElementById("speed").textContent=flightSpeed;
+document.getElementById("speedBar").style.width=Math.min(100,flightSpeed/4)+"%";
 }
 
-renderPosts();
+function takeOff(){
+flightSpeed=Math.min(400,flightSpeed+100);
+document.getElementById("plane").style.transform="translateY(-15px)";
+document.getElementById("flightStatus").textContent="🛫 Parvoz rejimi";
+document.getElementById("flightLog").textContent="Holat: havoda · Demo tezlik";
+updateFlight();
+}
+
+function land(){
+flightSpeed=0;
+document.getElementById("plane").style.transform="translateY(0)";
+document.getElementById("flightStatus").textContent="🛬 Qo‘nish yakunlandi";
+document.getElementById("flightLog").textContent="Holat: yerda";
+updateFlight();
+}
+
+function resetFlight(){
+flightSpeed=0;
+document.getElementById("plane").style.transform="translateY(0)";
+document.getElementById("flightStatus").textContent="Samolyot tayyor";
+document.getElementById("flightLog").textContent="Holat: yerda";
+updateFlight();
+}
+
+
+// GARAGE
+function addGarage(){
+const name=document.getElementById("garageName").value.trim();
+const note=document.getElementById("garageNote").value.trim();
+if(!name)return alert("Moto nomini kiriting.");
+garage.push({name,note});
+save("garage",garage);
+document.getElementById("garageName").value="";
+document.getElementById("garageNote").value="";
+renderGarage();renderProfile();
+}
+
+function renderGarage(){
+document.getElementById("garageList").innerHTML=garage.length?
+garage.map((m,i)=>`<div class="card"><h3>🏍️ ${safe(m.name)}</h3><p class="small">${safe(m.note||"Sevimli mototsikl")}</p><button onclick="removeGarage(${i})">🗑️ O‘chirish</button></div>`).join(""):
+'<div class="card"><p class="small">Garaj bo‘sh.</p></div>';
+}
+
+function removeGarage(i){
+garage.splice(i,1);save("garage",garage);renderGarage();renderProfile();
+}
+
+
+// TRAVEL JOURNAL
+function addTravel(){
+const place=document.getElementById("travelPlace").value.trim();
+const note=document.getElementById("travelNote").value.trim();
+if(!place||!note)return alert("Joy va xotirani kiriting.");
+travels.unshift({place,note,time:new Date().toLocaleDateString()});
+save("travels",travels);
+document.getElementById("travelPlace").value="";
+document.getElementById("travelNote").value="";
+renderTravel();renderProfile();
+}
+
+function renderTravel(){
+document.getElementById("travelList").innerHTML=travels.length?
+travels.map((t,i)=>`<div class="card"><h3>🌍 ${safe(t.place)}</h3><p>${safe(t.note)}</p><p class="small">${safe(t.time)}</p><button onclick="removeTravel(${i})">🗑️</button></div>`).join(""):
+'<div class="card"><p class="small">Sayohat xotiralari hali yo‘q.</p></div>';
+}
+
+function removeTravel(i){
+travels.splice(i,1);save("travels",travels);renderTravel();renderProfile();
+}
+
+
+// COMPARISON
+function initCompare(){
+const options=motos.map((m,i)=>`<option value="${i}">${safe(m.name)}</option>`).join("");
+document.getElementById("compareA").innerHTML=options;
+document.getElementById("compareB").innerHTML=options;
+document.getElementById("compareB").value="1";
+}
+
+function compareMotos(){
+const a=motos[Number(document.getElementById("compareA").value)];
+const b=motos[Number(document.getElementById("compareB").value)];
+document.getElementById("compareResult").innerHTML=`
+<div class="card">
+<h3>📊 Taqqoslash</h3>
+<div class="grid">
+<div><h3>🏍️ ${safe(a.name)}</h3><p>Dvigatel: ${a.cc}</p><p>Quvvat: ${a.hp} hp</p><p>Tezlik: ${a.speed} km/h</p></div>
+<div><h3>🏍️ ${safe(b.name)}</h3><p>Dvigatel: ${b.cc}</p><p>Quvvat: ${b.hp} hp</p><p>Tezlik: ${b.speed} km/h</p></div>
+</div>
+</div>`;
+}
+
+
+// ACADEMY
+function lesson(i){
+const l=lessons[i];
+document.getElementById("lessonBox").innerHTML=`
+<div class="card">
+<span class="badge">Dars</span>
+<h3>${safe(l[0])}</h3>
+<p>${safe(l[1])}</p>
+<br><b>${safe(l[2])}</b>
+<br><button onclick="alert('Javob: ${safe(l[3])}')">Javobni ko‘rish</button>
+</div>`;
+}
+
+
+// COMMUNITY
+function addCommunity(){
+const name=document.getElementById("communityName").value.trim()||"Bexruz";
+const text=document.getElementById("communityText").value.trim();
+if(!text)return alert("Xabar yozing.");
+community.unshift({name,text,time:new Date().toLocaleString()});
+save("community",community);
+postCount++;
+localStorage.setItem("postCount",postCount);
+document.getElementById("communityText").value="";
+renderCommunity();renderHome();renderProfile();
+}
+
+function renderCommunity(){
+document.getElementById("communityList").innerHTML=community.length?
+community.map((p,i)=>`<div class="card"><b>👤 ${safe(p.name)}</b><p>${safe(p.text)}</p><p class="small">${safe(p.time)}</p><button onclick="deleteCommunity(${i})">🗑️</button></div>`).join(""):
+'<div class="card"><p class="small">Hali postlar yo‘q.</p></div>';
+}
+
+function deleteCommunity(i){
+community.splice(i,1);save("community",community);renderCommunity();renderHome();
+}
+
+
+// STORIES
+function addStory(){
+const text=document.getElementById("storyText").value.trim();
+const url=document.getElementById("storyUrl").value.trim();
+if(!text)return alert("Story matnini yozing.");
+stories.unshift({text,url,time:new Date().toLocaleString()});
+save("stories",stories);
+document.getElementById("storyText").value="";
+document.getElementById("storyUrl").value="";
+renderStories();
+}
+
+function renderStories(){
+document.getElementById("storyList").innerHTML=stories.length?
+stories.map((s,i)=>`<div class="card"><span class="badge">📸 Story</span><p>${safe(s.text)}</p>${s.url?`<a href="${safe(s.url)}" target="_blank" style="color:#00d9ff">🔗 Media ochish</a>`:""}<p class="small">${safe(s.time)}</p><button onclick="deleteStory(${i})">🗑️</button></div>`).join(""):
+'<div class="card"><p class="small">Hali Stories yo‘q.</p></div>';
+}
+
+function deleteStory(i){
+stories.splice(i,1);save("stories",stories);renderStories();
+}
+
+
+// MARKETPLACE
+function renderShop(){
+document.getElementById("shopList").innerHTML=products.map((p,i)=>`
+<div class="card product">
+<img src="${p.img}" alt="${safe(p.name)}">
+<h3>${safe(p.name)}</h3>
+<p class="small">Demo mahsulot</p>
+<h3>$${p.price}</h3>
+<button onclick="addCart(${i})">🛒 Savatchaga</button>
+</div>`).join("");
+}
+
+function addCart(i){
+cart.push(products[i]);
+save("cart",cart);
+renderCart();
+}
+
+function renderCart(){
+document.getElementById("cartList").innerHTML=cart.length?
+cart.map((p,i)=>`<p>${safe(p.name)} — $${p.price} <button onclick="removeCart(${i})">X</button></p>`).join(""):
+'<p class="small">Savatcha bo‘sh.</p>';
+const total=cart.reduce((s,p)=>s+p.price,0);
+document.getElementById("cartTotal").textContent="Jami: $"+total;
+}
+
+function removeCart(i){
+cart.splice(i,1);save("cart",cart);renderCart();
+}
+
+function clearCart(){
+cart=[];save("cart",cart);renderCart();
+}
+
+
+// INITIALIZE
+renderGarage();
+renderTravel();
+renderCommunity();
+renderStories();
+renderShop();
+renderCart();
+renderHome();
 renderProfile();
+initCompare();
+updateFlight();
 
 </script>
-
 </body>
 </html>
