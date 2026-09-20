@@ -1,505 +1,100 @@
-
 <!DOCTYPE html>
 <html lang="uz">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Motosicnavia</title>
+<meta name="theme-color" content="#050816">
+<title>My Brain 🧠</title>
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:Arial,sans-serif;background:#050d18;color:#fff;padding-bottom:80px}
-header{background:#0a1d31;padding:16px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:5}
-.logo{color:#00d9ff;font-size:20px;font-weight:bold}
-main{max-width:1000px;margin:auto;padding:15px}
-.page{display:none}.page.active{display:block}
-h2{color:#00d9ff;margin:20px 0 15px}
-h3{margin-bottom:8px}
-.card{background:#0c2238;border:1px solid #23455f;border-radius:14px;padding:15px;margin-bottom:15px}
-button{background:#123b59;color:#fff;border:0;border-radius:9px;padding:11px 14px;cursor:pointer;margin:4px 2px}
-button:hover{background:#00a8d6}
-input,textarea,select{width:100%;padding:12px;margin:7px 0;background:#081827;color:white;border:1px solid #31536d;border-radius:9px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
-.small{color:#9eb6c8;font-size:13px}
-.badge{display:inline-block;background:#174766;padding:5px 8px;border-radius:7px;color:#00d9ff;font-size:12px}
-.hero{text-align:center;padding:25px 0}
-.hero h1{font-size:38px;color:#00d9ff;margin-bottom:10px}
-.hero p{color:#b5c9da}
-.statgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:15px 0}
-.stat{background:#102e48;padding:15px;text-align:center;border-radius:10px}
-.stat b{display:block;color:#00d9ff;font-size:23px}
-.bottom{position:fixed;bottom:0;left:0;right:0;background:#0a1d31;border-top:1px solid #294a63;display:grid;grid-template-columns:repeat(5,1fr);z-index:10}
-.bottom button{background:transparent;font-size:11px;padding:10px 2px;margin:0}
-.bottom button.active{color:#00d9ff}
-.list{display:flex;gap:8px;flex-wrap:wrap}
-.list button{flex:1;min-width:100px}
-.bar{height:15px;background:#173b56;border-radius:20px;overflow:hidden;margin:10px 0}
-.bar span{display:block;height:100%;background:#00b5e2}
-.simulator{background:linear-gradient(#102d46,#071522);border:1px solid #2c526d;border-radius:14px;padding:15px;text-align:center}
-.plane{font-size:65px;transition:transform .3s}
-.track{height:120px;border:1px dashed #31536d;display:flex;align-items:center;justify-content:center;overflow:hidden}
-#travelList p,#communityList p{color:#b5c9da;margin:7px 0}
-.product img{width:100%;height:150px;object-fit:cover;border-radius:10px}
-.lesson{cursor:pointer}
-.lesson:hover{border-color:#00d9ff}
+*{box-sizing:border-box} :root{--bg:#050816;--card:#0d1428;--card2:#121d35;--text:#eef5ff;--muted:#91a2c4;--blue:#00bfff;--green:#00f5a0;--border:#26385b}
+.light{--bg:#eef2fb;--card:#fff;--card2:#e7ecf7;--text:#10182c;--muted:#5d6b85;--border:#ccd5e7}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,sans-serif}.app{max-width:1250px;margin:auto;display:flex;min-height:100vh}
+.sidebar{width:230px;background:#070d1d;border-right:1px solid var(--border);padding:22px 14px;flex-shrink:0}.logo{font-size:25px;font-weight:bold;color:#00c8ff;text-align:center;margin-bottom:30px}.logo span{color:white}
+.nav{display:block;width:100%;padding:13px;border:0;border-radius:12px;background:transparent;color:#b4c5e4;text-align:left;margin:5px 0;cursor:pointer}.nav:hover{background:#123e81;color:#00d9ff}.motto{color:#7d93b9;font-size:13px;line-height:1.7;margin:45px 10px}
+.main{flex:1;padding:22px;min-width:0}.top{display:flex;gap:10px;margin-bottom:20px}.search{flex:1}
+input,textarea,select{width:100%;padding:12px;border:1px solid var(--border);border-radius:12px;background:var(--card);color:var(--text);outline:none}button{font:inherit;cursor:pointer}.btn,.iconbtn{border:1px solid var(--border);background:var(--card);color:var(--text);border-radius:12px;padding:10px 14px}.primary{background:var(--blue);color:#001321;border:0;font-weight:bold}.small{font-size:12px;padding:8px 10px}
+.hero{border:1px solid #18518a;border-radius:22px;padding:25px;display:flex;align-items:center;gap:18px;background:linear-gradient(115deg,#0a1738,#10233d,#11132c);margin-bottom:20px}.hero h1{font-size:30px;margin:0 0 10px}.hero p{color:#a4bce5;line-height:1.6}.heroart{font-size:85px;filter:drop-shadow(0 0 25px #00bfff)}
+.assistant{display:flex;align-items:center;gap:13px;padding:15px;background:var(--card);border:1px solid var(--border);border-radius:18px;margin-bottom:20px}.girl{font-size:55px;background:#15213e;border-radius:50%;padding:8px}.speech{flex:1;font-size:14px;line-height:1.5}.speech b{color:var(--blue)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:22px}.stat{padding:15px;border:1px solid var(--border);border-radius:16px;background:var(--card)}.stat b{font-size:26px;color:var(--green);display:block}.stat span{font-size:12px;color:var(--muted)}
+.sectionhead{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:22px 0}.sectionhead h2{font-size:21px;margin:0}.people,.knowledge{display:grid;grid-template-columns:repeat(auto-fit,minmax(245px,1fr));gap:15px}
+.person,.kcard{background:var(--card);border:1px solid var(--border);border-radius:18px;overflow:hidden}.person img,.kcard img{width:100%;height:170px;object-fit:cover;background:#15213b}.personbody,.kbody{padding:15px}.person h3,.kcard h3{margin:0 0 7px;font-size:17px}.role{font-size:12px;color:var(--blue);margin-bottom:10px}.person p,.kcard p{color:var(--muted);font-size:13px;line-height:1.6;white-space:pre-wrap}.tag{display:inline-block;padding:5px 9px;border-radius:20px;background:#113f48;color:var(--green);font-size:11px;margin-bottom:10px}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.date{font-size:12px;color:var(--muted);margin-top:10px}.empty{text-align:center;color:var(--muted);padding:35px;grid-column:1/-1}
+.modal{position:fixed;inset:0;background:#000b;display:none;align-items:center;justify-content:center;padding:15px;z-index:10}.modal.show{display:flex}.modalbox{background:var(--card);border:1px solid #30466d;border-radius:22px;padding:22px;width:100%;max-width:540px;max-height:92vh;overflow:auto}.close{float:right;border:0;background:none;color:var(--muted);font-size:25px}.field{margin:14px 0}.field label{display:block;font-size:12px;color:var(--muted);margin-bottom:7px}.preview{width:100%;max-height:180px;object-fit:cover;border-radius:12px;margin-top:10px}.formactions{display:flex;gap:10px;margin-top:20px}.formactions>*{flex:1}.note{color:var(--muted);font-size:12px;line-height:1.5}.option{display:block;width:100%;text-align:left;background:var(--card2);color:var(--text);border:1px solid var(--border);padding:13px;border-radius:12px;margin:8px 0}.bottom{display:none}
+@media(max-width:750px){.sidebar{display:none}.main{padding:13px;padding-bottom:80px}.hero{padding:18px}.hero h1{font-size:24px}.heroart{font-size:58px}.stats{gap:7px}.stat{padding:11px}.stat b{font-size:21px}.bottom{display:block;position:fixed;bottom:0;left:0;right:0;background:var(--card);border-top:1px solid var(--border);padding:10px;text-align:center;z-index:5}}
 </style>
 </head>
 <body>
+<div class="app">
+<aside class="sidebar">
+<div class="logo">🧠 My <span>Brain</span></div>
+<button class="nav" onclick="go('home')">🏠 Bosh sahifa</button>
+<button class="nav" onclick="go('people')">⭐ Mashhur shaxslar</button>
+<button class="nav" onclick="go('myknowledge')">📚 Mening bilimlarim</button>
+<button class="nav" onclick="openTest()">🧠 Savol-javob</button>
+<button class="nav" onclick="reminders()">🔔 Eslatmalar</button>
+<button class="nav" onclick="openForm()">＋ Bilim qo‘shish</button>
+<div class="motto">“Katta orzular katta bilimlardan boshlanadi.” ✈️</div>
+</aside>
+<main class="main" id="home">
+<div class="top"><input id="search" class="search" placeholder="🔍 Qidirish..." oninput="render()"><button class="iconbtn" onclick="theme()">🌙</button></div>
+<section class="hero"><div style="flex:1"><h1>Aviatsiya ✈️</h1><p>Samolyotlar, uchuvchilar, texnologiyalar va buyuk shaxslar dunyosi.</p><button class="btn primary" onclick="go('people')">Mavzular ro‘yxati →</button></div><div class="heroart">✈️</div></section>
+<div class="assistant"><div class="girl">👩🏻‍✈️</div><div class="speech"><b>My Brain yordamchisi</b><br>Salom! Bugun yangi bilim o‘rganishga tayyormisan? Men senga eslatib turaman. 😊</div><button class="btn small" onclick="speak('Salom! Bugun yangi bilim o‘rganishga tayyormisan?')">🔊</button></div>
+<div class="stats"><div class="stat"><b id="total">0</b><span>Jami bilim</span></div><div class="stat"><b id="due">0</b><span>Takrorlash</span></div><div class="stat"><b id="cats">0</b><span>Fanlar</span></div></div>
+<section id="people"><div class="sectionhead"><h2>⭐ Mashhur shaxslar</h2><button class="btn small" onclick="showPeople()">Barchasi →</button></div><div id="peopleList" class="people"></div></section>
+<section id="myknowledge"><div class="sectionhead"><h2>📚 Mening bilimlarim</h2><button class="btn primary small" onclick="openForm()">＋ Qo‘shish</button></div><div class="toolbar"><select id="filter" onchange="render()"><option value="">Barcha fanlar</option><option>Aviatsiya</option><option>Ingliz tili</option><option>Matematika</option><option>Fizika</option><option>Tarix</option><option>Boshqa</option></select></div><div id="list" class="knowledge"></div></section>
+</main></div>
+<div class="bottom"><button class="btn primary" onclick="openForm()">＋ Yangi bilim qo‘shish</button></div>
 
-<header>
-<div class="logo">🏍️ Motosicnavia ✈️</div>
-<button onclick="showPage('profile')">👤</button>
-</header>
+<div class="modal" id="formModal"><div class="modalbox"><button class="close" onclick="closeM('formModal')">×</button><h2 id="formTitle">📚 Yangi bilim</h2>
+<div class="field"><label>Mavzu nomi *</label><input id="title" placeholder="Masalan: Samolyot qanday uchadi?"></div>
+<div class="field"><label>Fan</label><select id="category"><option>Aviatsiya</option><option>Ingliz tili</option><option>Matematika</option><option>Fizika</option><option>Tarix</option><option>Boshqa</option></select></div>
+<div class="field"><label>Biliming *</label><textarea id="content" rows="5" placeholder="Bilimingni yoz..."></textarea></div>
+<div class="field"><label>🖼️ Rasm yuklash</label><input type="file" id="image" accept="image/*" onchange="previewImage(event)"><img id="preview" class="preview" style="display:none"></div>
+<div class="field"><label>⏰ Takrorlash sanasi</label><input type="date" id="reviewDate"></div>
+<div class="field"><label>🎙️ Ovozli qayd</label><button class="btn" onclick="voiceRecord()">🎙️ Ovoz bilan yozish</button><p id="voiceStatus" class="note">Ovozli kiritish uchun tugmani bosing.</p></div>
+<div class="formactions"><button class="btn" onclick="closeM('formModal')">Bekor</button><button class="btn primary" onclick="saveKnowledge()">💾 Saqlash</button></div>
+</div></div>
 
-<main>
-
-<!-- HOME -->
-<section id="home" class="page active">
-<div class="hero">
-<h1>Motosicnavia</h1>
-<p>Explore the Sky and the Road 🌍</p>
-<p class="small">Aviation • Motorcycle • Travel • Community</p>
-</div>
-
-<div class="statgrid">
-<div class="stat"><b>✈️</b> Aviation</div>
-<div class="stat"><b>🏍️</b> Moto</div>
-<div class="stat"><b>🌍</b> Travel</div>
-</div>
-
-<h2>🚀 Explore</h2>
-<div class="grid">
-<div class="card"><h3>✈️ Flight Simulator</h3><p class="small">Parvoz o‘yinini boshlang.</p><button onclick="showPage('simulator')">Boshlash</button></div>
-<div class="card"><h3>🏍️ Moto Garage</h3><p class="small">Sevimli motolaringiz.</p><button onclick="showPage('garage')">Garaj</button></div>
-<div class="card"><h3>📚 Academy</h3><p class="small">Uchuvchilikni o‘rganing.</p><button onclick="showPage('academy')">O‘qish</button></div>
-<div class="card"><h3>🛒 Marketplace</h3><p class="small">Moto va aviation mahsulotlari.</p><button onclick="showPage('shop')">Ko‘rish</button></div>
-</div>
-
-<h2>🧑‍🤝‍🧑 Community</h2>
-<div id="homeCommunity"></div>
-</section>
-
-
-<!-- SIMULATOR -->
-<section id="simulator" class="page">
-<h2>✈️ Flight Simulator</h2>
-<div class="simulator">
-<div class="track"><div id="plane" class="plane">✈️</div></div>
-<h3 id="flightStatus">Samolyot tayyor</h3>
-<p class="small">Tezlik: <span id="speed">0</span> km/h</p>
-<div class="bar"><span id="speedBar" style="width:0%"></span></div>
-<button onclick="takeOff()">🛫 Uchish</button>
-<button onclick="land()">🛬 Qo‘nish</button>
-<button onclick="resetFlight()">🔄 Reset</button>
-</div>
-<div class="card">
-<h3>Parvoz boshqaruvi</h3>
-<p class="small">Bu o‘quv/demo simulyatsiya. Haqiqiy uchuvchilik trenajyori emas.</p>
-<p id="flightLog" class="small">Holat: yerda</p>
-</div>
-</section>
-
-
-<!-- GARAGE -->
-<section id="garage" class="page">
-<h2>🏍️ Virtual Moto Garage</h2>
-<div class="card">
-<input id="garageName" placeholder="Moto nomi (masalan: Kawasaki H2R)">
-<input id="garageNote" placeholder="Izoh yoki maqsad">
-<button onclick="addGarage()">➕ Garajga qo‘shish</button>
-</div>
-<div id="garageList"></div>
-</section>
-
-
-<!-- TRAVEL -->
-<section id="travel" class="page">
-<h2>🌍 Travel Journal</h2>
-<div class="card">
-<input id="travelPlace" placeholder="Joy nomi (masalan: Istanbul)">
-<textarea id="travelNote" rows="3" placeholder="Sayohat xotiralari..."></textarea>
-<button onclick="addTravel()">📔 Saqlash</button>
-</div>
-<div id="travelList"></div>
-</section>
-
-
-<!-- COMPARE -->
-<section id="compare" class="page">
-<h2>📊 Moto Comparison</h2>
-<div class="card">
-<label>Birinchi moto</label>
-<select id="compareA"></select>
-<label>Ikkinchi moto</label>
-<select id="compareB"></select>
-<button onclick="compareMotos()">📊 Solishtirish</button>
-</div>
-<div id="compareResult"></div>
-</section>
-
-
-<!-- ACADEMY -->
-<section id="academy" class="page">
-<h2>📚 Aviation Academy</h2>
-<p class="small">Boshlang‘ich aviatsiya darslari va testlar.</p>
-<div class="grid">
-<div class="card lesson" onclick="lesson(0)"><span class="badge">1-dars</span><h3>✈️ Aerodinamika</h3><p class="small">Samolyot qanday uchadi?</p></div>
-<div class="card lesson" onclick="lesson(1)"><span class="badge">2-dars</span><h3>🧭 Navigatsiya</h3><p class="small">Yo‘nalish va xaritalar.</p></div>
-<div class="card lesson" onclick="lesson(2)"><span class="badge">3-dars</span><h3>🌤️ Ob-havo</h3><p class="small">Aviatsiya meteorologiyasi.</p></div>
-<div class="card lesson" onclick="lesson(3)"><span class="badge">4-dars</span><h3>🛫 Parvoz xavfsizligi</h3><p class="small">Xavfsizlik asoslari.</p></div>
-</div>
-<div id="lessonBox"></div>
-</section>
-
-
-<!-- COMMUNITY -->
-<section id="community" class="page">
-<h2>🧑‍🤝‍🧑 Moto Community</h2>
-<div class="card">
-<input id="communityName" placeholder="Ismingiz">
-<textarea id="communityText" rows="3" placeholder="Jamoaga xabar yozing..."></textarea>
-<button onclick="addCommunity()">📤 Joylash</button>
-</div>
-<div id="communityList"></div>
-</section>
-
-
-<!-- STORIES -->
-<section id="stories" class="page">
-<h2>📸 Stories & Reels</h2>
-<div class="card">
-<input id="storyText" placeholder="Story matni">
-<input id="storyUrl" placeholder="Rasm yoki video URL">
-<button onclick="addStory()">📸 Story qo‘shish</button>
-</div>
-<div id="storyList"></div>
-</section>
-
-
-<!-- SHOP -->
-<section id="shop" class="page">
-<h2>🛒 Marketplace</h2>
-<p class="small">Demo mahsulotlar. Haqiqiy sotuv va to‘lov ulanmagan.</p>
-<div class="grid" id="shopList"></div>
-<h2>🛍️ Savatcha</h2>
-<div class="card">
-<div id="cartList"></div>
-<b id="cartTotal">Jami: $0</b><br>
-<button onclick="clearCart()">🗑️ Savatchani tozalash</button>
-</div>
-</section>
-
-
-<!-- PROFILE -->
-<section id="profile" class="page">
-<h2>👤 Profil</h2>
-<div class="card" style="text-align:center">
-<div style="font-size:70px">🏍️</div>
-<h3 id="profileName">Bexruz</h3>
-<p class="small">Aviation ✈️ | Moto 🏍️ | Travel 🌍</p>
-<button onclick="editName()">✏️ Ismni o‘zgartirish</button>
-</div>
-<div class="statgrid">
-<div class="stat"><b id="profilePosts">0</b>Postlar</div>
-<div class="stat"><b id="profileGarage">0</b>Motolar</div>
-<div class="stat"><b id="profileTravel">0</b>Sayohat</div>
-</div>
-</section>
-
-</main>
-
-
-<!-- NAV -->
-<nav class="bottom">
-<button data-page="home" class="active" onclick="showPage('home')">🏠<br>Home</button>
-<button data-page="search" onclick="showPage('search')">🔍<br>Search</button>
-<button data-page="stories" onclick="showPage('stories')">📸<br>Stories</button>
-<button data-page="community" onclick="showPage('community')">👥<br>Community</button>
-<button data-page="profile" onclick="showPage('profile')">👤<br>Profile</button>
-</nav>
-
+<div class="modal" id="testModal"><div class="modalbox"><button class="close" onclick="closeM('testModal')">×</button><h2>🧠 Savol-javob testi</h2><div id="testArea"></div></div></div>
 
 <script>
-
-const motos=[
-{name:"Kawasaki Ninja H2R",cc:"998 cc",hp:310,speed:400},
-{name:"Yamaha YZF-R1",cc:"998 cc",hp:200,speed:299},
-{name:"BMW S 1000 RR",cc:"999 cc",hp:210,speed:303},
-{name:"Ducati Panigale V4",cc:"1103 cc",hp:216,speed:305},
-{name:"Honda CBR1000RR-R",cc:"999 cc",hp:214,speed:299},
-{name:"Suzuki Hayabusa",cc:"1340 cc",hp:190,speed:299},
-{name:"Kawasaki Ninja ZX-10R",cc:"998 cc",hp:203,speed:299},
-{name:"Yamaha MT-09",cc:"890 cc",hp:119,speed:220}
+const $=id=>document.getElementById(id);
+let knowledge=JSON.parse(localStorage.getItem('myBrainData')||'[]'),editingId=null,imageData='',recognition=null;
+let questions=[],qi=0,score=0;
+const people=[
+['Wilbur va Orville Wright','Aviatsiya pionerlari','https://commons.wikimedia.org/wiki/Special:FilePath/Wright%20brothers%20original.jpg','1903-yil 17-dekabrda boshqariladigan, dvigatelli samolyot bilan tarixiy parvozni amalga oshirgan aka-ukalar. Ularning tajribalari zamonaviy aviatsiya rivojiga katta ta’sir ko‘rsatgan.'],
+['Charles Lindbergh','Uchuvchi','https://commons.wikimedia.org/wiki/Special:FilePath/Charles%20Lindbergh%20%281927%29.jpg','1927-yilda Atlantika okeanini yakka holda to‘xtovsiz kesib o‘tgan mashhur uchuvchi.'],
+['Amelia Earhart','Kashshof ayol uchuvchi','https://commons.wikimedia.org/wiki/Special:FilePath/Amelia_Earhart%2C_circa_1928.jpg','Aviatsiya tarixidagi taniqli uchuvchi va ayollar aviatsiyasining rivojiga hissa qo‘shgan shaxs.'],
+['Igor Sikorsky','Vertolyot konstruktori','https://commons.wikimedia.org/wiki/Special:FilePath/Igor%20Sikorsky%20%281944%29.jpg','Ko‘p dvigatelli samolyotlar va amaliy vertolyotlar rivojiga katta hissa qo‘shgan muhandis.'],
+['Yuri Gagarin','Birinchi kosmonavt','https://commons.wikimedia.org/wiki/Special:FilePath/Yuri%20Gagarin%20%281961%29.jpg','1961-yil 12-aprelda Yer orbitasiga chiqqan birinchi inson.'],
+['Howard Hughes','Aviatsiya innovatori','https://commons.wikimedia.org/wiki/Special:FilePath/Howard%20Hughes%20in%20the%20cockpit%20of%20the%20Northrop%20Gamma%20aircraft.jpg','Uchuvchi, muhandis va aviatsiya loyihalarini rivojlantirgan tadbirkor.']
 ];
-
-const lessons=[
-["Aerodinamika","Samolyotga ko‘taruvchi kuch, og‘irlik, tortish kuchi va qarshilik ta’sir qiladi.","Savol: Samolyotni yuqoriga ko‘tarishga yordam beradigan kuch qaysi?","Ko‘taruvchi kuch"],
-["Navigatsiya","Uchuvchi yo‘nalish, xaritalar, asboblar va parvoz rejasidan foydalanadi.","Savol: Navigatsiyaning asosiy maqsadi nima?","Yo‘nalishni aniqlash"],
-["Ob-havo","Bulutlar, shamol, ko‘rinish va bosim parvoz rejasiga ta’sir qiladi.","Savol: Aviatsiyada ob-havo nima uchun muhim?","Xavfsiz parvoz rejalash"],
-["Parvoz xavfsizligi","Tekshiruvlar, protseduralar, aloqa va ekipaj hamkorligi muhim.","Savol: Parvozdan oldin nima bajariladi?","Samolyotning tekshiruvi"]
-];
-
-const products=[
-{name:"Aviation Notebook",price:12,img:"https://images.unsplash.com/photo-1495446815901-a7297e633e8d?w=700"},
-{name:"Moto Gloves",price:35,img:"https://images.unsplash.com/photo-1558981806-ec527fa84c39?w=700"},
-{name:"Pilot Headset",price:85,img:"https://images.unsplash.com/photo-1546435770-a3e426bf472b?w=700"},
-{name:"Travel Backpack",price:45,img:"https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=700"}
-];
-
-let garage=JSON.parse(localStorage.getItem("garage")||"[]");
-let travels=JSON.parse(localStorage.getItem("travels")||"[]");
-let community=JSON.parse(localStorage.getItem("community")||"[]");
-let stories=JSON.parse(localStorage.getItem("stories")||"[]");
-let cart=JSON.parse(localStorage.getItem("cart")||"[]");
-let postCount=Number(localStorage.getItem("postCount")||0);
-
-function save(key,data){
-localStorage.setItem(key,JSON.stringify(data));
-}
-
-function showPage(id){
-document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
-document.getElementById(id).classList.add("active");
-document.querySelectorAll(".bottom button").forEach(b=>b.classList.toggle("active",b.dataset.page===id));
-if(id==="home")renderHome();
-if(id==="profile")renderProfile();
-window.scrollTo(0,0);
-}
-
-function safe(t){
-return String(t).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));
-}
-
-function renderHome(){
-document.getElementById("homeCommunity").innerHTML=community.length?
-community.slice(0,3).map(p=>`<div class="card"><b>👤 ${safe(p.name)}</b><p>${safe(p.text)}</p><p class="small">${safe(p.time)}</p></div>`).join(""):
-'<div class="card"><p class="small">Jamoada hali post yo‘q.</p></div>';
-}
-
-function renderProfile(){
-document.getElementById("profileName").textContent=localStorage.getItem("userName")||"Bexruz";
-document.getElementById("profilePosts").textContent=postCount;
-document.getElementById("profileGarage").textContent=garage.length;
-document.getElementById("profileTravel").textContent=travels.length;
-}
-
-function editName(){
-const name=prompt("Ismingiz:",localStorage.getItem("userName")||"Bexruz");
-if(name&&name.trim()){
-localStorage.setItem("userName",name.trim());
-renderProfile();
-}
-}
-
-
-// FLIGHT SIMULATOR
-let flightSpeed=0;
-
-function updateFlight(){
-document.getElementById("speed").textContent=flightSpeed;
-document.getElementById("speedBar").style.width=Math.min(100,flightSpeed/4)+"%";
-}
-
-function takeOff(){
-flightSpeed=Math.min(400,flightSpeed+100);
-document.getElementById("plane").style.transform="translateY(-15px)";
-document.getElementById("flightStatus").textContent="🛫 Parvoz rejimi";
-document.getElementById("flightLog").textContent="Holat: havoda · Demo tezlik";
-updateFlight();
-}
-
-function land(){
-flightSpeed=0;
-document.getElementById("plane").style.transform="translateY(0)";
-document.getElementById("flightStatus").textContent="🛬 Qo‘nish yakunlandi";
-document.getElementById("flightLog").textContent="Holat: yerda";
-updateFlight();
-}
-
-function resetFlight(){
-flightSpeed=0;
-document.getElementById("plane").style.transform="translateY(0)";
-document.getElementById("flightStatus").textContent="Samolyot tayyor";
-document.getElementById("flightLog").textContent="Holat: yerda";
-updateFlight();
-}
-
-
-// GARAGE
-function addGarage(){
-const name=document.getElementById("garageName").value.trim();
-const note=document.getElementById("garageNote").value.trim();
-if(!name)return alert("Moto nomini kiriting.");
-garage.push({name,note});
-save("garage",garage);
-document.getElementById("garageName").value="";
-document.getElementById("garageNote").value="";
-renderGarage();renderProfile();
-}
-
-function renderGarage(){
-document.getElementById("garageList").innerHTML=garage.length?
-garage.map((m,i)=>`<div class="card"><h3>🏍️ ${safe(m.name)}</h3><p class="small">${safe(m.note||"Sevimli mototsikl")}</p><button onclick="removeGarage(${i})">🗑️ O‘chirish</button></div>`).join(""):
-'<div class="card"><p class="small">Garaj bo‘sh.</p></div>';
-}
-
-function removeGarage(i){
-garage.splice(i,1);save("garage",garage);renderGarage();renderProfile();
-}
-
-
-// TRAVEL JOURNAL
-function addTravel(){
-const place=document.getElementById("travelPlace").value.trim();
-const note=document.getElementById("travelNote").value.trim();
-if(!place||!note)return alert("Joy va xotirani kiriting.");
-travels.unshift({place,note,time:new Date().toLocaleDateString()});
-save("travels",travels);
-document.getElementById("travelPlace").value="";
-document.getElementById("travelNote").value="";
-renderTravel();renderProfile();
-}
-
-function renderTravel(){
-document.getElementById("travelList").innerHTML=travels.length?
-travels.map((t,i)=>`<div class="card"><h3>🌍 ${safe(t.place)}</h3><p>${safe(t.note)}</p><p class="small">${safe(t.time)}</p><button onclick="removeTravel(${i})">🗑️</button></div>`).join(""):
-'<div class="card"><p class="small">Sayohat xotiralari hali yo‘q.</p></div>';
-}
-
-function removeTravel(i){
-travels.splice(i,1);save("travels",travels);renderTravel();renderProfile();
-}
-
-
-// COMPARISON
-function initCompare(){
-const options=motos.map((m,i)=>`<option value="${i}">${safe(m.name)}</option>`).join("");
-document.getElementById("compareA").innerHTML=options;
-document.getElementById("compareB").innerHTML=options;
-document.getElementById("compareB").value="1";
-}
-
-function compareMotos(){
-const a=motos[Number(document.getElementById("compareA").value)];
-const b=motos[Number(document.getElementById("compareB").value)];
-document.getElementById("compareResult").innerHTML=`
-<div class="card">
-<h3>📊 Taqqoslash</h3>
-<div class="grid">
-<div><h3>🏍️ ${safe(a.name)}</h3><p>Dvigatel: ${a.cc}</p><p>Quvvat: ${a.hp} hp</p><p>Tezlik: ${a.speed} km/h</p></div>
-<div><h3>🏍️ ${safe(b.name)}</h3><p>Dvigatel: ${b.cc}</p><p>Quvvat: ${b.hp} hp</p><p>Tezlik: ${b.speed} km/h</p></div>
-</div>
-</div>`;
-}
-
-
-// ACADEMY
-function lesson(i){
-const l=lessons[i];
-document.getElementById("lessonBox").innerHTML=`
-<div class="card">
-<span class="badge">Dars</span>
-<h3>${safe(l[0])}</h3>
-<p>${safe(l[1])}</p>
-<br><b>${safe(l[2])}</b>
-<br><button onclick="alert('Javob: ${safe(l[3])}')">Javobni ko‘rish</button>
-</div>`;
-}
-
-
-// COMMUNITY
-function addCommunity(){
-const name=document.getElementById("communityName").value.trim()||"Bexruz";
-const text=document.getElementById("communityText").value.trim();
-if(!text)return alert("Xabar yozing.");
-community.unshift({name,text,time:new Date().toLocaleString()});
-save("community",community);
-postCount++;
-localStorage.setItem("postCount",postCount);
-document.getElementById("communityText").value="";
-renderCommunity();renderHome();renderProfile();
-}
-
-function renderCommunity(){
-document.getElementById("communityList").innerHTML=community.length?
-community.map((p,i)=>`<div class="card"><b>👤 ${safe(p.name)}</b><p>${safe(p.text)}</p><p class="small">${safe(p.time)}</p><button onclick="deleteCommunity(${i})">🗑️</button></div>`).join(""):
-'<div class="card"><p class="small">Hali postlar yo‘q.</p></div>';
-}
-
-function deleteCommunity(i){
-community.splice(i,1);save("community",community);renderCommunity();renderHome();
-}
-
-
-// STORIES
-function addStory(){
-const text=document.getElementById("storyText").value.trim();
-const url=document.getElementById("storyUrl").value.trim();
-if(!text)return alert("Story matnini yozing.");
-stories.unshift({text,url,time:new Date().toLocaleString()});
-save("stories",stories);
-document.getElementById("storyText").value="";
-document.getElementById("storyUrl").value="";
-renderStories();
-}
-
-function renderStories(){
-document.getElementById("storyList").innerHTML=stories.length?
-stories.map((s,i)=>`<div class="card"><span class="badge">📸 Story</span><p>${safe(s.text)}</p>${s.url?`<a href="${safe(s.url)}" target="_blank" style="color:#00d9ff">🔗 Media ochish</a>`:""}<p class="small">${safe(s.time)}</p><button onclick="deleteStory(${i})">🗑️</button></div>`).join(""):
-'<div class="card"><p class="small">Hali Stories yo‘q.</p></div>';
-}
-
-function deleteStory(i){
-stories.splice(i,1);save("stories",stories);renderStories();
-}
-
-
-// MARKETPLACE
-function renderShop(){
-document.getElementById("shopList").innerHTML=products.map((p,i)=>`
-<div class="card product">
-<img src="${p.img}" alt="${safe(p.name)}">
-<h3>${safe(p.name)}</h3>
-<p class="small">Demo mahsulot</p>
-<h3>$${p.price}</h3>
-<button onclick="addCart(${i})">🛒 Savatchaga</button>
-</div>`).join("");
-}
-
-function addCart(i){
-cart.push(products[i]);
-save("cart",cart);
-renderCart();
-}
-
-function renderCart(){
-document.getElementById("cartList").innerHTML=cart.length?
-cart.map((p,i)=>`<p>${safe(p.name)} — $${p.price} <button onclick="removeCart(${i})">X</button></p>`).join(""):
-'<p class="small">Savatcha bo‘sh.</p>';
-const total=cart.reduce((s,p)=>s+p.price,0);
-document.getElementById("cartTotal").textContent="Jami: $"+total;
-}
-
-function removeCart(i){
-cart.splice(i,1);save("cart",cart);renderCart();
-}
-
-function clearCart(){
-cart=[];save("cart",cart);renderCart();
-}
-
-
-// INITIALIZE
-renderGarage();
-renderTravel();
-renderCommunity();
-renderStories();
-renderShop();
-renderCart();
-renderHome();
-renderProfile();
-initCompare();
-updateFlight();
-
+function esc(s){return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function today(){return new Date().toISOString().slice(0,10)}
+function plus(n){let d=new Date();d.setDate(d.getDate()+n);return d.toISOString().slice(0,10)}
+function go(id){$(id).scrollIntoView({behavior:'smooth'})}
+function closeM(id){$(id).classList.remove('show')}
+function theme(){document.body.classList.toggle('light');localStorage.setItem('theme',document.body.classList.contains('light')?'light':'dark')}
+if(localStorage.getItem('theme')==='light')document.body.classList.add('light');
+function showPeople(){renderPeople(true)}
+function renderPeople(all=false){$('peopleList').innerHTML=people.slice(0,all?people.length:6).map(p=>`<article class="person"><img src="${p[2]}" alt="${esc(p[0])}" onerror="this.style.display='none'"><div class="personbody"><span class="tag">Aviatsiya</span><h3>${esc(p[0])}</h3><div class="role">${esc(p[1])}</div><p>${esc(p[3])}</p><div class="actions"><button class="btn small" onclick="speak(${JSON.stringify(p[3])})">🔊 Tinglash</button><button class="btn small primary" onclick="addPerson(${JSON.stringify(p[0])},${JSON.stringify(p[3])})">＋ Saqlash</button></div></div></article>`).join('')}
+function addPerson(title,content){knowledge.unshift({id:String(Date.now()),title,content,category:'Aviatsiya',reviewDate:plus(1),image:'',created:today()});save();render();alert('Mashhur shaxs bilimlaringizga qo‘shildi!')}
+function openForm(id=null){editingId=id;imageData='';$('formTitle').textContent=id?'✏️ Tahrirlash':'📚 Yangi bilim';$('title').value='';$('content').value='';$('category').value='Aviatsiya';$('reviewDate').value=plus(1);$('image').value='';$('preview').style.display='none';
+if(id){let x=knowledge.find(k=>k.id===id);if(!x)return;$('title').value=x.title;$('content').value=x.content;$('category').value=x.category;$('reviewDate').value=x.reviewDate||plus(1);imageData=x.image||'';if(imageData){$('preview').src=imageData;$('preview').style.display='block'}}
+$('formModal').classList.add('show')}
+function previewImage(e){let f=e.target.files[0];if(!f)return;if(f.size>3*1024*1024){alert('Rasm 3 MB dan kichik bo‘lsin');e.target.value='';return}let r=new FileReader();r.onload=()=>{imageData=r.result;$('preview').src=imageData;$('preview').style.display='block'};r.readAsDataURL(f)}
+function saveKnowledge(){let title=$('title').value.trim(),content=$('content').value.trim();if(!title||!content)return alert('Mavzu va bilimni kiriting!');let x={id:editingId||String(Date.now()),title,content,category:$('category').value,reviewDate:$('reviewDate').value||plus(1),image:imageData,created:today()};let i=knowledge.findIndex(k=>k.id===editingId);if(i>=0)knowledge[i]=x;else knowledge.unshift(x);save();closeM('formModal');render()}
+function removeK(id){if(confirm('Bu bilim o‘chirilsinmi?')){knowledge=knowledge.filter(k=>k.id!==id);save();render()}}
+function postpone(id){let x=knowledge.find(k=>k.id===id);if(x){x.reviewDate=plus(7);save();render()}}
+function save(){localStorage.setItem('myBrainData',JSON.stringify(knowledge))}
+function render(){let q=$('search').value.toLowerCase(),f=$('filter').value;let arr=knowledge.filter(k=>(!f||k.category===f)&&(k.title+' '+k.content+' '+k.category).toLowerCase().includes(q));$('total').textContent=knowledge.length;$('cats').textContent=new Set(knowledge.map(k=>k.category)).size;$('due').textContent=knowledge.filter(k=>k.reviewDate&&k.reviewDate<=today()).length;
+$('list').innerHTML=arr.length?arr.map(k=>`<article class="kcard">${k.image?`<img src="${k.image}" alt="Rasm">`:''}<div class="kbody"><span class="tag">${esc(k.category)}</span><h3>${esc(k.title)}</h3><p>${esc(k.content)}</p><div class="date">📅 ${esc(k.reviewDate||'Belgilanmagan')} ${k.reviewDate&&k.reviewDate<=today()?'🔔 Takrorlash vaqti!':''}</div><div class="actions"><button class="btn small" onclick="openForm('${k.id}')">✏️ Tahrirlash</button><button class="btn small" onclick="postpone('${k.id}')">🔄 +7 kun</button><button class="btn small" onclick="speak(${JSON.stringify(k.content)})">🔊</button><button class="btn small" onclick="removeK('${k.id}')">🗑️</button></div></div></article>`).join(''):'<div class="empty">📭 Bilim topilmadi. Yangi bilim qo‘shing!</div>'}
+function speak(t){if(!('speechSynthesis' in window))return alert('Brauzer ovoz chiqarishni qo‘llab-quvvatlamaydi');speechSynthesis.cancel();let u=new SpeechSynthesisUtterance(t);u.lang='uz-UZ';speechSynthesis.speak(u)}
+function voiceRecord(){let SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR)return alert('Chrome brauzerida sinab ko‘ring.');if(recognition){recognition.stop();recognition=null;return}$('voiceStatus').textContent='🎙️ Gapiring...';recognition=new SR();recognition.lang='uz-UZ';recognition.continuous=false;recognition.interimResults=false;recognition.onresult=e=>{$('content').value+=($('content').value?' ':'')+e.results[0][0].transcript;$('voiceStatus').textContent='✅ Matnga aylantirildi'};recognition.onerror=()=>{$('voiceStatus').textContent='Xatolik yuz berdi';recognition=null};recognition.onend=()=>recognition=null;recognition.start()}
+function reminders(){let d=knowledge.filter(k=>k.reviewDate&&k.reviewDate<=today());alert(d.length?('Takrorlash kerak bo‘lgan bilimlar:\\n\\n'+d.map(k=>'• '+k.title).join('\\n')):'Bugun takrorlash kerak bo‘lgan bilim yo‘q!')}
+function openTest(){if(!knowledge.length)return alert('Avval bilim qo‘shing!');questions=[...knowledge].sort(()=>Math.random()-.5);qi=0;score=0;$('testModal').classList.add('show');question()}
+function question(){if(qi>=questions.length){$('testArea').innerHTML=`<h3>🎉 Test tugadi!</h3><p>Natija: ${score}/${questions.length}</p><button class="btn primary" onclick="closeM('testModal')">Yopish</button>`;return}let k=questions[qi],opts=[k.title,...knowledge.filter(x=>x.id!==k.id).sort(()=>Math.random()-.5).slice(0,3).map(x=>x.title)].sort(()=>Math.random()-.5);$('testArea').innerHTML=`<div class="date">Savol ${qi+1}/${questions.length}</div><p class="question">Qaysi mavzuga tegishli?<br><b>${esc(k.content.slice(0,220))}</b></p><div id="opts">${opts.map(o=>`<button class="option" onclick="answer(${JSON.stringify(o)},${JSON.stringify(k.title)})">${esc(o)}</button>`).join('')}</div><div id="feedback"></div>`}
+function answer(a,c){document.querySelectorAll('#opts button').forEach(b=>b.disabled=true);if(a===c){score++;$('feedback').innerHTML='<p>✅ To‘g‘ri!</p>'}else $('feedback').innerHTML='<p>❌ To‘g‘ri javob: '+esc(c)+'</p>';$('feedback').innerHTML+='<button class="btn primary" onclick="qi++;question()">Keyingi →</button>'}
+renderPeople();render();
 </script>
 </body>
 </html>
