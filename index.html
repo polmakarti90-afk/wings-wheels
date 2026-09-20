@@ -1,27 +1,101 @@
-from google import genai
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Motosicnavia</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#050914;--card:#0d1a2d;--line:#203a56;--cyan:#00e5ff;--blue:#167cff;--text:#eef8ff;--muted:#8fa6c2}
+body{background:radial-gradient(circle at top right,#07385b 0,#050914 42%);color:var(--text);font-family:Arial,sans-serif;min-height:100vh;padding-bottom:85px}
+header{position:sticky;top:0;z-index:5;display:flex;justify-content:space-between;align-items:center;padding:18px;background:#07101ee8;backdrop-filter:blur(15px);border-bottom:1px solid var(--line)}
+.logo{font-weight:900;letter-spacing:1px;color:var(--cyan);font-size:19px}.logo span{color:white}
+button{cursor:pointer}.icon{background:#10243b;color:var(--cyan);border:1px solid var(--line);border-radius:50%;width:40px;height:40px}
+main{max-width:1100px;margin:auto;padding:20px 16px}.page{display:none}.page.active{display:block}
+.hero{padding:28px 22px;border:1px solid #17587a;border-radius:25px;background:linear-gradient(135deg,#0d2c48,#07111f);overflow:hidden}
+.tag{color:var(--cyan);font-size:10px;letter-spacing:2px;font-weight:bold}
+h1{font-size:30px;line-height:1.35;margin:15px 0}h1 span{color:var(--cyan)}
+p{color:var(--muted);font-size:13px;line-height:1.7}
+.primary{border:0;border-radius:11px;padding:12px 18px;margin-top:18px;background:linear-gradient(90deg,var(--blue),var(--cyan));color:#00111c;font-weight:bold}
+.search{display:flex;gap:10px;margin:20px 0;padding:14px;border:1px solid var(--line);border-radius:14px;background:#0b1728}
+.search input{width:100%;background:none;border:0;outline:0;color:white}.search b{color:var(--cyan)}
+.stats,.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.stats{grid-template-columns:repeat(3,1fr)}.stat,.card,.panel{background:linear-gradient(145deg,#102139,#091321);border:1px solid var(--line);border-radius:17px}
+.stat{text-align:center;padding:15px 5px}.stat strong{display:block;color:var(--cyan);font-size:20px}.stat small{font-size:10px;color:var(--muted)}
+.head{display:flex;justify-content:space-between;align-items:center;margin:28px 0 14px}.head h2{font-size:18px}.head button{border:0;background:none;color:var(--cyan);font-size:12px}
+.card{overflow:hidden}.card img{width:100%;height:135px;object-fit:cover;display:block}.content{padding:13px}.content h3{font-size:14px;margin:8px 0}.content p{font-size:11px}.badge{display:inline-block;color:var(--cyan);border:1px solid #18556e;border-radius:5px;padding:4px 7px;font-size:9px}
+.details{display:flex;justify-content:space-between;font-size:10px;margin-top:12px;color:#b5c9df}.details strong{color:var(--cyan)}
+.tabs{display:flex;gap:8px;overflow:auto;margin-bottom:15px}.tabs button{white-space:nowrap;background:#0b1729;border:1px solid var(--line);color:var(--muted);padding:10px 15px;border-radius:20px;font-size:12px}.tabs button.active{color:var(--cyan);border-color:var(--cyan)}
+.panel{padding:20px;margin-top:15px}.panel h3{margin-bottom:10px;font-size:15px}
+.airow{display:flex;gap:8px;margin-top:15px}.airow input{min-width:0;flex:1;background:#07101d;border:1px solid var(--line);border-radius:10px;padding:12px;color:white;outline:0}.airow button{border:0;border-radius:10px;padding:10px;background:var(--cyan)}
+.result{display:none;margin-top:12px;padding:12px;border-radius:10px;background:#071b2a;color:#c9f5ff;font-size:12px;line-height:1.7}
+.profile{text-align:center}.avatar{width:90px;height:90px;border-radius:50%;border:2px solid var(--cyan);object-fit:cover}.socials{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:15px}.socials a{color:var(--cyan);border:1px solid var(--line);padding:9px 12px;border-radius:9px;text-decoration:none;font-size:12px}
+.bottom{position:fixed;bottom:0;left:0;right:0;z-index:10;display:flex;justify-content:space-around;padding:11px 3px 14px;background:#07101ef2;border-top:1px solid var(--line);backdrop-filter:blur(15px)}.bottom button{background:none;border:0;color:#7890ac;font-size:10px;display:flex;flex-direction:column;gap:5px;align-items:center}.bottom b{font-size:20px;font-weight:normal}.bottom button.active{color:var(--cyan)}
+@media(min-width:700px){.cards{grid-template-columns:repeat(3,1fr)}h1{font-size:42px}.hero{padding:45px}}
+</style>
+</head>
+<body>
+<header><div class="logo">MOTO<span>SICNAVIA</span></div><button class="icon" onclick="showPage('profile')">👤</button></header>
 
-PROMPT = """
-          Point to no more than 10 items in the image. The label returned
-          should be an identifying name for the object detected.
-          The answer should follow the json format: [{"point": <point>,
-          "label": <label1>}, ...]. The points are in [y, x] format
-          normalized to 0-1000.
-        """
-client = genai.Client()
+<main>
+<section id="home" class="page active">
+<div class="hero"><div class="tag">AVIATION × MOTORCYCLE × TECHNOLOGY</div><h1>EXPLORE THE <span>SKY</span><br>AND THE ROAD</h1><p>Aviatsiya, mototsikllar va texnologiyalar olamiga xush kelibsiz.</p><button class="primary" onclick="showPage('aviation')">Explore Now →</button></div>
+<div class="search"><b>⌕</b><input id="search" placeholder="Samolyot yoki moto qidirish..." oninput="searchAll(this.value)"></div>
+<div class="stats"><div class="stat"><strong>✈</strong><small>Aviation</small></div><div class="stat"><strong>🏍</strong><small>Motorcycles</small></div><div class="stat"><strong>195</strong><small>Countries</small></div></div>
+<div class="head"><h2>Discover</h2><button onclick="showPage('moto')">View all →</button></div>
+<div class="cards"><div class="card"><img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=800" alt="Airplane"><div class="content"><span class="badge">AVIATION</span><h3>Explore Aircraft</h3><p>Samolyotlar va texnik maʼlumotlar.</p></div></div><div class="card"><img src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?w=800" alt="Motorcycle"><div class="content"><span class="badge">MOTORCYCLE</span><h3>Discover Moto</h3><p>Mototsikl modellari va tezlik.</p></div></div></div>
+<div class="head"><h2>Quick Access</h2></div><div class="cards"><div class="card"><div class="content" onclick="showPage('ai')"><h3>🤖 Motosicnavia AI</h3><p>Demo yordamchi</p></div></div><div class="card"><div class="content" onclick="showPage('garage')"><h3>🏍️ Virtual Garage</h3><p>Sevimli motolar</p></div></div></div>
+</section>
 
-uploaded_file = client.files.upload(file="my-image.png")
+<section id="aviation" class="page"><div class="head"><h2>✈️ Aviation</h2></div><div class="tabs" id="airTabs"><button class="active" onclick="renderAircraft('all',this)">All</button><button onclick="renderAircraft('Boeing',this)">Boeing</button><button onclick="renderAircraft('Airbus',this)">Airbus</button><button onclick="renderAircraft('Cessna',this)">Cessna</button></div><div id="aircraftList" class="cards"></div></section>
 
-image_response = client.interactions.create(
-    model="gemini-robotics-er-2-preview",
-    input=[
-        {
-            "type": "image",
-            "uri": uploaded_file.uri,
-            "mime_type": uploaded_file.mime_type
-        },
-        {"type": "text", "text": PROMPT}
-    ],
-    generation_config={"thinking_level": "high"},
-)
+<section id="moto" class="page"><div class="head"><h2>🏍️ Motorcycles</h2></div><div class="tabs" id="motoTabs"><button class="active" onclick="renderMoto('all',this)">All</button><button onclick="renderMoto('Kawasaki',this)">Kawasaki</button><button onclick="renderMoto('Yamaha',this)">Yamaha</button><button onclick="renderMoto('Ducati',this)">Ducati</button></div><div id="motoList" class="cards"></div></section>
 
-print(image_response.output_text)
+<section id="countries" class="page"><div class="head"><h2>🌍 Countries</h2></div><div id="countryList" class="cards"></div></section>
+
+<section id="ai" class="page"><div class="head"><h2>🤖 Motosicnavia AI</h2></div><div class="panel"><h3>Ask your assistant</h3><p>Samolyotlar, mototsikllar va uchuvchilik haqida savol bering. Bu hozircha demo javoblar bilan ishlaydi.</p><div class="airow"><input id="aiInput" placeholder="Savolingiz..."><button onclick="askAI()">➤</button></div><div id="aiResult" class="result"></div></div></section>
+
+<section id="garage" class="page"><div class="head"><h2>🏍️ Virtual Garage</h2></div><div class="panel"><h3>My Dream Garage</h3><p>Mototsikl kartasidagi tugma orqali garajga qoʻshing.</p><div id="garageList"></div></div></section>
+
+<section id="community" class="page"><div class="head"><h2>👥 Community</h2></div><div class="panel"><h3>Welcome to Motosicnavia</h3><p>Aviatsiya va mototsikl ishqibozlari uchun hamjamiyat.</p><button class="primary" onclick="alert('Community demo rejimida.')">Create Post +</button></div></section>
+
+<section id="profile" class="page"><div class="panel profile"><img class="avatar" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=200" alt="Profile"><h2 style="margin:12px 0 5px">Bexruz</h2><p>@motosicnavia · Aviation Enthusiast</p><div class="socials"><a href="https://instagram.com/kukonboev_216" target="_blank">Instagram</a><a href="https://t.me/motosicn" target="_blank">Telegram</a></div></div></section>
+</main>
+
+<nav class="bottom"><button class="active" data-page="home" onclick="showPage('home')"><b>⌂</b>Home</button><button data-page="aviation" onclick="showPage('aviation')"><b>✈</b>Aviation</button><button data-page="moto" onclick="showPage('moto')"><b>🏍</b>Moto</button><button data-page="ai" onclick="showPage('ai')"><b>🤖</b>AI</button><button data-page="profile" onclick="showPage('profile')"><b>♙</b>Profile</button></nav>
+
+<script>
+const aircraft=[
+["Boeing 737","Boeing","Mach 0.82","Passenger","https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=800"],
+["Boeing 747","Boeing","Mach 0.855","Wide-body","https://images.unsplash.com/photo-1529074963764-98f45c47344b?w=800"],
+["Boeing 777","Boeing","Mach 0.89","Long-range","https://images.unsplash.com/photo-1556388158-158ea5ccacbd?w=800"],
+["Boeing 787","Boeing","Mach 0.90","Dreamliner","https://images.unsplash.com/photo-1540962351504-03099e0a754b?w=800"],
+["Airbus A320","Airbus","Mach 0.82","Passenger","https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=800"],
+["Airbus A350","Airbus","Mach 0.89","Long-range","https://images.unsplash.com/photo-1529074963764-98f45c47344b?w=800"],
+["Airbus A380","Airbus","Mach 0.89","Superjumbo","https://images.unsplash.com/photo-1556388158-158ea5ccacbd?w=800"],
+["Cessna 172","Cessna","302 km/h","Training","https://images.unsplash.com/photo-1474302770737-173ee21bab63?w=800"]
+];
+const motos=[
+["Ninja H2R","Kawasaki","400+ km/h","Superbike","https://images.unsplash.com/photo-1558981806-ec527fa84c39?w=800"],
+["Ninja ZX-10R","Kawasaki","299 km/h","Superbike","https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?w=800"],
+["YZF-R1","Yamaha","299 km/h","Superbike","https://images.unsplash.com/photo-1558980664-10ea4f7b5f1a?w=800"],
+["Panigale V4","Ducati","300+ km/h","Superbike","https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?w=800"],
+["MT-09","Yamaha","230+ km/h","Naked","https://images.unsplash.com/photo-1558980664-10ea4f7b5f1a?w=800"],
+["Ducati Monster","Ducati","225 km/h","Naked","https://images.unsplash.com/photo-1558981806-ec527fa84c39?w=800"]
+];
+const countries=[["🇺🇿","Uzbekistan","Tashkent"],["🇹🇷","Turkey","Ankara"],["🇦🇪","UAE","Abu Dhabi"],["🇺🇸","United States","Washington"],["🇬🇧","United Kingdom","London"],["🇰🇷","South Korea","Seoul"],["🇯🇵","Japan","Tokyo"],["🇫🇷","France","Paris"],["🇪🇬","Egypt","Cairo"],["🇩🇪","Germany","Berlin"]];
+
+function showPage(id){document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"));document.getElementById(id).classList.add("active");document.querySelectorAll(".bottom button").forEach(x=>x.classList.toggle("active",x.dataset.page===id));if(id==="aviation")renderAircraft("all");if(id==="moto")renderMoto("all");if(id==="countries")renderCountries();if(id==="garage")renderGarage();scrollTo(0,0)}
+function makeCard(x,type){return `<div class="card"><img src="${x[4]}" alt="${x[0]}" loading="lazy"><div class="content"><span class="badge">${x[1]}</span><h3>${x[0]}</h3><p>${x[3]}</p><div class="details"><span>⚡ Speed</span><strong>${x[2]}</strong></div>${type==="moto"?`<button class="primary" style="width:100%;padding:9px;font-size:11px" onclick="saveGarage('${x[0]}')">+ My Garage</button>`:""}</div></div>`}
+function renderAircraft(filter,btn){if(btn){document.querySelectorAll("#airTabs button").forEach(x=>x.classList.remove("active"));btn.classList.add("active")}document.getElementById("aircraftList").innerHTML=aircraft.filter(x=>filter==="all"||x[1]===filter).map(x=>makeCard(x,"air")).join("")}
+function renderMoto(filter,btn){if(btn){document.querySelectorAll("#motoTabs button").forEach(x=>x.classList.remove("active"));btn.classList.add("active")}document.getElementById("motoList").innerHTML=motos.filter(x=>filter==="all"||x[1]===filter).map(x=>makeCard(x,"moto")).join("")}
+function renderCountries(){document.getElementById("countryList").innerHTML=countries.map(x=>`<div class="card"><div class="content" style="display:flex;gap:12px;align-items:center"><span style="font-size:32px">${x[0]}</span><div><h3>${x[1]}</h3><p>Capital: ${x[2]}</p></div></div></div>`).join("")}
+function saveGarage(name){let g=JSON.parse(localStorage.getItem("garage")||"[]");if(!g.includes(name))g.push(name);localStorage.setItem("garage",JSON.stringify(g));alert(name+" garajga qoʻshildi!");}
+function renderGarage(){let g=JSON.parse(localStorage.getItem("garage")||"[]");document.getElementById("garageList").innerHTML=g.length?g.map((x,i)=>`<div style="padding:12px;margin:8px 0;border:1px solid var(--line);border-radius:10px;font-size:12px">🏍️ ${x}<button onclick="removeGarage(${i})" style="float:right;background:none;border:0;color:#ff6688">✕</button></div>`).join(""):"<p>Garaj bo‘sh.</p>"}
+function removeGarage(i){let g=JSON.parse(localStorage.getItem("garage")||"[]");g.splice(i,1);localStorage.setItem("garage",JSON.stringify(g));renderGarage()}
+function askAI(){let q=document.getElementById("aiInput").value.toLowerCase(),r=document.getElementById("aiResult");let a="Bu demo yordamchi. Haqiqiy AI javoblari uchun API integratsiyasi kerak.";if(q.includes("boeing"))a="Boeing 737 — qisqa va o‘rta masofali yo‘lovchi samolyoti.";if(q.includes("h2r")||q.includes("kawasaki"))a="Kawasaki Ninja H2R — trek uchun ishlab chiqarilgan yuqori unumli mototsikl. Rasmiy tezlik va foydalanish qoidalarini tekshirish kerak.";if(q.includes("uchuvchi"))a="Uchuvchi bo‘lish uchun ingliz tili, matematika, fizika, tibbiy ko‘rik va tegishli pilotlik tayyorgarligi muhim.";r.style.display="block";r.textContent=a}
+function searchAll(value){let q=value.toLowerCase();if(!q){return}let a=aircraft.filter(x=>x.join(" ").toLowerCase().includes(q));let m=motos.filter(x=>x.join(" ").toLowerCase().includes(q));if(a.length){showPage("aviation");document.getElementById("aircraftList").innerHTML=a.map(x=>makeCard(x,"air")).join("")}else if(m.length){showPage("moto");document.getElementById("motoList").innerHTML=m.map(x=>makeCard(x,"moto")).join("")}}
+renderAircraft("all");renderMoto("all");renderCountries();
+</script>
+</body>
+</html>
